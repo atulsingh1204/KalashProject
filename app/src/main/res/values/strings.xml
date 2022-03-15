@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">Kalash Project</string>
+
+    <string name="Kalash">Kalash</string>
+    <string name="distributor_profile">Distributor Profile</string>
+    <string name="distributor_profile_one">User Profile</string>
+    <string name="my_tasks">My Task</string>
+    <string name="my_visits">My Visits</string>
+    <string name="farmer_meetings">farmer Meetings</string>
+    <string name="distributor_meetings">Distributor Meetings</string>
+
+    <string name="navigation_drawer_open">Drawer open</string>
+    <string name="navigation_drawer_close">Drawer close</string>
+    <string name="please_wait">please Wait</string>
+
+</resources>

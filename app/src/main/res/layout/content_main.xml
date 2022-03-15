@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/grey_color"
+    android:fillViewport="true"
+    android:focusableInTouchMode="true"
+    android:orientation="vertical"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".MainActivity"
+    tools:showIn="@layout/app_bar_main">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:scrollbarSize="0dp"
+        android:overScrollMode="never"
+        android:scrollbars="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/rel_rec_homeslider"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="visible"
+                tools:ignore="MissingConstraints">
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/card"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/ten"
+                    app:cardElevation="0dp"
+                    app:strokeColor="@color/green"
+                    app:strokeWidth="1dp">
+
+                    <androidx.viewpager.widget.ViewPager
+                        android:id="@+id/viewPage"
+                        android:layout_width="match_parent"
+                        android:layout_height="190dp" />
+                </com.google.android.material.card.MaterialCardView>
+
+<!--                <com.viewpagerindicator.CirclePageIndicator-->
+<!--                    android:id="@+id/indicator"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_below="@+id/card"-->
+<!--                    android:layout_gravity="bottom"-->
+<!--                    android:padding="4dp"-->
+<!--                    app:centered="true"-->
+<!--                    app:fillColor="@color/green"-->
+<!--                    app:pageColor="@color/grey_2"-->
+<!--                    app:radius="4dp"-->
+<!--                    app:snap="false" />-->
+            </RelativeLayout>
+
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardview1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/ten"
+                android:elevation="@dimen/five"
+                android:visibility="visible"
+                app:cardCornerRadius="@dimen/ten"
+                app:cardUseCompatPadding="true"
+                app:layout_constraintTop_toBottomOf="@+id/rel_rec_homeslider">
+
+
+
+
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:id="@+id/tv_videos"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/ten"
+                android:layout_marginTop="@dimen/ten"
+                android:background="@drawable/rounded_background_red_with_stoke"
+                android:elevation="@dimen/five"
+                android:fontFamily="@font/cabin"
+                android:gravity="center"
+                android:inputType="textCapWords"
+                android:minHeight="48dp"
+                android:padding="@dimen/seven"
+                android:text="Videos"
+                android:textColor="@color/white"
+                android:textSize="@dimen/eighteen"
+                android:textStyle="bold" />
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_videos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clipToPadding="false"
+                android:paddingLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:paddingRight="10dp"
+                android:overScrollMode="never"
+                android:layout_marginBottom="10dp"
+                android:scrollbars="none" />
+
+
+            <TextView
+                android:id="@+id/tv_blogs"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/ten"
+                android:layout_marginTop="@dimen/five"
+                android:background="@drawable/rounded_backgroun_blue"
+                android:elevation="@dimen/five"
+                android:fontFamily="@font/cabin"
+                android:gravity="center"
+                android:inputType="textCapWords"
+                android:minHeight="48dp"
+                android:padding="@dimen/seven"
+                android:text="Blogs"
+                android:textColor="@color/white"
+                android:textSize="@dimen/eighteen"
+                android:textStyle="bold" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_blogs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clipToPadding="false"
+                android:paddingLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:paddingRight="10dp"
+                android:overScrollMode="never"
+                android:layout_marginBottom="10dp"
+                android:scrollbars="none" />
+
+
+        </LinearLayout>
+
+
+    </androidx.core.widget.NestedScrollView>
+
+    <FrameLayout
+        android:id="@+id/linLayHeader"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true">
+
+        <LinearLayout
+            android:id="@+id/fabLayout1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_marginEnd="@dimen/thirty"
+            android:layout_marginRight="@dimen/twentythree"
+            android:layout_marginBottom="@dimen/twentythree"
+            android:clipToPadding="false"
+            android:gravity="center_vertical"
+            android:padding="@dimen/twelve"
+            android:visibility="gone"
+            app:layout_behavior="com.dist.soildistributor.MyLibrary.MoveUpwardBehavior">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/cabin"
+                android:padding="@dimen/seven"
+                android:text="Add Grower/Vendor"
+                android:textColor="@color/white"
+                android:textStyle="bold" />
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/fab1"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="bottom|end"
+                android:gravity="center_vertical"
+                android:src="@drawable/addnew_farmer" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_marginRight="@dimen/fab_margin"
+            android:layout_marginBottom="@dimen/fab_margin"
+            android:clipToPadding="false"
+            android:gravity="center_vertical"
+            android:padding="@dimen/twelve"
+            app:layout_behavior="com.dist.soildistributor.MyLibrary.MoveUpwardBehavior">
+
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/fab"
+                android:layout_width="55dp"
+                android:layout_height="55dp"
+                android:layout_gravity="bottom|end"
+                android:gravity="center_vertical"
+                android:src="@drawable/addnew" />
+        </LinearLayout>
+    </FrameLayout>
+</RelativeLayout>

@@ -1,0 +1,678 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <LinearLayout
+        android:id="@+id/topLinear"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/toolbar_background"
+        android:orientation="horizontal"
+        android:padding="@dimen/ten">
+
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_centerInParent="true"
+            android:padding="@dimen/ten"
+            android:src="@drawable/ic_arrow_back_black_24dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginEnd="@dimen/seven"
+            android:fontFamily="@font/cabin"
+            android:gravity="center"
+            android:text="Add Grower/Vendor"
+            android:textColor="@color/white"
+            android:textSize="@dimen/twenty"
+            android:textStyle="bold" />
+
+<!--        <RelativeLayout-->
+<!--            android:layout_width="40dp"-->
+<!--            android:layout_height="40dp"-->
+<!--            android:layout_gravity="center"-->
+<!--            android:background="@drawable/circle_image_gray"-->
+<!--            android:gravity="center">-->
+
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_centerInParent="true"-->
+<!--                android:text="1"-->
+<!--                android:textColor="@color/white"-->
+<!--                android:textSize="@dimen/twenty"-->
+<!--                android:textStyle="bold" />-->
+
+<!--        </RelativeLayout>-->
+
+<!--        <View-->
+<!--            android:layout_width="125dp"-->
+<!--            android:layout_height="1dp"-->
+<!--            android:layout_gravity="center"-->
+<!--            android:layout_marginStart="@dimen/ten"-->
+<!--            android:layout_marginEnd="@dimen/ten"-->
+<!--            android:background="@color/white" />-->
+
+<!--        <RelativeLayout-->
+<!--            android:layout_width="40dp"-->
+<!--            android:layout_height="40dp"-->
+<!--            android:layout_gravity="center"-->
+<!--            android:background="@drawable/circle_image_gray"-->
+<!--            android:gravity="center">-->
+
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_centerInParent="true"-->
+<!--                android:text="2"-->
+<!--                android:textColor="@color/white"-->
+<!--                android:textSize="@dimen/twenty"-->
+<!--                android:textStyle="bold" />-->
+
+<!--        </RelativeLayout>-->
+
+    </LinearLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/bottomLinear"
+        android:layout_below="@+id/topLinear"
+        android:padding="10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:layout_gravity="end"
+                android:background="@drawable/border"
+                android:fontFamily="@font/cabin"
+                android:padding="@dimen/ten"
+                android:text="ID : SCT 2345 "
+                android:textColor="@color/black"
+                android:textSize="@dimen/fifteen"
+                android:textStyle="normal" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/ten">
+
+<!--                <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginTop="5sp"-->
+<!--                    android:fontFamily="@font/cabin"-->
+<!--                    android:padding="@dimen/ten"-->
+<!--                    android:text="Upload Profile"-->
+<!--                    android:textSize="@dimen/fifteen"-->
+<!--                    android:textStyle="normal" />-->
+
+<!--                <RelativeLayout-->
+<!--                    android:id="@+id/select_image"-->
+<!--                    android:layout_width="@dimen/standard_100"-->
+<!--                    android:layout_height="@dimen/standard_100"-->
+<!--                    android:layout_gravity="center"-->
+<!--                    android:gravity="center">-->
+
+<!--                    <de.hdodenhof.circleimageview.CircleImageView-->
+<!--                        android:id="@+id/iv_photo1"-->
+<!--                        android:layout_width="@dimen/standard_100"-->
+<!--                        android:layout_height="@dimen/standard_100"-->
+<!--                        android:layout_centerInParent="true"-->
+<!--                        android:src="@drawable/no_imag" />-->
+
+<!--                    <ImageView-->
+<!--                        android:layout_width="40dp"-->
+<!--                        android:layout_height="40dp"-->
+<!--                        android:layout_alignParentEnd="true"-->
+<!--                        android:layout_alignParentBottom="true"-->
+<!--                        android:src="@drawable/cloud_upload" />-->
+
+
+<!--                </RelativeLayout>-->
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5sp"
+                    android:fontFamily="@font/cabin"
+                    android:padding="@dimen/ten"
+                    android:text="Full Name"
+                    android:textSize="@dimen/fifteen"
+                    android:textStyle="normal" />
+
+                <EditText
+                    android:id="@+id/edt_farmer_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/shape"
+                    android:fontFamily="@font/cabin"
+                    android:hint="Enter Full Name"
+                    android:imeOptions="actionNext"
+                    android:inputType="text"
+                    android:minHeight="48dp"
+                    android:padding="@dimen/ten"
+                    android:textSize="@dimen/fifteen"
+                    android:textStyle="normal" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5sp"
+                    android:fontFamily="@font/cabin"
+                    android:padding="@dimen/ten"
+                    android:text="Email Id"
+                    android:textSize="@dimen/fifteen"
+                    android:textStyle="normal" />
+
+                <EditText
+                    android:id="@+id/edt_farmer_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/shape"
+                    android:fontFamily="@font/cabin"
+                    android:hint="Enter Email"
+                    android:imeOptions="actionNext"
+                    android:inputType="textEmailAddress"
+                    android:minHeight="48dp"
+                    android:padding="@dimen/ten"
+                    android:textSize="@dimen/fifteen"
+                    android:textStyle="normal" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5sp"
+                    android:fontFamily="@font/cabin"
+                    android:padding="@dimen/ten"
+                    android:text="Mobile No"
+                    android:textSize="@dimen/fifteen"
+                    android:textStyle="normal" />
+
+                <EditText
+                    android:id="@+id/edt_farmer_contact"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/shape"
+                    android:fontFamily="@font/cabin"
+                    android:hint="Enter Mobile No"
+                    android:imeOptions="actionNext"
+                    android:inputType="number"
+                    android:maxLength="10"
+                    android:minHeight="48dp"
+                    android:padding="@dimen/ten"
+                    android:textSize="@dimen/fifteen"
+                    android:textStyle="normal" />
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/fifteen"
+                    android:orientation="horizontal"
+                    android:weightSum="10">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="3"
+                        android:fontFamily="@font/cabin"
+                        android:padding="@dimen/ten"
+                        android:text="Grower or Vendor"
+                        android:textSize="@dimen/fifteen"
+                        android:textStyle="normal" />
+
+                    <Spinner
+                        android:id="@+id/grower_or_vendor"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="7"
+                        android:entries="@array/select"
+                        android:background="@drawable/shape"
+                        android:fontFamily="@font/cabin"
+                        android:padding="@dimen/ten"
+                        android:paddingStart="@dimen/fifteen" />
+
+
+
+
+                </LinearLayout>
+
+
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5sp"
+                    android:fontFamily="@font/cabin"
+                    android:padding="@dimen/ten"
+                    android:text="Aadhar Card Number"
+                    android:textSize="@dimen/fifteen"
+                    android:textStyle="normal" />
+
+                <EditText
+                    android:id="@+id/edt_farmer_adhar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/shape"
+                    android:fontFamily="@font/cabin"
+                    android:hint="Enter Aadhar Number"
+                    android:imeOptions="actionNext"
+                    android:inputType="number"
+                    android:maxLength="12"
+                    android:minHeight="48dp"
+                    android:padding="@dimen/ten"
+                    android:textSize="@dimen/fifteen"
+                    android:textStyle="normal" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5sp"
+                    android:fontFamily="@font/cabin"
+                    android:padding="@dimen/ten"
+                    android:text="Distance From Center"
+                    android:textSize="@dimen/fifteen"
+                    android:textStyle="normal" />
+
+
+                <EditText
+                    android:id="@+id/distance_from_center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/shape"
+                    android:fontFamily="@font/cabin"
+                    android:hint="Distance in KM"
+                    android:imeOptions="actionNext"
+                    android:inputType="number"
+                    android:maxLength="12"
+                    android:minHeight="48dp"
+                    android:padding="@dimen/ten"
+                    android:textSize="@dimen/fifteen"
+                    android:textStyle="normal" />
+
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5sp"
+                    android:fontFamily="@font/cabin"
+                    android:padding="@dimen/ten"
+                    android:text="Total land Holding"
+                    android:textSize="@dimen/fifteen"
+                    android:textStyle="normal" />
+
+
+                <EditText
+                    android:id="@+id/total_land_holding"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/shape"
+                    android:fontFamily="@font/cabin"
+                    android:hint="Enter in Acre"
+                    android:imeOptions="actionNext"
+                    android:inputType="number"
+                    android:maxLength="12"
+                    android:minHeight="48dp"
+                    android:padding="@dimen/ten"
+                    android:textSize="@dimen/fifteen"
+                    android:textStyle="normal" />
+
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/fifteen"
+                    android:orientation="horizontal"
+                    android:weightSum="10">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="3"
+                        android:fontFamily="@font/cabin"
+                        android:padding="@dimen/ten"
+                        android:text="Crop"
+                        android:textSize="@dimen/fifteen"
+                        android:textStyle="normal" />
+
+                    <Spinner
+                        android:id="@+id/spn_crop"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="7"
+                        android:entries="@array/select"
+                        android:background="@drawable/shape"
+                        android:fontFamily="@font/cabin"
+                        android:padding="@dimen/ten"
+                        android:paddingStart="@dimen/fifteen" />
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/fifteen"
+                    android:orientation="horizontal"
+                    android:weightSum="10">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="3"
+                        android:fontFamily="@font/cabin"
+                        android:padding="@dimen/ten"
+                        android:text="Variety"
+                        android:textSize="@dimen/fifteen"
+                        android:textStyle="normal" />
+
+                    <Spinner
+                        android:id="@+id/spn_state"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="7"
+                        android:entries="@array/select"
+                        android:background="@drawable/shape"
+                        android:fontFamily="@font/cabin"
+                        android:padding="@dimen/ten"
+                        android:paddingStart="@dimen/fifteen" />
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/fifteen"
+                    android:orientation="horizontal"
+                    android:weightSum="10">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="3"
+                        android:fontFamily="@font/cabin"
+                        android:padding="@dimen/ten"
+                        android:text="Grade of Grower"
+                        android:textSize="@dimen/fifteen"
+                        android:textStyle="normal" />
+
+                    <Spinner
+                        android:id="@+id/grade_of_grower"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="7"
+                        android:entries="@array/select"
+                        android:background="@drawable/shape"
+                        android:fontFamily="@font/cabin"
+                        android:padding="@dimen/ten"
+                        android:paddingStart="@dimen/fifteen" />
+
+
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/fifteen"
+                    android:orientation="horizontal"
+                    android:weightSum="10">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="3"
+                        android:fontFamily="@font/cabin"
+                        android:padding="@dimen/ten"
+                        android:text="Source of Irrigation"
+                        android:textSize="@dimen/fifteen"
+                        android:textStyle="normal" />
+
+                    <Spinner
+                        android:id="@+id/source_of_irrigation"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="7"
+                        android:entries="@array/select"
+                        android:background="@drawable/shape"
+                        android:fontFamily="@font/cabin"
+                        android:padding="@dimen/ten"
+                        android:paddingStart="@dimen/fifteen" />
+
+
+
+
+                </LinearLayout>
+
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/fifteen"
+                    android:orientation="horizontal"
+                    android:weightSum="10">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="3"
+                        android:fontFamily="@font/cabin"
+                        android:padding="@dimen/ten"
+                        android:text="Last Crop Taken"
+                        android:textSize="@dimen/fifteen"
+                        android:textStyle="normal" />
+
+                    <Spinner
+                        android:id="@+id/last_crop_taken"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="7"
+                        android:entries="@array/select"
+                        android:background="@drawable/shape"
+                        android:fontFamily="@font/cabin"
+                        android:padding="@dimen/ten"
+                        android:paddingStart="@dimen/fifteen" />
+
+
+
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/fifteen"
+                    android:orientation="horizontal"
+                    android:weightSum="10">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="3"
+                        android:fontFamily="@font/cabin"
+                        android:padding="@dimen/ten"
+                        android:text="State"
+                        android:textSize="@dimen/fifteen"
+                        android:textStyle="normal" />
+
+                    <Spinner
+                        android:id="@+id/spn_variety"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="7"
+                        android:entries="@array/select"
+                        android:background="@drawable/shape"
+                        android:fontFamily="@font/cabin"
+                        android:padding="@dimen/ten"
+                        android:paddingStart="@dimen/fifteen" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/fifteen"
+                    android:orientation="horizontal"
+                    android:weightSum="10">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="3"
+                        android:fontFamily="@font/cabin"
+                        android:padding="@dimen/ten"
+                        android:text="District"
+                        android:textSize="@dimen/fifteen"
+                        android:textStyle="normal" />
+
+                    <Spinner
+                        android:id="@+id/spn_dist"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="7"
+                        android:background="@drawable/shape"
+                        android:entries="@array/count2"
+                        android:fontFamily="@font/cabin"
+                        android:padding="@dimen/ten"
+                        android:paddingStart="@dimen/fifteen" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/fifteen"
+                    android:orientation="horizontal"
+                    android:weightSum="10">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="3"
+                        android:fontFamily="@font/cabin"
+                        android:padding="@dimen/ten"
+                        android:text="Taluka"
+                        android:textSize="@dimen/fifteen"
+                        android:textStyle="normal" />
+
+                    <Spinner
+                        android:id="@+id/spn_tal"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="7"
+                        android:background="@drawable/shape"
+                        android:entries="@array/count2"
+                        android:fontFamily="@font/cabin"
+                        android:padding="@dimen/ten"
+                        android:paddingStart="@dimen/fifteen" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/fifteen"
+                    android:orientation="horizontal"
+                    android:weightSum="10">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="3"
+                        android:fontFamily="@font/cabin"
+                        android:padding="@dimen/ten"
+                        android:text="Village"
+                        android:textSize="@dimen/fifteen"
+                        android:textStyle="normal" />
+
+                    <Spinner
+                        android:id="@+id/spn_village"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="7"
+                        android:background="@drawable/shape"
+                        android:entries="@array/count2"
+                        android:fontFamily="@font/cabin"
+                        android:padding="@dimen/ten"
+                        android:paddingStart="@dimen/fifteen" />
+
+                </LinearLayout>
+
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+    <LinearLayout
+        android:id="@+id/bottomLinear"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/grey_color"
+        android:gravity="end"
+        android:orientation="horizontal"
+        android:padding="@dimen/ten">
+
+        <TextView
+            android:id="@+id/tv_next"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginEnd="@dimen/seven"
+            android:fontFamily="@font/cabin"
+            android:gravity="end"
+            android:text="Submit"
+            android:textColor="@color/green"
+            android:textSize="@dimen/eighteen"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+</RelativeLayout>

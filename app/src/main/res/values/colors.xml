@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+
+    //-------------
+    <color name="colorPrimary">#008000</color>
+    <color name="colorPrimaryDark">#AD000000</color>
+    <color name="colorAccent">#606467</color>
+
+    <color name="apptheme_green">#1C9E54</color>
+
+
+    <color name="pin_normal">#606467</color>
+    <color name="gray_separator">#B5DADADA</color>
+    <color name="grey">#cccccc</color>
+    <color name="grey_2">#999999</color>
+    <color name="grey_color">#f1eeee</color>
+    <color name="trans_grey_color">#B4170C07</color>
+    <!--web color-->
+    <!--    <color name="white">#FFFFFF</color>-->
+    <color name="white2">#00FFFFFF</color>
+    <color name="gray">#808080</color>
+    <color name="teal">#0c933f</color>
+    <color name="green">#23a53d</color>
+    <color name="green2">#90db36</color>
+    <!--    <color name="black">#000000</color>-->
+
+    <color name="whitesmoke">#F5F5F5</color>
+    <color name="darkseagreen">#8BC34A</color>
+    <color name="seagreen">#2E8B57</color>
+
+
+    <string-array name="count2">
+        <item>--Select Acre--</item>
+        <item>1 Acre</item>
+        <item>2 Acre</item>
+        <item>3 Acre</item>
+        <item>4 Acre</item>
+        <item>5 Acre</item>
+        <item>6 Acre</item>
+        <item>7 Acre</item>
+        <item>8 Acre</item>
+        <item>9 Acre</item>
+        <item>10 Acre</item>
+        <item>15 Acre</item>
+        <item>20 Acre</item>
+    </string-array>
+
+
+    <string-array name="select">
+
+        <item>--Select--</item>
+        <item>Below Options</item>
+    </string-array>
+
+</resources>

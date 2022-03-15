@@ -1,0 +1,594 @@
+<?xml version="1.0"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:gravity="bottom"
+    android:orientation="vertical"
+    android:theme="@style/AppTheme.NoActionBar">
+
+    <RelativeLayout
+        android:id="@+id/layout1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="none">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+
+                <LinearLayout
+                    android:id="@+id/linLayHeader"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:layout_marginTop="@dimen/fifteen"
+                    android:gravity="start"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_drwer_user_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginEnd="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:fontFamily="@font/cabin"
+                        android:padding="@dimen/fifteen"
+                        android:text="Hello, User Name"
+                        android:textColor="@android:color/black"
+                        android:textSize="18dp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="2.5dp"
+                    android:layout_marginStart="@dimen/ten"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginEnd="@dimen/ten"
+                    android:layout_marginBottom="8dp"
+                    android:background="@color/apptheme_green" />
+
+
+                <!--            <TableRow-->
+                <!--                android:id="@+id/trprofile"-->
+                <!--                android:layout_width="match_parent"-->
+                <!--                android:layout_height="match_parent"-->
+                <!--                android:layout_marginLeft="20dp"-->
+                <!--                android:gravity="center_vertical">-->
+
+                <!--                <ImageView-->
+                <!--                    android:layout_width="35dp"-->
+                <!--                    android:layout_height="35dp"-->
+                <!--                    android:layout_margin="7dp"-->
+                <!--                    android:src="@drawable/profile_icon"-->
+                <!--                    tools:ignore="VectorDrawableCompat" />-->
+
+                <!--                <TextView-->
+                <!--                    android:layout_width="match_parent"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:layout_margin="7dp"-->
+                <!--                    android:fontFamily="@font/cabin"-->
+                <!--                    android:paddingLeft="8dp"-->
+                <!--                    android:text="@string/distributor_profile"-->
+                <!--                    android:textColor="@android:color/black"-->
+                <!--                    android:textSize="14dp"-->
+                <!--                    android:textStyle="normal" />-->
+
+                <!--            </TableRow>-->
+
+
+
+
+                <TableRow
+                    android:id="@+id/trprofile_two"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="20dp"
+                    android:gravity="center_vertical">
+
+                    <ImageView
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:layout_margin="7dp"
+                        android:src="@drawable/profile_icon"
+                        tools:ignore="VectorDrawableCompat" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="7dp"
+                        android:fontFamily="@font/cabin"
+                        android:paddingLeft="8dp"
+                        android:text="@string/distributor_profile_one"
+                        android:textColor="@android:color/black"
+                        android:textSize="14dp"
+                        android:textStyle="normal" />
+
+                </TableRow>
+
+
+                <TableRow
+                    android:id="@+id/tr_orders_two"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="20dp"
+                    android:gravity="center_vertical">
+
+                    <ImageView
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:layout_margin="7dp"
+                        android:src="@drawable/profile_icon"
+                        tools:ignore="VectorDrawableCompat" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="7dp"
+                        android:fontFamily="@font/cabin"
+                        android:paddingLeft="8dp"
+                        android:text="Orders"
+                        android:textColor="@android:color/black"
+                        android:textSize="14dp"
+                        android:textStyle="normal" />
+
+                </TableRow>
+
+
+                <LinearLayout
+                    android:id="@+id/linearLayout_order_two"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/twentyfive"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+
+                    <TableRow
+                        android:id="@+id/tr_add_order"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="25dp"
+                        android:gravity="center_vertical">
+
+                        <ImageView
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
+                            android:layout_margin="7dp"
+                            android:src="@drawable/visitor"
+                            tools:ignore="VectorDrawableCompat" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="7dp"
+                            android:fontFamily="@font/cabin"
+                            android:paddingLeft="8dp"
+                            android:text="Add Order"
+                            android:textColor="@android:color/black"
+                            android:textSize="14dp"
+                            android:textStyle="normal" />
+
+                    </TableRow>
+
+                    <TableRow
+                        android:id="@+id/tr_pending_order"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="25dp"
+                        android:gravity="center_vertical">
+
+                        <ImageView
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
+                            android:layout_margin="7dp"
+                            android:src="@drawable/visitor"
+                            tools:ignore="VectorDrawableCompat" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="7dp"
+                            android:fontFamily="@font/cabin"
+                            android:paddingLeft="8dp"
+                            android:text="Pending Oders"
+                            android:textColor="@android:color/black"
+                            android:textSize="14dp"
+                            android:textStyle="normal" />
+
+                    </TableRow>
+
+
+
+                    <TableRow
+                        android:id="@+id/tr_approved_order"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="25dp"
+                        android:gravity="center_vertical">
+
+                        <ImageView
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
+                            android:layout_margin="7dp"
+                            android:src="@drawable/visitor"
+                            tools:ignore="VectorDrawableCompat" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="7dp"
+                            android:fontFamily="@font/cabin"
+                            android:paddingLeft="8dp"
+                            android:text="Approved Orders"
+                            android:textColor="@android:color/black"
+                            android:textSize="14dp"
+                            android:textStyle="normal" />
+
+                    </TableRow>
+
+
+                    <TableRow
+                        android:id="@+id/tr_closed_orders"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="25dp"
+                        android:gravity="center_vertical">
+
+                        <ImageView
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
+                            android:layout_margin="7dp"
+                            android:src="@drawable/visitor"
+                            tools:ignore="VectorDrawableCompat" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="7dp"
+                            android:fontFamily="@font/cabin"
+                            android:paddingLeft="8dp"
+                            android:text="Closed Orders"
+                            android:textColor="@android:color/black"
+                            android:textSize="14dp"
+                            android:textStyle="normal" />
+
+                    </TableRow>
+
+                </LinearLayout>
+
+
+
+                <TableRow
+                    android:id="@+id/tr_inspection"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="20dp"
+                    android:gravity="center_vertical">
+
+                    <ImageView
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:layout_margin="7dp"
+                        android:src="@drawable/target_icon"
+                        tools:ignore="VectorDrawableCompat" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="7dp"
+                        android:fontFamily="@font/cabin"
+                        android:paddingLeft="8dp"
+                        android:text="Inspection"
+                        android:textColor="@android:color/black"
+                        android:textSize="14dp"
+                        android:textStyle="normal" />
+
+                </TableRow>
+
+
+
+
+
+
+
+                <LinearLayout
+                    android:id="@+id/linearLayout_meeting"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/twentyfive"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+
+                    <TableRow
+                        android:id="@+id/tr_visits"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="25dp"
+                        android:gravity="center_vertical">
+
+                        <ImageView
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
+                            android:layout_margin="7dp"
+                            android:src="@drawable/visitor"
+                            tools:ignore="VectorDrawableCompat" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="7dp"
+                            android:fontFamily="@font/cabin"
+                            android:paddingLeft="8dp"
+                            android:text="My Visit"
+                            android:textColor="@android:color/black"
+                            android:textSize="14dp"
+                            android:textStyle="normal" />
+
+                    </TableRow>
+
+
+                    <TableRow
+                        android:id="@+id/li_farmar_meeting"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="25dp"
+                        android:gravity="center_vertical">
+
+                        <ImageView
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
+                            android:layout_margin="7dp"
+                            android:src="@drawable/farmer_meeting"
+                            tools:ignore="VectorDrawableCompat" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="7dp"
+                            android:fontFamily="@font/cabin"
+                            android:paddingLeft="8dp"
+                            android:text="@string/farmer_meetings"
+                            android:textColor="@android:color/black"
+                            android:textSize="14dp"
+                            android:textStyle="normal" />
+
+                    </TableRow>
+
+
+                    <TableRow
+                        android:id="@+id/li_distributor"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="25dp"
+                        android:gravity="center_vertical">
+
+                        <ImageView
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
+                            android:layout_margin="7dp"
+                            android:src="@drawable/dis_meeting"
+                            tools:ignore="VectorDrawableCompat" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="7dp"
+                            android:fontFamily="@font/cabin"
+                            android:paddingLeft="8dp"
+                            android:text="@string/distributor_meetings"
+                            android:textColor="@android:color/black"
+                            android:textSize="14dp"
+                            android:textStyle="normal" />
+
+                    </TableRow>
+
+
+                    <TableRow
+                        android:id="@+id/li_youtube"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="25dp"
+                        android:gravity="center_vertical">
+
+                        <ImageView
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
+                            android:layout_margin="7dp"
+                            android:src="@drawable/videos_icon"
+                            tools:ignore="VectorDrawableCompat" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="7dp"
+                            android:fontFamily="@font/cabin"
+                            android:paddingLeft="8dp"
+                            android:text="Target Videos"
+                            android:textColor="@android:color/black"
+                            android:textSize="14dp"
+                            android:textStyle="normal" />
+
+                    </TableRow>
+
+
+                    <TableRow
+                        android:id="@+id/tr_subscribe"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="25dp"
+                        android:gravity="center_vertical">
+
+                        <ImageView
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
+                            android:layout_margin="7dp"
+                            android:src="@drawable/subscriber_icon"
+                            tools:ignore="VectorDrawableCompat" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="7dp"
+                            android:fontFamily="@font/cabin"
+                            android:paddingLeft="8dp"
+                            android:text="My Subscriber"
+                            android:textColor="@android:color/black"
+                            android:textSize="14dp"
+                            android:textStyle="normal" />
+
+                    </TableRow>
+
+
+                    <TableRow
+                        android:id="@+id/tr_sct_result"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="25dp"
+                        android:gravity="center_vertical">
+
+                        <ImageView
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
+                            android:layout_margin="7dp"
+                            android:src="@drawable/new_distributor"
+                            tools:ignore="VectorDrawableCompat" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="7dp"
+                            android:fontFamily="@font/cabin"
+                            android:paddingLeft="8dp"
+                            android:text="Sct Results"
+                            android:textColor="@android:color/black"
+                            android:textSize="14dp"
+                            android:textStyle="normal" />
+
+                    </TableRow>
+
+                </LinearLayout>
+
+
+                <TableRow
+                    android:id="@+id/tr_meetings"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="20dp"
+                    android:gravity="center_vertical"
+                    android:visibility="gone">
+
+                    <ImageView
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:layout_margin="7dp"
+                        android:src="@drawable/dis_meeting"
+                        tools:ignore="VectorDrawableCompat" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="7dp"
+                        android:fontFamily="@font/cabin"
+                        android:paddingLeft="8dp"
+                        android:text="my_meetings"
+                        android:textColor="@android:color/black"
+                        android:textSize="14dp"
+                        android:textStyle="normal" />
+
+                </TableRow>
+
+
+
+
+                <TableRow
+                    android:id="@+id/tr_Logout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="6dp"
+                    android:gravity="center_vertical">
+
+                    <ImageView
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:layout_margin="7dp"
+                        android:src="@drawable/log_out"
+                        tools:ignore="VectorDrawableCompat" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="7dp"
+                        android:fontFamily="@font/cabin"
+                        android:paddingLeft="8dp"
+                        android:text="Logout"
+                        android:textColor="@android:color/black"
+                        android:textSize="14dp"
+                        android:textStyle="normal" />
+
+                </TableRow>
+
+<!--                <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_gravity="center"-->
+<!--                    android:layout_margin="7dp"-->
+<!--                    android:layout_marginBottom="@dimen/five"-->
+<!--                    android:fontFamily="@font/cabin"-->
+<!--                    android:padding="@dimen/five"-->
+<!--                    android:text="SCT Distributor Version 1.1"-->
+<!--                    android:textColor="@android:color/tab_indicator_text"-->
+<!--                    android:textSize="13dp"-->
+<!--                    android:textStyle="normal" />-->
+
+
+            </LinearLayout>
+
+        </ScrollView>
+
+    </RelativeLayout>
+
+<!--    <RelativeLayout-->
+<!--        android:id="@+id/layout2"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:layout_below="@id/layout1"-->
+<!--        android:gravity="bottom">-->
+
+<!--        <TextView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_gravity="center"-->
+<!--            android:layout_marginStart="7dp"-->
+<!--            android:layout_marginTop="7dp"-->
+<!--            android:layout_marginEnd="7dp"-->
+<!--            android:layout_marginBottom="7dp"-->
+<!--            android:fontFamily="@font/cabin"-->
+<!--            android:gravity="bottom"-->
+<!--            android:padding="@dimen/five"-->
+<!--            android:text="Kalash Version 1.1"-->
+<!--            android:textColor="@android:color/tab_indicator_text"-->
+<!--            android:textSize="13dp"-->
+<!--            android:textStyle="normal" />-->
+
+
+<!--    </RelativeLayout>-->
+
+
+
+</RelativeLayout>
