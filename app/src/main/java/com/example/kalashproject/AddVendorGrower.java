@@ -2,9 +2,8 @@ package com.example.kalashproject;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.ProgressDialog;
-import android.graphics.Camera;
 import android.os.Bundle;
+import android.telecom.CallScreeningService;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -12,46 +11,51 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.Volley;
-import com.example.kalashproject.MyLibrary.CustomRequest;
-import com.example.kalashproject.WebService.ConstantClass;
-import com.example.kalashproject.WebService.ProjectConfig;
+import com.example.kalashproject.ModelList.CropList;
+import com.example.kalashproject.ModelList.DistrictList;
+import com.example.kalashproject.ModelList.GradeofGrowerList;
+import com.example.kalashproject.ModelList.GrowerorVendorList;
+import com.example.kalashproject.ModelList.SourceofIrrigationList;
+import com.example.kalashproject.ModelList.StateList;
+import com.example.kalashproject.ModelList.TalukaList;
+import com.example.kalashproject.ModelList.VarietyList;
+import com.example.kalashproject.ModelList.VillageList;
+import com.example.kalashproject.WebService.ApiInterface;
+import com.example.kalashproject.WebService.Myconfig;
+import com.google.android.gms.common.api.Api;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
+import retrofit2.Response;
 
 public class AddVendorGrower extends AppCompatActivity {
 
-    Spinner spn_state, spn_dist, spn_tal, spn_village;
+    Spinner  spnGrowerorvendor , spnCrop , spnVariety, spnGrade, spnSource, spnLstCrop, spnState, spnDistrict, spnTaluka, spnVillage;
     TextView tv_next;
-    List<String> stat_Namelist = new ArrayList<>();
-    List<String> stat_Idlist = new ArrayList<>();
-    ArrayList<String> dist_list = new ArrayList<>();
-    List<String> dist_Idlist = new ArrayList<>();
-    ArrayList<String> tal_list = new ArrayList<>();
-    List<String> tal_Idlist = new ArrayList<>();
-    ArrayList<String> village_list = new ArrayList<>();
-    List<String> village_Idlist = new ArrayList<>();
+    public String state_id = "1", district = "1", taluka = "1", village = "1";
 
-    String location_id, name;
+    ArrayList<CropList> croplist = new ArrayList<CropList>();
+    ArrayList<GradeofGrowerList> gradeofGrowerLists = new ArrayList<GradeofGrowerList>();
+    ArrayList<GrowerorVendorList> growerorVendorLists = new ArrayList<GrowerorVendorList>();
+    ArrayList<SourceofIrrigationList> sourceofIrrigationLists = new ArrayList<SourceofIrrigationList>();
+    ArrayList<VarietyList> varietyLists = new ArrayList<VarietyList>();
+    ArrayList<StateList> stateLists = new ArrayList<StateList>();
+    ArrayList<DistrictList> districtLists = new ArrayList<DistrictList>();
+    ArrayList<TalukaList> talukaLists = new ArrayList<TalukaList>();
+    ArrayList<VillageList> VillageLists = new ArrayList<VillageList>();
 
-
-    private ProgressDialog pDialog;
+    final LoadingDialog loadingDialog = new LoadingDialog(AddVendorGrower.this);
     EditText edt_farmer_name, edt_farmer_email, edt_farmer_contact, edt_farmer_adhar;
 
     @Override
@@ -60,37 +64,315 @@ public class AddVendorGrower extends AppCompatActivity {
         setContentView(R.layout.activity_add_vendor_grower);
 
         tv_next = findViewById(R.id.tv_next);
-        spn_state = findViewById(R.id.spn_state);
-        spn_dist = findViewById(R.id.spn_dist);
-        spn_tal = findViewById(R.id.spn_tal);
-        spn_village = findViewById(R.id.spn_village);
      //   camera = new Camera(AddNewFarmerActivity.this);
       //  iv_photo1 = findViewById(R.id.iv_photo1);
+        spnGrowerorvendor=findViewById(R.id.Spn_growerorvendor);
+        spnCrop=findViewById(R.id.Spn_Crop);
+        spnVariety=findViewById(R.id.Spn_Variety);
+        spnGrade=findViewById(R.id.Spn_GradeofGrower);
+        spnSource=findViewById(R.id.Spn_SourceOfIrrigartion);
+        spnLstCrop=findViewById(R.id.Spn_LastCropTaken);
+        spnState=findViewById(R.id.Spn_State);
+        spnDistrict=findViewById(R.id.Spn_District);
+        spnTaluka=findViewById(R.id.Spn_Taluka);
+        spnVillage=findViewById(R.id.Spn_Village);
+
         edt_farmer_name = findViewById(R.id.edt_farmer_name);
         edt_farmer_email = findViewById(R.id.edt_farmer_email);
         edt_farmer_contact = findViewById(R.id.edt_farmer_contact);
         edt_farmer_adhar = findViewById(R.id.edt_farmer_adhar);
 
-        StateList();
+        getcroplist();
+        getGradeofGrowerList();
+        getGrowerorvendorList();
+        getSourceofIrrigationList();
+        getVarietyList();
 
-        spn_state.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String selectedItem = parent.getItemAtPosition(position).toString();
-                ConstantClass.Farmer_state=selectedItem;
-                int pos = stat_Namelist.indexOf(selectedItem);
-                Log.e("abc", " "+stat_Idlist.get(pos));
-                String item = stat_Idlist.get(pos);
-                ConstantClass.Farmer_state = item;
-                Log.i("##", "## State Name" + selectedItem);
-                Log.i("##", "## State Id " + item);
+        getStatedata("1");
+    }
 
-           //     DistrictList(item);
+    private void getVarietyList()
+    {
+        ApiInterface apiInterface = Myconfig.getRetrofit().create(ApiInterface.class);
+        Call<ResponseBody> result = apiInterface.getvarientlist();
+        result.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response)
+            {
+
+                Log.e("varietyList", " " +response);
+                try {
+                    String output = response.body().string();
+                    JSONObject jsonObject = new JSONObject(output);
+                    if (jsonObject.getString("ResponseCode").equals("1"))
+                    {
+                        JSONArray jsonArray = jsonObject.getJSONArray("Data");
+
+                        varietyLists.add(new VarietyList(" Select Variety "));
+                        for (int i = 0; i < jsonArray.length(); i++)
+                        {
+                            JSONObject object = jsonArray.getJSONObject(i);
+                            varietyLists.add(new VarietyList(object));
+                        }
+                        ArrayAdapter<VarietyList> varietyAdapter = new ArrayAdapter<VarietyList>(AddVendorGrower.this, android.R.layout.simple_spinner_item, varietyLists);
+                        varietyAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        spnVariety.setAdapter(varietyAdapter);
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t)
+            {
+
+                Log.e("Error", " " +t);
+            }
+        });
+    }
+
+    private void getSourceofIrrigationList()
+    {
+        loadingDialog.startLoadingDialog();
+        ApiInterface apiInterface = Myconfig.getRetrofit().create(ApiInterface.class);
+        Call<ResponseBody> result = apiInterface.getSourceofirrigation();
+        result.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response)
+            {
+                loadingDialog.dismissDialog();
+                Log.e("SourceOfIrrigation", " " +response);
+                try {
+                    String output = response.body().string();
+                    JSONObject jsonObject = new JSONObject(output);
+                    if (jsonObject.getString("ResponseCode").equals("1"))
+                    {
+                        JSONArray jsonArray = jsonObject.getJSONArray("Data");
+
+                        sourceofIrrigationLists.add(new SourceofIrrigationList(" Select Source of irrigation "));
+                        for (int i = 0; i < jsonArray.length(); i++)
+                        {
+                            JSONObject object = jsonArray.getJSONObject(i);
+                            sourceofIrrigationLists.add(new SourceofIrrigationList(object));
+                        }
+                        ArrayAdapter<SourceofIrrigationList> sourceofIrrigationListArrayAdapter = new ArrayAdapter<SourceofIrrigationList>(AddVendorGrower.this, android.R.layout.simple_spinner_item, sourceofIrrigationLists);
+                        sourceofIrrigationListArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        spnSource.setAdapter(sourceofIrrigationListArrayAdapter);
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t)
+            {
+                Log.e("Error", " " +t);
+            }
+        });
+    }
+
+    private void getGrowerorvendorList()
+    {
+        loadingDialog.startLoadingDialog();
+        ApiInterface apiInterface = Myconfig.getRetrofit().create(ApiInterface.class);
+        Call<ResponseBody> result = apiInterface.getgrowerorvendor();
+        result.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response)
+            {
+                loadingDialog.dismissDialog();
+                Log.e("GrowerVendor", " " +response);
+                try {
+                    String output = response.body().string();
+                    JSONObject jsonObject = new JSONObject(output);
+                    if (jsonObject.getString("ResponseCode").equals("1"))
+                    {
+                        JSONArray jsonArray = jsonObject.getJSONArray("Data");
+
+                        growerorVendorLists.add(new GrowerorVendorList(" Select Grower or Vendor "));
+                        for (int i = 0; i < jsonArray.length(); i++)
+                        {
+                            JSONObject object = jsonArray.getJSONObject(i);
+                            growerorVendorLists.add(new GrowerorVendorList(object));
+                        }
+                        ArrayAdapter<GrowerorVendorList> growerorvendorAdapter = new ArrayAdapter<GrowerorVendorList>(AddVendorGrower.this, android.R.layout.simple_spinner_item, growerorVendorLists);
+                        growerorvendorAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        spnGrowerorvendor.setAdapter(growerorvendorAdapter);
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t)
+            {
+                Log.e("Error", " " +t);
+            }
+        });
+    }
+
+    private void getGradeofGrowerList()
+    {
+        loadingDialog.startLoadingDialog();
+        ApiInterface apiInterface = Myconfig.getRetrofit().create(ApiInterface.class);
+        Call<ResponseBody> result = apiInterface.getgradeofgrower();
+        result.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response)
+            {
+                loadingDialog.dismissDialog();
+                Log.e("GradeOfGrower", " " +response);
+
+                try {
+                    String output = response.body().string();
+                    JSONObject jsonObject = new JSONObject(output);
+                    if (jsonObject.getString("ResponseCode").equals("1"))
+                    {
+                        Toast.makeText(AddVendorGrower.this, "Run", Toast.LENGTH_SHORT).show();
+                        JSONArray jsonArray = jsonObject.getJSONArray("Data");
+                        gradeofGrowerLists.add(new GradeofGrowerList("--- Select Grade ---"));
+                        for (int i = 0; i < jsonArray.length(); i++)
+                        {
+                            JSONObject object = jsonArray.getJSONObject(i);
+                            gradeofGrowerLists.add(new GradeofGrowerList(object));
+                        }
+                        ArrayAdapter<GradeofGrowerList> gradeAdapter = new ArrayAdapter<GradeofGrowerList>(AddVendorGrower.this, android.R.layout.simple_spinner_item, gradeofGrowerLists);
+                        gradeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        spnGrade.setAdapter(gradeAdapter);
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t)
+            {
+                Log.e("Error", " " +t);
+            }
+        });
+
+    }
+
+    private void getcroplist()
+    {
+        loadingDialog.startLoadingDialog();
+        ApiInterface apiInterface = Myconfig.getRetrofit().create(ApiInterface.class);
+        Call<ResponseBody> result = apiInterface.getcroplist();
+        result.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response)
+            {
+                loadingDialog.dismissDialog();
+                Log.e("getCropList", " " +response);
+                try {
+                    String output = response.body().string();
+                    JSONObject jsonObject = new JSONObject(output);
+                    if (jsonObject.getString("ResponseCode").equals("1"))
+                    {
+                        JSONArray jsonArray = jsonObject.getJSONArray("Data");
+
+                        croplist.add(new CropList("--- Select crop ---"));
+                        for (int i = 0; i < jsonArray.length(); i++)
+                        {
+                            JSONObject object = jsonArray.getJSONObject(i);
+                            croplist.add(new CropList(object));
+                        }
+                        ArrayAdapter<CropList> cropAdapter = new ArrayAdapter<CropList>(AddVendorGrower.this, android.R.layout.simple_spinner_item, croplist);
+                        cropAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        spnCrop.setAdapter(cropAdapter);
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t)
+            {
+                Log.e("Error", " " +t);
+            }
+        });
+    }
+
+    void getStatedata(String st_id){
+
+        loadingDialog.startLoadingDialog();
+        ApiInterface apiInterface = Myconfig.getRetrofit().create(ApiInterface.class);
+        Call<ResponseBody> result =(Call<ResponseBody>) apiInterface.getState("1");
+        result.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                loadingDialog.dismissDialog();
+                Log.e("getStateData", " " +response);
+             String output = "";
+                try {
+                    output = response.body().string();
+                    JSONObject jsonObject = new JSONObject(output);
+
+                    if(jsonObject.getString("ResponseCode").equals("1")){
+
+                        JSONArray jsonArray = jsonObject.getJSONArray("Data");
+                        stateLists.add(new StateList("---Select State---"));
+
+                        for(int i=0; i<jsonArray.length(); i++){
 
 
-            } // to close the onItemSelected
+                            JSONObject object = null;
+                            try {
+                                object = jsonArray.getJSONObject(i);
+                                stateLists.add(new StateList(object));
 
-            public void onNothingSelected(AdapterView<?> parent) {
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                        ArrayAdapter<StateList> dataAdapter = new ArrayAdapter<StateList>(AddVendorGrower.this, android.R.layout.simple_spinner_item, stateLists);
+                        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        spnState.setAdapter(dataAdapter);
 
+                      spnState.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                          @Override
+                          public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l)
+                          {
+
+                              String item =adapterView.getItemAtPosition(i).toString();
+                                state_id = stateLists.get(i).getId();
+                                getDistData();
+                                Log.e("district","state"+state_id);
+                          }
+
+                          @Override
+                          public void onNothingSelected(AdapterView<?> adapterView) {
+
+                          }
+                      });
+
+                    }
+
+                } catch (IOException | JSONException e) {
+                    e.printStackTrace();
+                }
+
+
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Log.e("Error", " " +t);
             }
         });
 
@@ -98,131 +380,213 @@ public class AddVendorGrower extends AppCompatActivity {
 
 
 
-
-    private void StateList() {
-        pDialog = new ProgressDialog(AddVendorGrower.this);
-        pDialog.setMessage(getString(R.string.please_wait));
-        pDialog.setCancelable(false);
-        pDialog.show();
-        stat_Namelist.clear();
-        stat_Idlist.clear();
-        stat_Namelist.add("Select State");
-        stat_Idlist.add("0");
-        Map<String, String> params = new HashMap<>();
-
-        RequestQueue requestQueue = Volley.newRequestQueue(AddVendorGrower.this);
-        CustomRequest jsObjRequest = new CustomRequest(Request.Method.POST, ProjectConfig.Statelist, params, this.createRequestSuccessListener_Login(), this.createRequestErrorListener_Login());
-        requestQueue.add(jsObjRequest);
-    }
-
-    private Response.ErrorListener createRequestErrorListener_Login() {
-        return new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                if (pDialog.isShowing())
-                    pDialog.dismiss();
-            }
-        };
-    }
-
-
-
-    private Response.Listener<JSONObject> createRequestSuccessListener_Login() {
-        return new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-                if (pDialog.isShowing())
-                    pDialog.dismiss();
-                Log.i("##", "##" + response.toString());
-                try {
-                    JSONArray data1 = response.getJSONArray("data");
-                    System.out.print("##State==" + data1);
-                    for (int i = 0; i < data1.length(); i++) {
-                        JSONObject jobj = data1.getJSONObject(i);
-
-                        name = jobj.getString("name");
-                        location_id = jobj.getString("location_id");
-                        stat_Namelist.add(name);
-                        stat_Idlist.add(location_id);
-                    }
-                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(
-                            AddVendorGrower.this, android.R.layout.simple_spinner_item, stat_Namelist);
-
-                    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                    spn_state.setAdapter(adapter);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        };
-    }
-
-
-
-    private void getstateData(String st_ID) {
-        stateList.clear();
-        mDialog.show();
-        APIInterface apiInterface = MyConfig.getRetrofit().create(APIInterface.class);
-        final Call<ResponseBody> result = (Call<ResponseBody>) apiInterface.getstate("1");
+    private void getDistData()
+    {
+        loadingDialog.startLoadingDialog();
+        ApiInterface apiInterface = Myconfig.getRetrofit().create(ApiInterface.class);
+        final Call<ResponseBody> result = (Call<ResponseBody>) apiInterface.getDistrict(state_id);
         result.enqueue(new Callback<ResponseBody>() {
             @Override
-            public void onResponse(Call<ResponseBody> call, retrofit2.Response<ResponseBody> response) {
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+
+                loadingDialog.dismissDialog();
                 String output = "";
-                mDialog.dismiss();
+
                 try {
                     output = response.body().string();
-                    Log.d("org", "state: " + output);
+                    Log.d("org", "district: " + output);
                     JSONObject jsonObject = new JSONObject(output);
 
-                    if (jsonObject.getString("result").equals("true")) {
+                    if (jsonObject.getString("ResponseCode").equals("1")){
+                        JSONArray jsonArray = jsonObject.getJSONArray("Data");
 
-//                        Toast.makeText(EditUserProfile.this, "" + jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
-                        JSONArray jsonArray = jsonObject.getJSONArray("tbl_state");
-                        // Parsing json
-                        stateList.add(new StateList("--- Select State ---"));
-                        for (int i = 0; i < jsonArray.length(); i++) {
+                        districtLists.clear();
+                        districtLists.add(new DistrictList("---Select District---"));
+
+                        for (int i= 0; i<jsonArray.length(); i++){
                             try {
-                                JSONObject obj = jsonArray.getJSONObject(i);
-                                stateList.add(new StateList(obj));
+
+                                 JSONObject obj = jsonArray.getJSONObject(i);
+                                districtLists.add(new DistrictList(obj));
                             } catch (JSONException e) {
-                                //Log.d("Progress Dialog","Progress Dialog");
                                 e.printStackTrace();
                             }
+
                         }
-                        ArrayAdapter<StateList> dataAdapter = new ArrayAdapter<StateList>(AddressFilterActivity.this, android.R.layout.simple_spinner_item, stateList);
+
+
+                        ArrayAdapter<DistrictList> dataAdapter = new ArrayAdapter<DistrictList>(AddVendorGrower.this, android.R.layout.simple_spinner_item, districtLists);
                         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                        state_spinner.setAdapter(dataAdapter);
-                        String speci = Shared_Preferences.getPrefs(AddressFilterActivity.this, Constants.PROFILE_STATE);
-                        for (int i = 0; i < stateList.size(); i++) {
-                            if (stateList.get(i).getState_Name().equals(speci)) {
-                                state_spinner.setSelection(i);
-                                break;
-                            }
-                        }
-                        state_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                        spnDistrict.setAdapter(dataAdapter);
+
+                        spnDistrict.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
+                        {
                             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                                 //  On selecting a spinner item
+
                                 String item = adapterView.getItemAtPosition(i).toString();
-                                state_id = stateList.get(i).getState_Id();
-                                getDistData(state_id);
+                                district = districtLists.get(i).getId();
+                                Log.e("district","Dist"+district);
+                                getTalukaData();
                             }
 
                             public void onNothingSelected(AdapterView<?> adapterView) {
                                 return;
                             }
                         });
+
+
                     }
-                    mDialog.dismiss();
-                } catch (Exception e) {
+
+
+                } catch (IOException | JSONException e) {
+                    e.printStackTrace();
+                }
+
+
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+            }
+        });
+    }
+
+    private void getTalukaData() {
+
+        loadingDialog.startLoadingDialog();
+
+        ApiInterface apiInterface =Myconfig.getRetrofit().create(ApiInterface.class);
+        Log.e("getTaluka: ", "state_id: " +state_id+ "District_id " +district);
+        final Call<ResponseBody> result =(Call<ResponseBody>)apiInterface.getTaluka(state_id, district);
+        result.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+
+                loadingDialog.dismissDialog();
+                Log.e("talkula_error", "" +response.toString());
+                String output = "";
+
+                try {
+                    output = response.body().string();
+                    JSONObject jsonObject = new JSONObject(output);
+
+                    if(jsonObject.getString("ResponseCode").equals("1")){
+                        JSONArray jsonArray = jsonObject.getJSONArray("Data");
+                        talukaLists.clear();
+                       talukaLists.add(new TalukaList("---Select Taluka---"));
+
+                       for(int i = 0; i<jsonArray.length(); i++){
+
+                           try {
+                               JSONObject object = jsonArray.getJSONObject(i);
+                               talukaLists.add(new TalukaList(object));
+                           } catch (JSONException e) {
+                               e.printStackTrace();
+                           }
+                       }
+
+                        ArrayAdapter<TalukaList> dataAdapter = new ArrayAdapter<>(AddVendorGrower.this, android.R.layout.simple_spinner_item, talukaLists);
+                       dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                       spnTaluka.setAdapter(dataAdapter);
+
+                        spnTaluka.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                            @Override
+                            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                                String item = adapterView.getItemAtPosition(i).toString();
+                                taluka =talukaLists.get(i).getId();
+
+                                getVillage();
+
+                                Toast.makeText(AddVendorGrower.this, "Village Method called", Toast.LENGTH_SHORT).show();
+                            }
+
+                            @Override
+                            public void onNothingSelected(AdapterView<?> adapterView) {
+
+                            }
+                        });
+
+                    }
+
+
+                } catch (IOException | JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+            }
+        });
+
+
+    }
+
+    private void getVillage() {
+
+
+        ApiInterface apiInterface =Myconfig.getRetrofit().create(ApiInterface.class);
+        final Call<ResponseBody> result = (Call<ResponseBody>) apiInterface.getVillage(state_id, district,taluka);
+        result.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+
+                String output = "";
+
+
+                try {
+                    output = response.body().toString();
+                    JSONObject jsonObject = new JSONObject(output);
+
+                    Toast.makeText(AddVendorGrower.this, jsonObject.getString("ResponseMessage"), Toast.LENGTH_SHORT).show();
+                    if(jsonObject.getString("ResponseCode").equals("1")){
+
+                        JSONArray jsonArray =jsonObject.getJSONArray("Data");
+                        VillageLists.add(new VillageList("---Select Village---"));
+                        for(int i = 0; i<jsonArray.length(); i++){
+
+                            try {
+                                JSONObject object = jsonArray.getJSONObject(i);
+                                VillageLists.add(new VillageList(object));
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+                        ArrayAdapter<VillageList> dataAdapter = new ArrayAdapter<VillageList>(AddVendorGrower.this, android.R.layout.simple_spinner_item,VillageLists);
+                        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        spnVillage.setAdapter(dataAdapter);
+
+                        spnVillage.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                            @Override
+                            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                                String item = adapterView.getItemAtPosition(i).toString();
+                                village =VillageLists.get(i).getId();
+                            }
+
+                            @Override
+                            public void onNothingSelected(AdapterView<?> adapterView) {
+
+                            }
+                        });
+                    }
+
+                } catch (JSONException e) {
                     e.printStackTrace();
                 }
             }
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-                mDialog.dismiss();
+
             }
         });
+
     }
 
 

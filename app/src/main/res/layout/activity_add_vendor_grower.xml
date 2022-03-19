@@ -35,50 +35,6 @@
             android:textSize="@dimen/twenty"
             android:textStyle="bold" />
 
-<!--        <RelativeLayout-->
-<!--            android:layout_width="40dp"-->
-<!--            android:layout_height="40dp"-->
-<!--            android:layout_gravity="center"-->
-<!--            android:background="@drawable/circle_image_gray"-->
-<!--            android:gravity="center">-->
-
-<!--            <TextView-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_centerInParent="true"-->
-<!--                android:text="1"-->
-<!--                android:textColor="@color/white"-->
-<!--                android:textSize="@dimen/twenty"-->
-<!--                android:textStyle="bold" />-->
-
-<!--        </RelativeLayout>-->
-
-<!--        <View-->
-<!--            android:layout_width="125dp"-->
-<!--            android:layout_height="1dp"-->
-<!--            android:layout_gravity="center"-->
-<!--            android:layout_marginStart="@dimen/ten"-->
-<!--            android:layout_marginEnd="@dimen/ten"-->
-<!--            android:background="@color/white" />-->
-
-<!--        <RelativeLayout-->
-<!--            android:layout_width="40dp"-->
-<!--            android:layout_height="40dp"-->
-<!--            android:layout_gravity="center"-->
-<!--            android:background="@drawable/circle_image_gray"-->
-<!--            android:gravity="center">-->
-
-<!--            <TextView-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_centerInParent="true"-->
-<!--                android:text="2"-->
-<!--                android:textColor="@color/white"-->
-<!--                android:textSize="@dimen/twenty"-->
-<!--                android:textStyle="bold" />-->
-
-<!--        </RelativeLayout>-->
-
     </LinearLayout>
 
     <androidx.core.widget.NestedScrollView
@@ -112,39 +68,6 @@
                 android:orientation="vertical"
                 android:padding="@dimen/ten">
 
-<!--                <TextView-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_marginTop="5sp"-->
-<!--                    android:fontFamily="@font/cabin"-->
-<!--                    android:padding="@dimen/ten"-->
-<!--                    android:text="Upload Profile"-->
-<!--                    android:textSize="@dimen/fifteen"-->
-<!--                    android:textStyle="normal" />-->
-
-<!--                <RelativeLayout-->
-<!--                    android:id="@+id/select_image"-->
-<!--                    android:layout_width="@dimen/standard_100"-->
-<!--                    android:layout_height="@dimen/standard_100"-->
-<!--                    android:layout_gravity="center"-->
-<!--                    android:gravity="center">-->
-
-<!--                    <de.hdodenhof.circleimageview.CircleImageView-->
-<!--                        android:id="@+id/iv_photo1"-->
-<!--                        android:layout_width="@dimen/standard_100"-->
-<!--                        android:layout_height="@dimen/standard_100"-->
-<!--                        android:layout_centerInParent="true"-->
-<!--                        android:src="@drawable/no_imag" />-->
-
-<!--                    <ImageView-->
-<!--                        android:layout_width="40dp"-->
-<!--                        android:layout_height="40dp"-->
-<!--                        android:layout_alignParentEnd="true"-->
-<!--                        android:layout_alignParentBottom="true"-->
-<!--                        android:src="@drawable/cloud_upload" />-->
-
-
-<!--                </RelativeLayout>-->
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -239,7 +162,7 @@
                         android:textStyle="normal" />
 
                     <Spinner
-                        android:id="@+id/grower_or_vendor"
+                        android:id="@+id/Spn_growerorvendor"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -359,9 +282,9 @@
                         android:textStyle="normal" />
 
                     <Spinner
-                        android:id="@+id/spn_crop"
+                        android:id="@+id/Spn_Crop"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:layout_gravity="center"
                         android:layout_weight="7"
                         android:entries="@array/select"
@@ -392,7 +315,7 @@
                         android:textStyle="normal" />
 
                     <Spinner
-                        android:id="@+id/spn_state"
+                        android:id="@+id/Spn_Variety"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -425,7 +348,7 @@
                         android:textStyle="normal" />
 
                     <Spinner
-                        android:id="@+id/grade_of_grower"
+                        android:id="@+id/Spn_GradeofGrower"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -460,7 +383,7 @@
                         android:textStyle="normal" />
 
                     <Spinner
-                        android:id="@+id/source_of_irrigation"
+                        android:id="@+id/Spn_SourceOfIrrigartion"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -497,7 +420,7 @@
                         android:textStyle="normal" />
 
                     <Spinner
-                        android:id="@+id/last_crop_taken"
+                        android:id="@+id/Spn_LastCropTaken"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -533,7 +456,7 @@
                         android:textStyle="normal" />
 
                     <Spinner
-                        android:id="@+id/spn_variety"
+                        android:id="@+id/Spn_State"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -565,13 +488,13 @@
                         android:textStyle="normal" />
 
                     <Spinner
-                        android:id="@+id/spn_dist"
+                        android:id="@+id/Spn_District"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_weight="7"
                         android:background="@drawable/shape"
-                        android:entries="@array/count2"
+                        android:entries="@array/select"
                         android:fontFamily="@font/cabin"
                         android:padding="@dimen/ten"
                         android:paddingStart="@dimen/fifteen" />
@@ -597,13 +520,13 @@
                         android:textStyle="normal" />
 
                     <Spinner
-                        android:id="@+id/spn_tal"
+                        android:id="@+id/Spn_Taluka"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_weight="7"
                         android:background="@drawable/shape"
-                        android:entries="@array/count2"
+                        android:entries="@array/select"
                         android:fontFamily="@font/cabin"
                         android:padding="@dimen/ten"
                         android:paddingStart="@dimen/fifteen" />
@@ -629,13 +552,13 @@
                         android:textStyle="normal" />
 
                     <Spinner
-                        android:id="@+id/spn_village"
+                        android:id="@+id/Spn_Village"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_weight="7"
                         android:background="@drawable/shape"
-                        android:entries="@array/count2"
+                        android:entries="@array/select"
                         android:fontFamily="@font/cabin"
                         android:padding="@dimen/ten"
                         android:paddingStart="@dimen/fifteen" />

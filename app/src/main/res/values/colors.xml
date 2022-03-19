@@ -37,23 +37,6 @@
     <color name="seagreen">#2E8B57</color>
 
 
-    <string-array name="count2">
-        <item>--Select Acre--</item>
-        <item>1 Acre</item>
-        <item>2 Acre</item>
-        <item>3 Acre</item>
-        <item>4 Acre</item>
-        <item>5 Acre</item>
-        <item>6 Acre</item>
-        <item>7 Acre</item>
-        <item>8 Acre</item>
-        <item>9 Acre</item>
-        <item>10 Acre</item>
-        <item>15 Acre</item>
-        <item>20 Acre</item>
-    </string-array>
-
-
     <string-array name="select">
 
         <item>--Select--</item>

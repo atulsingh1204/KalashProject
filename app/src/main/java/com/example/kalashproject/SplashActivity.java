@@ -65,7 +65,7 @@ public class SplashActivity extends AppCompatActivity {
 //                        String Astatus = prfs.getString("Login", "");
 //                        String token = prfs.getString("Token", "");
 //                        Log.i("##Token", token);
-//                        ConstantClass.token = token;
+//                        Constant.token = token;
 //                        if (Astatus.equals("1")) {
 //                            startActivity(new Intent(SplashActivity.this, MainActivity.class));
 //                            overridePendingTransition(R.anim.right_in, R.anim.left_out);
@@ -114,7 +114,7 @@ public class SplashActivity extends AppCompatActivity {
 //                        String Astatus = prfs.getString("Login", "");
 //                        String token = prfs.getString("Token", "");
 //                        Log.i("##Token", token);
-//                        ConstantClass.token = token;
+//                        Constant.token = token;
 //                        if (Astatus.equals("1")) {
 //                            startActivity(new Intent(SplashActivity.this, MainActivity.class));
 //                            overridePendingTransition(R.anim.right_in, R.anim.left_out);

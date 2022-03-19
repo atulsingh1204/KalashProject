@@ -3,7 +3,8 @@ package com.example.kalashproject.ModelList;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class CropList {
+public class CropList
+{
     String id;
     String crop_name;
 
@@ -15,6 +16,14 @@ public class CropList {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+    }
+    public String toString()
+    {
+        return this.crop_name;            // What to display in the Spinner list.
+    }
+    public CropList(String crop_name)
+    {
+        this.crop_name = crop_name;
     }
 
     public String getId() {
