@@ -59,9 +59,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         tr_inspection = findViewById(R.id.tr_inspection);
 
         linLayHeader = (FrameLayout) findViewById(R.id.linLayHeader);
-
         linearLayout_order_two = findViewById(R.id.linearLayout_order_two);
-
         fabLayout1 = (LinearLayout) findViewById(R.id.fabLayout1);
 
         TableRow tr_Logout = findViewById(R.id.tr_Logout);
@@ -80,6 +78,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         trprofile_two.setOnClickListener(this);
         tr_orders_two.setOnClickListener(this);
+        tr_add_order.setOnClickListener(this);
+        tr_inspection.setOnClickListener(this);
 
 
 
@@ -101,7 +101,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         fab1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this, AddVendorGrower.class));
+                startActivity(new Intent(MainActivity.this, AddVendor.class));
                 overridePendingTransition(R.anim.right_in, R.anim.left_out);
                 if (!isFABOpen) {
                 } else {
@@ -134,13 +134,28 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
 
 
-//            case R.id.li_sales:
-//                break;
+            case R.id.tr_add_order:
+                startActivity(new Intent(MainActivity.this, AddVendorGrower.class));
+                overridePendingTransition(R.anim.right_in, R.anim.left_out);
+               // linearLayout_orders.setVisibility(View.GONE);
+                drawerLayout.closeDrawers();
+              //  Toast.makeText(MainActivity.this, "Add orders", Toast.LENGTH_SHORT).show();
+                break;
 
-//            case R.id.tr_about:
-//                break;
+            case R.id.tr_inspection:
+                startActivity(new Intent(MainActivity.this, Form3.class));
+                overridePendingTransition(R.anim.right_in, R.anim.left_out);
+                // linearLayout_orders.setVisibility(View.GONE);
+                drawerLayout.closeDrawers();
+
+                break;
 
             case R.id.tr_Logout:
+
+                startActivity(new Intent(MainActivity.this, Form3.class));
+                overridePendingTransition(R.anim.right_in, R.anim.left_out);
+               // linearLayout_orders.setVisibility(View.GONE);
+                drawerLayout.closeDrawers();
 
                 break;
 

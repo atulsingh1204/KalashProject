@@ -1,7 +1,9 @@
 package com.example.kalashproject;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.swiperefreshlayout.widget.CircularProgressDrawable;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.telecom.CallScreeningService;
 import android.util.Log;
@@ -22,6 +24,7 @@ import com.example.kalashproject.ModelList.StateList;
 import com.example.kalashproject.ModelList.TalukaList;
 import com.example.kalashproject.ModelList.VarietyList;
 import com.example.kalashproject.ModelList.VillageList;
+import com.example.kalashproject.MyLibrary.MyValidator;
 import com.example.kalashproject.WebService.ApiInterface;
 import com.example.kalashproject.WebService.Myconfig;
 import com.google.android.gms.common.api.Api;
@@ -41,9 +44,11 @@ import retrofit2.Response;
 
 public class AddVendorGrower extends AppCompatActivity {
 
-    Spinner  spnGrowerorvendor , spnCrop , spnVariety, spnGrade, spnSource, spnLstCrop, spnState, spnDistrict, spnTaluka, spnVillage;
+    Spinner  spnGrowerorvendor , spnCrop , spnVariety, spnGrade, spnSource, spnLstCrop, spnState, spnDistrict, spnTaluka, spnVillage, Spn_LastCropTaken,Spn_Variety,Spn_Crop,Spn_growerorvendor, Spn_SourceOfIrrigartion;
     TextView tv_next;
     public String state_id = "1", district = "1", taluka = "1", village = "1";
+
+    private String spstate,spdist,sptaluka,spvillage,SpLastCropTaken, Sp_GradeofGrower,Sp_Variety, Sp_Crop, Sp_growerorvendor, sp_source_of_irrigation;
 
     ArrayList<CropList> croplist = new ArrayList<CropList>();
     ArrayList<GradeofGrowerList> gradeofGrowerLists = new ArrayList<GradeofGrowerList>();
@@ -55,8 +60,13 @@ public class AddVendorGrower extends AppCompatActivity {
     ArrayList<TalukaList> talukaLists = new ArrayList<TalukaList>();
     ArrayList<VillageList> VillageLists = new ArrayList<VillageList>();
 
-    final LoadingDialog loadingDialog = new LoadingDialog(AddVendorGrower.this);
-    EditText edt_farmer_name, edt_farmer_email, edt_farmer_contact, edt_farmer_adhar;
+     //LoadingDialog loadingDialog = new LoadingDialog(AddVendorGrower.this);
+
+    private ProgressDialog pDialog;
+
+    EditText edt_full_name, edt_email, edt_contact, edt_adhar;
+
+    String str_full_name, str_email, str_contact, str_adhar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,11 +86,17 @@ public class AddVendorGrower extends AppCompatActivity {
         spnDistrict=findViewById(R.id.Spn_District);
         spnTaluka=findViewById(R.id.Spn_Taluka);
         spnVillage=findViewById(R.id.Spn_Village);
+        Spn_LastCropTaken= findViewById(R.id.Spn_LastCropTaken);
+        Spn_Variety = findViewById(R.id.Spn_Variety);
+        Spn_Crop = findViewById(R.id.Spn_Crop);
+        Spn_growerorvendor = findViewById(R.id.Spn_growerorvendor);
+        Spn_SourceOfIrrigartion = findViewById(R.id.Spn_SourceOfIrrigartion);
 
-        edt_farmer_name = findViewById(R.id.edt_farmer_name);
-        edt_farmer_email = findViewById(R.id.edt_farmer_email);
-        edt_farmer_contact = findViewById(R.id.edt_farmer_contact);
-        edt_farmer_adhar = findViewById(R.id.edt_farmer_adhar);
+
+        edt_full_name = findViewById(R.id.edt_full_name);
+        edt_email = findViewById(R.id.edt_email);
+        edt_contact = findViewById(R.id.edt_contact);
+        edt_adhar = findViewById(R.id.edt_adhar);
 
         getcroplist();
         getGradeofGrowerList();
@@ -89,16 +105,106 @@ public class AddVendorGrower extends AppCompatActivity {
         getVarietyList();
 
         getStatedata("1");
+
+
+        tv_next.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                spstate = spnState.getSelectedItem().toString();
+                spdist = spnDistrict.getSelectedItem().toString();
+                sptaluka = spnTaluka.getSelectedItem().toString();
+                spvillage = spnVillage.getSelectedItem().toString();
+
+                SpLastCropTaken = Spn_LastCropTaken.getSelectedItem().toString();
+                sp_source_of_irrigation = Spn_SourceOfIrrigartion.getSelectedItem().toString();
+                Sp_GradeofGrower = Spn_growerorvendor.getSelectedItem().toString();
+                Sp_Variety = spnVariety.getSelectedItem().toString();
+                Sp_Crop = Spn_Crop.getSelectedItem().toString();
+                Sp_growerorvendor = spnGrowerorvendor.getSelectedItem().toString();
+
+
+
+                if(spstate.equals("---Select State---") || spstate.equals("--Select--")){
+                    Toast.makeText(AddVendorGrower.this, "Please select state", Toast.LENGTH_SHORT).show();
+                }
+                else if(spdist.equals("---Select State---") || spdist.equals("--Select--")){
+                    Toast.makeText(AddVendorGrower.this, "Please select district", Toast.LENGTH_SHORT).show();
+                }
+                else if(sptaluka.equals("---Select State---") || sptaluka.equals("--Select--")){
+                    Toast.makeText(AddVendorGrower.this, "Please select Taluka", Toast.LENGTH_SHORT).show();
+                }
+                else if(spvillage.equals("---Select State---") || spvillage.equals("--Select--")){
+                    Toast.makeText(AddVendorGrower.this, "Please select Village", Toast.LENGTH_SHORT).show();
+                }
+                else if(SpLastCropTaken.equals("---Select State---") || SpLastCropTaken.equals("--Select--")){
+                    Toast.makeText(AddVendorGrower.this, "Please select last taken crop", Toast.LENGTH_SHORT).show();
+                }
+                else if(sp_source_of_irrigation.equals("---Select State---") || sp_source_of_irrigation.equals("--Select--")){
+                    Toast.makeText(AddVendorGrower.this, "Please select source of irrigation", Toast.LENGTH_SHORT).show();
+                }
+                else if(Sp_GradeofGrower.equals("---Select State---") || Sp_GradeofGrower.equals("--Select--")){
+                    Toast.makeText(AddVendorGrower.this, "Please select grade of grower", Toast.LENGTH_SHORT).show();
+                }
+                else if(Sp_Variety.equals("---Select State---") || Sp_Variety.equals("--Select--")){
+                    Toast.makeText(AddVendorGrower.this, "Please select variety", Toast.LENGTH_SHORT).show();
+                }
+                else if(Sp_Crop.equals("---Select State---") || Sp_Crop.equals("--Select--")){
+                    Toast.makeText(AddVendorGrower.this, "Please select crop", Toast.LENGTH_SHORT).show();
+                }
+                else if(Sp_growerorvendor.equals("---Select State---") || Sp_growerorvendor.equals("--Select--")){
+                    Toast.makeText(AddVendorGrower.this, "Please select grower or vendor", Toast.LENGTH_SHORT).show();
+                }
+
+
+                sendData();
+
+
+            }
+        });
+    }
+
+    private void sendData() {
+
+        //str_full_name = edt_full_name.getText().toString().trim();
+
+        ApiInterface apiInterface = Myconfig.getRetrofit().create(ApiInterface.class);
+        Call<ResponseBody> result =(Call<ResponseBody>) apiInterface.AddVendorGrower("1");
+        result.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                Toast.makeText(AddVendorGrower.this, "Submited", Toast.LENGTH_SHORT).show();
+
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+
+            }
+        });
+
+
     }
 
     private void getVarietyList()
     {
+//      pDialog = new ProgressDialog(AddVendorGrower.this);
+//      pDialog.setMessage("Please wait...");
+//        pDialog.setCancelable(false);
+//        pDialog.show();
+
+       // loadingDialog.startLoadingDialog();
         ApiInterface apiInterface = Myconfig.getRetrofit().create(ApiInterface.class);
         Call<ResponseBody> result = apiInterface.getvarientlist();
         result.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response)
             {
+//              if (pDialog.isShowing()){
+//                  pDialog.dismiss();
+//              }
+               // loadingDialog.dismissDialog();
 
                 Log.e("varietyList", " " +response);
                 try {
@@ -128,22 +234,38 @@ public class AddVendorGrower extends AppCompatActivity {
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t)
             {
+//                if (pDialog.isShowing()){
+//                    pDialog.dismiss();
+//                }
 
+               // loadingDialog.dismissDialog();
                 Log.e("Error", " " +t);
+                if (pDialog.isShowing()){
+                    pDialog.dismiss();
+                }
             }
         });
     }
 
     private void getSourceofIrrigationList()
     {
-        loadingDialog.startLoadingDialog();
+      //  loadingDialog.startLoadingDialog();
+//        pDialog = new ProgressDialog(AddVendorGrower.this);
+//        pDialog.setMessage("Please wait...");
+//        pDialog.setCancelable(false);
+//        pDialog.show();
+
         ApiInterface apiInterface = Myconfig.getRetrofit().create(ApiInterface.class);
         Call<ResponseBody> result = apiInterface.getSourceofirrigation();
         result.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response)
             {
-                loadingDialog.dismissDialog();
+//                if (pDialog.isShowing()){
+//                    pDialog.dismiss();
+//                }
+
+             //   loadingDialog.dismissDialog();
                 Log.e("SourceOfIrrigation", " " +response);
                 try {
                     String output = response.body().string();
@@ -173,20 +295,33 @@ public class AddVendorGrower extends AppCompatActivity {
             public void onFailure(Call<ResponseBody> call, Throwable t)
             {
                 Log.e("Error", " " +t);
+//                if (pDialog.isShowing()){
+//                    pDialog.dismiss();
+//                }
             }
         });
     }
 
     private void getGrowerorvendorList()
     {
-        loadingDialog.startLoadingDialog();
+        //loadingDialog.startLoadingDialog();
+
+//        pDialog = new ProgressDialog(AddVendorGrower.this);
+//        pDialog.setMessage("Please wait...");
+//        pDialog.setCancelable(false);
+//        pDialog.show();
+
         ApiInterface apiInterface = Myconfig.getRetrofit().create(ApiInterface.class);
         Call<ResponseBody> result = apiInterface.getgrowerorvendor();
         result.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response)
             {
-                loadingDialog.dismissDialog();
+//                if (pDialog.isShowing()){
+//                    pDialog.dismiss();
+//                }
+
+               // loadingDialog.dismissDialog();
                 Log.e("GrowerVendor", " " +response);
                 try {
                     String output = response.body().string();
@@ -216,20 +351,32 @@ public class AddVendorGrower extends AppCompatActivity {
             public void onFailure(Call<ResponseBody> call, Throwable t)
             {
                 Log.e("Error", " " +t);
+//                if (pDialog.isShowing()){
+//                    pDialog.dismiss();
+//                }
             }
         });
     }
 
     private void getGradeofGrowerList()
     {
-        loadingDialog.startLoadingDialog();
+//        pDialog = new ProgressDialog(AddVendorGrower.this);
+//        pDialog.setMessage("Please wait...");
+//        pDialog.setCancelable(false);
+//        pDialog.show();
+
+       // loadingDialog.startLoadingDialog();
         ApiInterface apiInterface = Myconfig.getRetrofit().create(ApiInterface.class);
         Call<ResponseBody> result = apiInterface.getgradeofgrower();
         result.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response)
             {
-                loadingDialog.dismissDialog();
+//                if (pDialog.isShowing()){
+//                    pDialog.dismiss();
+//                }
+
+               // loadingDialog.dismissDialog();
                 Log.e("GradeOfGrower", " " +response);
 
                 try {
@@ -260,6 +407,9 @@ public class AddVendorGrower extends AppCompatActivity {
             public void onFailure(Call<ResponseBody> call, Throwable t)
             {
                 Log.e("Error", " " +t);
+//                if (pDialog.isShowing()){
+//                    pDialog.dismiss();
+//                }
             }
         });
 
@@ -267,14 +417,22 @@ public class AddVendorGrower extends AppCompatActivity {
 
     private void getcroplist()
     {
-        loadingDialog.startLoadingDialog();
+//        pDialog = new ProgressDialog(AddVendorGrower.this);
+//        pDialog.setMessage("Please wait...");
+//        pDialog.setCancelable(false);
+//        pDialog.show();
+
+       // loadingDialog.startLoadingDialog();
         ApiInterface apiInterface = Myconfig.getRetrofit().create(ApiInterface.class);
         Call<ResponseBody> result = apiInterface.getcroplist();
         result.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response)
             {
-                loadingDialog.dismissDialog();
+//                if (pDialog.isShowing()){
+//                    pDialog.dismiss();
+//                }
+               // loadingDialog.dismissDialog();
                 Log.e("getCropList", " " +response);
                 try {
                     String output = response.body().string();
@@ -304,20 +462,33 @@ public class AddVendorGrower extends AppCompatActivity {
             public void onFailure(Call<ResponseBody> call, Throwable t)
             {
                 Log.e("Error", " " +t);
+//                if (pDialog.isShowing()){
+//                    pDialog.dismiss();
+//                }
             }
         });
     }
 
-    void getStatedata(String st_id){
+    void getStatedata(String st_id)
+    {
+//        pDialog = new ProgressDialog(AddVendorGrower.this);
+//        pDialog.setMessage("Please wait...");
+//        pDialog.setCancelable(false);
+//        pDialog.show();
 
-        loadingDialog.startLoadingDialog();
+
+       // loadingDialog.startLoadingDialog();
         ApiInterface apiInterface = Myconfig.getRetrofit().create(ApiInterface.class);
         Call<ResponseBody> result =(Call<ResponseBody>) apiInterface.getState("1");
         result.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                loadingDialog.dismissDialog();
+               // loadingDialog.dismissDialog();
                 Log.e("getStateData", " " +response);
+//                if (pDialog.isShowing()){
+//                    pDialog.dismiss();
+//                }
+
              String output = "";
                 try {
                     output = response.body().string();
@@ -373,6 +544,11 @@ public class AddVendorGrower extends AppCompatActivity {
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
                 Log.e("Error", " " +t);
+               // loadingDialog.dismissDialog();
+
+//                if (pDialog.isShowing()){
+//                    pDialog.dismiss();
+//                }
             }
         });
 
@@ -382,14 +558,22 @@ public class AddVendorGrower extends AppCompatActivity {
 
     private void getDistData()
     {
-        loadingDialog.startLoadingDialog();
+//        pDialog = new ProgressDialog(AddVendorGrower.this);
+//        pDialog.setMessage("Please wait...");
+//        pDialog.setCancelable(false);
+//        pDialog.show();
+
+//        loadingDialog.startLoadingDialog();
         ApiInterface apiInterface = Myconfig.getRetrofit().create(ApiInterface.class);
         final Call<ResponseBody> result = (Call<ResponseBody>) apiInterface.getDistrict(state_id);
         result.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
 
-                loadingDialog.dismissDialog();
+//                loadingDialog.dismissDialog();
+//                if (pDialog.isShowing()){
+//                    pDialog.dismiss();
+//                }
                 String output = "";
 
                 try {
@@ -448,14 +632,21 @@ public class AddVendorGrower extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-
+//                loadingDialog.dismissDialog();
+//                if (pDialog.isShowing()){
+//                    pDialog.dismiss();
+//                }
             }
         });
     }
 
-    private void getTalukaData() {
+    private void getTalukaData()
+    {
 
-        loadingDialog.startLoadingDialog();
+//        pDialog = new ProgressDialog(AddVendorGrower.this);
+//        pDialog.setMessage("Please wait...");
+//        pDialog.setCancelable(false);
+//        pDialog.show();
 
         ApiInterface apiInterface =Myconfig.getRetrofit().create(ApiInterface.class);
         Log.e("getTaluka: ", "state_id: " +state_id+ "District_id " +district);
@@ -463,8 +654,10 @@ public class AddVendorGrower extends AppCompatActivity {
         result.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-
-                loadingDialog.dismissDialog();
+//
+//                if (pDialog.isShowing()){
+//                    pDialog.dismiss();
+//                }
                 Log.e("talkula_error", "" +response.toString());
                 String output = "";
 
@@ -499,7 +692,6 @@ public class AddVendorGrower extends AppCompatActivity {
 
                                 getVillage();
 
-                                Toast.makeText(AddVendorGrower.this, "Village Method called", Toast.LENGTH_SHORT).show();
                             }
 
                             @Override
@@ -521,33 +713,46 @@ public class AddVendorGrower extends AppCompatActivity {
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
 
+//                if (pDialog.isShowing()){
+//                    pDialog.dismiss();
+//                }
             }
         });
 
 
     }
 
-    private void getVillage() {
+    private void getVillage()
+    {
+//        pDialog = new ProgressDialog(AddVendorGrower.this);
+//        pDialog.setMessage("Please wait...");
+//        pDialog.setCancelable(false);
+//        pDialog.show();
 
 
         ApiInterface apiInterface =Myconfig.getRetrofit().create(ApiInterface.class);
-        final Call<ResponseBody> result = (Call<ResponseBody>) apiInterface.getVillage(state_id, district,taluka);
+        Log.e("getTaluka: ", "state_id: " +state_id+ "District_id " +district);
+        final Call<ResponseBody> result =(Call<ResponseBody>)apiInterface.getVillage(state_id, district, village);
         result.enqueue(new Callback<ResponseBody>() {
             @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response)
+            {
+//                if (pDialog.isShowing()){
+//                    pDialog.dismiss();
+//                }
 
+                Log.e("Village_Error", "" +response.toString());
                 String output = "";
 
-
                 try {
-                    output = response.body().toString();
+                    output = response.body().string();
                     JSONObject jsonObject = new JSONObject(output);
 
-                    Toast.makeText(AddVendorGrower.this, jsonObject.getString("ResponseMessage"), Toast.LENGTH_SHORT).show();
                     if(jsonObject.getString("ResponseCode").equals("1")){
+                        JSONArray jsonArray = jsonObject.getJSONArray("Data");
+                        VillageLists.clear();
+                        VillageLists.add(new VillageList("--Select village---"));
 
-                        JSONArray jsonArray =jsonObject.getJSONArray("Data");
-                        VillageLists.add(new VillageList("---Select Village---"));
                         for(int i = 0; i<jsonArray.length(); i++){
 
                             try {
@@ -558,7 +763,7 @@ public class AddVendorGrower extends AppCompatActivity {
                             }
                         }
 
-                        ArrayAdapter<VillageList> dataAdapter = new ArrayAdapter<VillageList>(AddVendorGrower.this, android.R.layout.simple_spinner_item,VillageLists);
+                        ArrayAdapter<VillageList> dataAdapter = new ArrayAdapter<>(AddVendorGrower.this, android.R.layout.simple_spinner_item, VillageLists);
                         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                         spnVillage.setAdapter(dataAdapter);
 
@@ -567,6 +772,8 @@ public class AddVendorGrower extends AppCompatActivity {
                             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                                 String item = adapterView.getItemAtPosition(i).toString();
                                 village =VillageLists.get(i).getId();
+
+                                //Toast.makeText(AddVendorGrower.this, "Village Method called", Toast.LENGTH_SHORT).show();
                             }
 
                             @Override
@@ -574,20 +781,39 @@ public class AddVendorGrower extends AppCompatActivity {
 
                             }
                         });
+
                     }
 
-                } catch (JSONException e) {
+
+                } catch (IOException | JSONException e) {
                     e.printStackTrace();
                 }
             }
 
+
+
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
+//                if (pDialog.isShowing()){
+//                    pDialog.dismiss();
+//                }
 
             }
         });
 
     }
 
+//    private boolean validatefield(){
+//        boolean result =true;
+//
+//
+//    }
+
+//    public static boolean isvalidfield(){
+//
+//        if(!MyValidator.isValidField()){
+//
+//        }
+//    }
 
 }

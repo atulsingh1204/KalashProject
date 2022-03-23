@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <LinearLayout
+        android:id="@+id/topLinear"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/toolbar_background"
+        android:orientation="horizontal"
+        android:padding="@dimen/ten">
+
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_centerInParent="true"
+            android:padding="@dimen/ten"
+            android:src="@drawable/ic_arrow_back_black_24dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginEnd="@dimen/seven"
+            android:fontFamily="@font/cabin"
+            android:gravity="center"
+            android:text="Add Grower/Vendor"
+            android:textColor="@color/white"
+            android:textSize="@dimen/twenty"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/bottomLinear"
+        android:layout_below="@+id/topLinear"
+        android:padding="10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/ten">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/fifteen"
+                    android:orientation="horizontal"
+                    android:weightSum="10">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="3"
+                        android:fontFamily="@font/cabin"
+                        android:padding="@dimen/ten"
+                        android:text="Series"
+                        android:textSize="@dimen/fifteen"
+                        android:textStyle="normal" />
+
+                    <Spinner
+                        android:id="@+id/Spn_series"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="7"
+                        android:background="@drawable/shape"
+                        android:entries="@array/select"
+                        android:fontFamily="@font/cabin"
+                        android:padding="@dimen/ten"
+                        android:paddingStart="@dimen/fifteen" />
+
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/fifteen"
+                    android:orientation="horizontal"
+                    android:weightSum="10">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="3"
+                        android:fontFamily="@font/cabin"
+                        android:padding="@dimen/ten"
+                        android:text="Branch"
+                        android:textSize="@dimen/fifteen"
+                        android:textStyle="normal" />
+
+                    <Spinner
+                        android:id="@+id/Spn_branch"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="7"
+                        android:background="@drawable/shape"
+                        android:entries="@array/select"
+                        android:fontFamily="@font/cabin"
+                        android:padding="@dimen/ten"
+                        android:paddingStart="@dimen/fifteen" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/fifteen"
+                    android:orientation="horizontal"
+                    android:weightSum="10">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="3"
+                        android:fontFamily="@font/cabin"
+                        android:padding="@dimen/ten"
+                        android:text="Name of Grower"
+                        android:textSize="@dimen/fifteen"
+                        android:textStyle="normal" />
+
+                    <Spinner
+                        android:id="@+id/Spn_name_of_grower"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="7"
+                        android:background="@drawable/shape"
+                        android:entries="@array/select"
+                        android:fontFamily="@font/cabin"
+                        android:padding="@dimen/ten"
+                        android:paddingStart="@dimen/fifteen" />
+
+                </LinearLayout>
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5sp"
+                    android:fontFamily="@font/cabin"
+                    android:padding="@dimen/ten"
+                    android:text="Acre"
+                    android:textSize="@dimen/fifteen"
+                    android:textStyle="normal" />
+
+                <EditText
+                    android:id="@+id/enter_acre"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/shape"
+                    android:fontFamily="@font/cabin"
+                    android:hint="Enter in Acre"
+                    android:imeOptions="actionNext"
+                    android:inputType="number"
+                    android:maxLength="12"
+                    android:minHeight="48dp"
+                    android:padding="@dimen/ten"
+                    android:textSize="@dimen/fifteen"
+                    android:textStyle="normal" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5sp"
+                    android:fontFamily="@font/cabin"
+                    android:padding="@dimen/ten"
+                    android:text="PO Qty"
+                    android:textSize="@dimen/fifteen"
+                    android:textStyle="normal" />
+
+
+                <EditText
+                    android:id="@+id/po_qty"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/shape"
+                    android:fontFamily="@font/cabin"
+                    android:hint="Enter PO Qty"
+                    android:imeOptions="actionNext"
+                    android:inputType="number"
+                    android:maxLength="12"
+                    android:minHeight="48dp"
+                    android:padding="@dimen/ten"
+                    android:textSize="@dimen/fifteen"
+                    android:textStyle="normal" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5sp"
+                    android:fontFamily="@font/cabin"
+                    android:padding="@dimen/ten"
+                    android:text="Rate"
+                    android:textSize="@dimen/fifteen"
+                    android:textStyle="normal" />
+
+
+                <EditText
+                    android:id="@+id/rate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/shape"
+                    android:fontFamily="@font/cabin"
+                    android:hint="Enter in Rate"
+                    android:imeOptions="actionNext"
+                    android:inputType="number"
+                    android:maxLength="12"
+                    android:minHeight="48dp"
+                    android:padding="@dimen/ten"
+                    android:textSize="@dimen/fifteen"
+                    android:textStyle="normal" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5sp"
+                    android:fontFamily="@font/cabin"
+                    android:padding="@dimen/ten"
+                    android:text="Male Lot"
+                    android:textSize="@dimen/fifteen"
+                    android:textStyle="normal" />
+
+
+                <EditText
+                    android:id="@+id/male_lot"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/shape"
+                    android:fontFamily="@font/cabin"
+                    android:hint="Scan QR Code or No. of PP"
+                    android:imeOptions="actionNext"
+                    android:inputType="number"
+                    android:maxLength="12"
+                    android:minHeight="48dp"
+                    android:padding="@dimen/ten"
+                    android:textSize="@dimen/fifteen"
+                    android:textStyle="normal" />
+
+                <Button
+                    android:id="@+id/scan_male_lot"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Scan"
+                    android:textAllCaps="false" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5sp"
+                    android:fontFamily="@font/cabin"
+                    android:padding="@dimen/ten"
+                    android:text="Female Lot"
+                    android:textSize="@dimen/fifteen"
+                    android:textStyle="normal" />
+
+
+                <EditText
+                    android:id="@+id/female_lot"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/shape"
+                    android:fontFamily="@font/cabin"
+                    android:hint="Scan QR Code or No. of PP"
+                    android:imeOptions="actionNext"
+                    android:inputType="number"
+                    android:maxLength="12"
+                    android:minHeight="48dp"
+                    android:padding="@dimen/ten"
+                    android:textSize="@dimen/fifteen"
+                    android:textStyle="normal" />
+
+                <Button
+                    android:id="@+id/scan_female_lot"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Scan"
+                    android:textAllCaps="false" />
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+    <LinearLayout
+        android:id="@+id/bottomLinear"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/grey_color"
+        android:gravity="end"
+        android:orientation="horizontal"
+        android:padding="@dimen/ten">
+
+        <TextView
+            android:id="@+id/tv_next"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginEnd="@dimen/seven"
+            android:fontFamily="@font/cabin"
+            android:gravity="end"
+            android:text="Submit"
+            android:textColor="@color/green"
+            android:textSize="@dimen/eighteen"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+</RelativeLayout>

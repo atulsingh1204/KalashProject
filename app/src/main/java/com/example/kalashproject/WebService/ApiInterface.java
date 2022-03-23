@@ -49,6 +49,11 @@ public interface ApiInterface
                                   @Field("taluka_id") String taluka_id);
 
 
+    @FormUrlEncoded
+    @POST("fsd")
+    Call<ResponseBody> AddVendorGrower(@Field("flsad"));
+
+
 
 
 

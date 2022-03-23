@@ -4,6 +4,8 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.VIBRATE"/>
 
     <application
         android:allowBackup="true"
@@ -14,26 +16,47 @@
         android:theme="@style/Theme.KalashProject"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".OrderActivity"
+            android:exported="true" >
+
+        </activity>
+        <activity
+            android:name=".Form3"
+            android:exported="false">
+
+        </activity>
+        <activity
+            android:name=".AddVendor"
+            android:exported="false" />
+        <activity
             android:name=".ProgressBar"
             android:exported="false" />
         <activity
             android:name=".AddVendorGrower"
             android:exported="true">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
         <activity
             android:name=".SplashActivity"
-            android:exported="false"></activity>
+            android:exported="true">
+
+
+        </activity>
         <activity
             android:name=".LoginActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
-            android:exported="false" />
+            android:exported="true">
+
+
+        </activity>
     </application>
 
 </manifest>

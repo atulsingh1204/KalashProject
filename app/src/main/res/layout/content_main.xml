@@ -78,67 +78,67 @@
 
             </androidx.cardview.widget.CardView>
 
-            <TextView
-                android:id="@+id/tv_videos"
-                android:layout_width="120dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/ten"
-                android:layout_marginTop="@dimen/ten"
-                android:background="@drawable/rounded_background_red_with_stoke"
-                android:elevation="@dimen/five"
-                android:fontFamily="@font/cabin"
-                android:gravity="center"
-                android:inputType="textCapWords"
-                android:minHeight="48dp"
-                android:padding="@dimen/seven"
-                android:text="Videos"
-                android:textColor="@color/white"
-                android:textSize="@dimen/eighteen"
-                android:textStyle="bold" />
+<!--            <TextView-->
+<!--                android:id="@+id/tv_videos"-->
+<!--                android:layout_width="120dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginStart="@dimen/ten"-->
+<!--                android:layout_marginTop="@dimen/ten"-->
+<!--                android:background="@drawable/rounded_background_red_with_stoke"-->
+<!--                android:elevation="@dimen/five"-->
+<!--                android:fontFamily="@font/cabin"-->
+<!--                android:gravity="center"-->
+<!--                android:inputType="textCapWords"-->
+<!--                android:minHeight="48dp"-->
+<!--                android:padding="@dimen/seven"-->
+<!--                android:text="Videos"-->
+<!--                android:textColor="@color/white"-->
+<!--                android:textSize="@dimen/eighteen"-->
+<!--                android:textStyle="bold" />-->
 
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recycler_videos"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:clipToPadding="false"
-                android:paddingLeft="10dp"
-                android:layout_marginTop="10dp"
-                android:paddingRight="10dp"
-                android:overScrollMode="never"
-                android:layout_marginBottom="10dp"
-                android:scrollbars="none" />
+<!--            <androidx.recyclerview.widget.RecyclerView-->
+<!--                android:id="@+id/recycler_videos"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:clipToPadding="false"-->
+<!--                android:paddingLeft="10dp"-->
+<!--                android:layout_marginTop="10dp"-->
+<!--                android:paddingRight="10dp"-->
+<!--                android:overScrollMode="never"-->
+<!--                android:layout_marginBottom="10dp"-->
+<!--                android:scrollbars="none" />-->
 
 
-            <TextView
-                android:id="@+id/tv_blogs"
-                android:layout_width="120dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/ten"
-                android:layout_marginTop="@dimen/five"
-                android:background="@drawable/rounded_backgroun_blue"
-                android:elevation="@dimen/five"
-                android:fontFamily="@font/cabin"
-                android:gravity="center"
-                android:inputType="textCapWords"
-                android:minHeight="48dp"
-                android:padding="@dimen/seven"
-                android:text="Blogs"
-                android:textColor="@color/white"
-                android:textSize="@dimen/eighteen"
-                android:textStyle="bold" />
+<!--            <TextView-->
+<!--                android:id="@+id/tv_blogs"-->
+<!--                android:layout_width="120dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginStart="@dimen/ten"-->
+<!--                android:layout_marginTop="@dimen/five"-->
+<!--                android:background="@drawable/rounded_backgroun_blue"-->
+<!--                android:elevation="@dimen/five"-->
+<!--                android:fontFamily="@font/cabin"-->
+<!--                android:gravity="center"-->
+<!--                android:inputType="textCapWords"-->
+<!--                android:minHeight="48dp"-->
+<!--                android:padding="@dimen/seven"-->
+<!--                android:text="Blogs"-->
+<!--                android:textColor="@color/white"-->
+<!--                android:textSize="@dimen/eighteen"-->
+<!--                android:textStyle="bold" />-->
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recycler_blogs"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:clipToPadding="false"
-                android:paddingLeft="10dp"
-                android:layout_marginTop="10dp"
-                android:paddingRight="10dp"
-                android:overScrollMode="never"
-                android:layout_marginBottom="10dp"
-                android:scrollbars="none" />
+<!--            <androidx.recyclerview.widget.RecyclerView-->
+<!--                android:id="@+id/recycler_blogs"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:clipToPadding="false"-->
+<!--                android:paddingLeft="10dp"-->
+<!--                android:layout_marginTop="10dp"-->
+<!--                android:paddingRight="10dp"-->
+<!--                android:overScrollMode="never"-->
+<!--                android:layout_marginBottom="10dp"-->
+<!--                android:scrollbars="none" />-->
 
 
         </LinearLayout>

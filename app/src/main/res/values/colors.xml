@@ -40,7 +40,12 @@
     <string-array name="select">
 
         <item>--Select--</item>
-        <item>Below Options</item>
     </string-array>
+
+<!--    <string name="app_name">GFG APP</string>-->
+<!--    <string name="toggle_flash">Toggle Flash</string>-->
+<!--    <string name="action_settings">Settings</string>-->
+<!--    <string name="scanned_data">Scanned Data</string>-->
+
 
 </resources>

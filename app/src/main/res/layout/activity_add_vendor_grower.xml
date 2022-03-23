@@ -80,7 +80,7 @@
                     android:textStyle="normal" />
 
                 <EditText
-                    android:id="@+id/edt_farmer_name"
+                    android:id="@+id/edt_full_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/shape"
@@ -104,7 +104,7 @@
                     android:textStyle="normal" />
 
                 <EditText
-                    android:id="@+id/edt_farmer_email"
+                    android:id="@+id/edt_email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/shape"
@@ -128,7 +128,7 @@
                     android:textStyle="normal" />
 
                 <EditText
-                    android:id="@+id/edt_farmer_contact"
+                    android:id="@+id/edt_contact"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/shape"
@@ -192,7 +192,7 @@
                     android:textStyle="normal" />
 
                 <EditText
-                    android:id="@+id/edt_farmer_adhar"
+                    android:id="@+id/edt_adhar"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/shape"
@@ -586,14 +586,17 @@
 
         <TextView
             android:id="@+id/tv_next"
-            android:layout_width="wrap_content"
+            android:layout_width="120dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginEnd="@dimen/seven"
+            android:background="@drawable/rounded_background_gray_with_stoke"
             android:fontFamily="@font/cabin"
-            android:gravity="end"
+            android:gravity="center"
+            android:minHeight="48dp"
             android:text="Submit"
-            android:textColor="@color/green"
+            android:padding="7dp"
+            android:textColor="#fff"
             android:textSize="@dimen/eighteen"
             android:textStyle="bold" />
     </LinearLayout>

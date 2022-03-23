@@ -2,8 +2,7 @@ package com.example.kalashproject.WebService;
 public class Constant
 {
 
-	public static final String LINK = "http://192.168.43.68/kalashseeds/fdo/";
-
+	public static final String LINK = "https://sumagotest.in/kalashseeds/fdo/";
 	public static String token;
 	public static String Dist_reg_name,Dist_reg_Lname,Dist_reg_Mname,Dist_contact,Dist_alt_contact,Dist_emailid,Dist_address;
 	public static String Dist_state,Dist_dist,Dist_tal,Dist_village,Dist_qualification,Dist_shop_address;

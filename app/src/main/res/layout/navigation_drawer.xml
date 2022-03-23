@@ -90,8 +90,6 @@
                 <!--            </TableRow>-->
 
 
-
-
                 <TableRow
                     android:id="@+id/trprofile_two"
                     android:layout_width="match_parent"
@@ -212,7 +210,6 @@
                     </TableRow>
 
 
-
                     <TableRow
                         android:id="@+id/tr_approved_order"
                         android:layout_width="match_parent"
@@ -271,7 +268,6 @@
                 </LinearLayout>
 
 
-
                 <TableRow
                     android:id="@+id/tr_inspection"
                     android:layout_width="match_parent"
@@ -298,11 +294,6 @@
                         android:textStyle="normal" />
 
                 </TableRow>
-
-
-
-
-
 
 
                 <LinearLayout
@@ -513,8 +504,6 @@
                 </TableRow>
 
 
-
-
                 <TableRow
                     android:id="@+id/tr_Logout"
                     android:layout_width="match_parent"
@@ -543,18 +532,18 @@
 
                 </TableRow>
 
-<!--                <TextView-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_gravity="center"-->
-<!--                    android:layout_margin="7dp"-->
-<!--                    android:layout_marginBottom="@dimen/five"-->
-<!--                    android:fontFamily="@font/cabin"-->
-<!--                    android:padding="@dimen/five"-->
-<!--                    android:text="SCT Distributor Version 1.1"-->
-<!--                    android:textColor="@android:color/tab_indicator_text"-->
-<!--                    android:textSize="13dp"-->
-<!--                    android:textStyle="normal" />-->
+                <!--                <TextView-->
+                <!--                    android:layout_width="wrap_content"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:layout_gravity="center"-->
+                <!--                    android:layout_margin="7dp"-->
+                <!--                    android:layout_marginBottom="@dimen/five"-->
+                <!--                    android:fontFamily="@font/cabin"-->
+                <!--                    android:padding="@dimen/five"-->
+                <!--                    android:text="SCT Distributor Version 1.1"-->
+                <!--                    android:textColor="@android:color/tab_indicator_text"-->
+                <!--                    android:textSize="13dp"-->
+                <!--                    android:textStyle="normal" />-->
 
 
             </LinearLayout>
