@@ -4,12 +4,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.telecom.CallScreeningService;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -47,6 +49,7 @@ public class AddVendorGrower extends AppCompatActivity {
     Spinner  spnGrowerorvendor , spnCrop , spnVariety, spnGrade, spnSource, spnLstCrop, spnState, spnDistrict, spnTaluka, spnVillage, Spn_LastCropTaken,Spn_Variety,Spn_Crop,Spn_growerorvendor, Spn_SourceOfIrrigartion;
     TextView tv_next;
     public String state_id = "1", district = "1", taluka = "1", village = "1";
+    Button btn_scanner;
 
     private String spstate,spdist,sptaluka,spvillage,SpLastCropTaken, Sp_GradeofGrower,Sp_Variety, Sp_Crop, Sp_growerorvendor, sp_source_of_irrigation;
 
@@ -65,8 +68,12 @@ public class AddVendorGrower extends AppCompatActivity {
     private ProgressDialog pDialog;
 
     EditText edt_full_name, edt_email, edt_contact, edt_adhar;
+    EditText distance_from_center, total_land_holding;
 
     String str_full_name, str_email, str_contact, str_adhar;
+
+    String str_distance_from_center, str_total_land_holding;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,11 +99,22 @@ public class AddVendorGrower extends AppCompatActivity {
         Spn_growerorvendor = findViewById(R.id.Spn_growerorvendor);
         Spn_SourceOfIrrigartion = findViewById(R.id.Spn_SourceOfIrrigartion);
 
+        distance_from_center = findViewById(R.id.distance_from_center);
+        total_land_holding = findViewById(R.id.total_land_holding);
 
         edt_full_name = findViewById(R.id.edt_full_name);
         edt_email = findViewById(R.id.edt_email);
         edt_contact = findViewById(R.id.edt_contact);
         edt_adhar = findViewById(R.id.edt_adhar);
+
+        btn_scanner = findViewById(R.id.btn_scanner);
+
+        btn_scanner.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(AddVendorGrower.this, QRCodeScanner.class));
+            }
+        });
 
         getcroplist();
         getGradeofGrowerList();
@@ -123,38 +141,39 @@ public class AddVendorGrower extends AppCompatActivity {
                 Sp_Crop = Spn_Crop.getSelectedItem().toString();
                 Sp_growerorvendor = spnGrowerorvendor.getSelectedItem().toString();
 
+                btn_scanner = findViewById(R.id.btn_scanner);
 
-
-                if(spstate.equals("---Select State---") || spstate.equals("--Select--")){
-                    Toast.makeText(AddVendorGrower.this, "Please select state", Toast.LENGTH_SHORT).show();
-                }
-                else if(spdist.equals("---Select State---") || spdist.equals("--Select--")){
-                    Toast.makeText(AddVendorGrower.this, "Please select district", Toast.LENGTH_SHORT).show();
-                }
-                else if(sptaluka.equals("---Select State---") || sptaluka.equals("--Select--")){
-                    Toast.makeText(AddVendorGrower.this, "Please select Taluka", Toast.LENGTH_SHORT).show();
-                }
-                else if(spvillage.equals("---Select State---") || spvillage.equals("--Select--")){
-                    Toast.makeText(AddVendorGrower.this, "Please select Village", Toast.LENGTH_SHORT).show();
-                }
-                else if(SpLastCropTaken.equals("---Select State---") || SpLastCropTaken.equals("--Select--")){
-                    Toast.makeText(AddVendorGrower.this, "Please select last taken crop", Toast.LENGTH_SHORT).show();
-                }
-                else if(sp_source_of_irrigation.equals("---Select State---") || sp_source_of_irrigation.equals("--Select--")){
-                    Toast.makeText(AddVendorGrower.this, "Please select source of irrigation", Toast.LENGTH_SHORT).show();
-                }
-                else if(Sp_GradeofGrower.equals("---Select State---") || Sp_GradeofGrower.equals("--Select--")){
-                    Toast.makeText(AddVendorGrower.this, "Please select grade of grower", Toast.LENGTH_SHORT).show();
-                }
-                else if(Sp_Variety.equals("---Select State---") || Sp_Variety.equals("--Select--")){
-                    Toast.makeText(AddVendorGrower.this, "Please select variety", Toast.LENGTH_SHORT).show();
-                }
-                else if(Sp_Crop.equals("---Select State---") || Sp_Crop.equals("--Select--")){
-                    Toast.makeText(AddVendorGrower.this, "Please select crop", Toast.LENGTH_SHORT).show();
-                }
-                else if(Sp_growerorvendor.equals("---Select State---") || Sp_growerorvendor.equals("--Select--")){
-                    Toast.makeText(AddVendorGrower.this, "Please select grower or vendor", Toast.LENGTH_SHORT).show();
-                }
+//
+//                if(spstate.equals("---Select State---") || spstate.equals("--Select--")){
+//                    Toast.makeText(AddVendorGrower.this, "Please select state", Toast.LENGTH_SHORT).show();
+//                }
+//                else if(spdist.equals("---Select State---") || spdist.equals("--Select--")){
+//                    Toast.makeText(AddVendorGrower.this, "Please select district", Toast.LENGTH_SHORT).show();
+//                }
+//                else if(sptaluka.equals("---Select State---") || sptaluka.equals("--Select--")){
+//                    Toast.makeText(AddVendorGrower.this, "Please select Taluka", Toast.LENGTH_SHORT).show();
+//                }
+//                else if(spvillage.equals("---Select State---") || spvillage.equals("--Select--")){
+//                    Toast.makeText(AddVendorGrower.this, "Please select Village", Toast.LENGTH_SHORT).show();
+//                }
+//                else if(SpLastCropTaken.equals("---Select State---") || SpLastCropTaken.equals("--Select--")){
+//                    Toast.makeText(AddVendorGrower.this, "Please select last taken crop", Toast.LENGTH_SHORT).show();
+//                }
+//                else if(sp_source_of_irrigation.equals("---Select State---") || sp_source_of_irrigation.equals("--Select--")){
+//                    Toast.makeText(AddVendorGrower.this, "Please select source of irrigation", Toast.LENGTH_SHORT).show();
+//                }
+//                else if(Sp_GradeofGrower.equals("---Select State---") || Sp_GradeofGrower.equals("--Select--")){
+//                    Toast.makeText(AddVendorGrower.this, "Please select grade of grower", Toast.LENGTH_SHORT).show();
+//                }
+//                else if(Sp_Variety.equals("---Select State---") || Sp_Variety.equals("--Select--")){
+//                    Toast.makeText(AddVendorGrower.this, "Please select variety", Toast.LENGTH_SHORT).show();
+//                }
+//                else if(Sp_Crop.equals("---Select State---") || Sp_Crop.equals("--Select--")){
+//                    Toast.makeText(AddVendorGrower.this, "Please select crop", Toast.LENGTH_SHORT).show();
+//                }
+//                else if(Sp_growerorvendor.equals("---Select State---") || Sp_growerorvendor.equals("--Select--")){
+//                    Toast.makeText(AddVendorGrower.this, "Please select grower or vendor", Toast.LENGTH_SHORT).show();
+//                }
 
 
                 sendData();
@@ -164,28 +183,7 @@ public class AddVendorGrower extends AppCompatActivity {
         });
     }
 
-    private void sendData() {
 
-        //str_full_name = edt_full_name.getText().toString().trim();
-
-        ApiInterface apiInterface = Myconfig.getRetrofit().create(ApiInterface.class);
-        Call<ResponseBody> result =(Call<ResponseBody>) apiInterface.AddVendorGrower("1");
-        result.enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                Toast.makeText(AddVendorGrower.this, "Submited", Toast.LENGTH_SHORT).show();
-
-            }
-
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
-
-
-            }
-        });
-
-
-    }
 
     private void getVarietyList()
     {
@@ -815,5 +813,62 @@ public class AddVendorGrower extends AppCompatActivity {
 //
 //        }
 //    }
+
+
+    private void sendData() {
+
+        str_full_name = edt_full_name.getText().toString().trim();
+        str_contact = edt_contact.getText().toString().trim();
+        str_adhar = edt_adhar.getText().toString().trim();
+        str_email = edt_email.getText().toString().trim();
+        str_distance_from_center = distance_from_center.getText().toString();
+        str_total_land_holding = total_land_holding.getText().toString();
+
+        Log.e("sendData", "full name" +str_full_name);
+        Log.e("sendData", "contact " +str_contact);
+        Log.e("sendData", "aadhar " +str_adhar);
+        Log.e("sendData", "email " +str_email);
+        Log.e("sendData", "state " +state_id);
+        Log.e("sendData", " district" +district);
+        Log.e("sendData", "taluka " +taluka);
+        Log.e("sendData", "village " +village);
+        Log.e("sendData", "distance from center " +distance_from_center);
+        Log.e("sendData", "total land holding " +total_land_holding);
+
+
+
+        ApiInterface apiInterface = Myconfig.getRetrofit().create(ApiInterface.class);
+        Call<ResponseBody> result =(Call<ResponseBody>) apiInterface.AddVendorGrower(str_full_name,
+                str_contact,
+                str_adhar,
+                str_email,
+                str_distance_from_center,
+                str_total_land_holding,
+                state_id,
+                district,
+                taluka,
+                village,
+                SpLastCropTaken,
+                sp_source_of_irrigation,
+                Sp_GradeofGrower,
+                Sp_Variety,
+                Sp_Crop,
+                Sp_growerorvendor);
+        result.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                Toast.makeText(AddVendorGrower.this, "Submited", Toast.LENGTH_SHORT).show();
+
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+
+            }
+        });
+
+
+    }
 
 }

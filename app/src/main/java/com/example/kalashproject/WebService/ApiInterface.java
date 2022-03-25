@@ -51,7 +51,22 @@ public interface ApiInterface
 
     @FormUrlEncoded
     @POST("fsd")
-    Call<ResponseBody> AddVendorGrower(@Field("flsad"));
+    Call<ResponseBody> AddVendorGrower(@Field("str_full_name") String str_full_name,
+                                       @Field("str_contact") String str_contact,
+                                       @Field("str_adhar") String str_adhar,
+                                       @Field("str_email") String str_email,
+                                       @Field("distance") String distance,
+                                       @Field("total_land_holding") String total_land_holding,
+                                       @Field("st_id") String st_id,
+                                       @Field("dist_id") String dist_id,
+                                       @Field("tal_id") String tal_id,
+                                       @Field("vil_id") String vil_id,
+                                       @Field("SpLastCropTaken") String SpLastCropTaken,
+                                       @Field("sp_source_of_irrigation") String sp_source_of_irrigation,
+                                       @Field("Sp_GradeofGrower") String Sp_GradeofGrower,
+                                       @Field("Sp_Variety") String Sp_Variety,
+                                       @Field("Sp_Crop") String Sp_Crop,
+                                       @Field("Sp_growerorvendor") String Sp_growerorvendor);
 
 
 
