@@ -1,0 +1,382 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:id="@+id/rl_main"
+    android:background="@color/grey_color"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/green_border"
+        android:elevation="5dp"
+        android:orientation="vertical">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:layout_gravity="start"
+                android:textColor="@color/black"
+                android:textStyle="normal"
+                android:padding="5dp"
+                android:text="growervendorid:"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:id="@+id/pending_gv_id"
+                android:layout_weight="0.9"
+                android:textStyle="normal"
+                android:textColor="@color/black"
+                android:padding="5dp"
+                android:text="there is grower id"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:layout_gravity="start"
+                android:textColor="@color/black"
+                android:textStyle="normal"
+                android:padding="5dp"
+                android:text="full_name:"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:id="@+id/pending_full_name"
+                android:layout_weight="0.9"
+                android:textStyle="normal"
+                android:textColor="@color/black"
+                android:padding="5dp"
+                android:text="full_name"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:layout_gravity="start"
+                android:textColor="@color/black"
+                android:textStyle="normal"
+                android:padding="5dp"
+                android:text="grower_or_vendor:"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:layout_weight="0.9"
+                android:textStyle="normal"
+                android:id="@+id/pending_grower_or_vendor"
+                android:textColor="@color/black"
+                android:padding="5dp"
+                android:text="grower_or_vendor"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:layout_gravity="start"
+                android:textColor="@color/black"
+                android:textStyle="normal"
+                android:padding="5dp"
+                android:text="distance:"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:layout_weight="0.9"
+                android:textStyle="normal"
+                android:id="@+id/pending_distance"
+                android:textColor="@color/black"
+                android:padding="5dp"
+                android:text="distance"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:layout_gravity="start"
+                android:textColor="@color/black"
+                android:textStyle="normal"
+                android:padding="5dp"
+                android:text="crop_name:"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:layout_weight="0.9"
+                android:textStyle="normal"
+                android:id="@+id/pending_crop_name"
+                android:textColor="@color/black"
+                android:padding="5dp"
+                android:text="crop_name"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:layout_gravity="start"
+                android:textColor="@color/black"
+                android:textStyle="normal"
+                android:padding="5dp"
+                android:text="variety_name:"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:layout_weight="0.9"
+                android:textStyle="normal"
+                android:id="@+id/pending_variety_name"
+                android:textColor="@color/black"
+                android:padding="5dp"
+                android:text="variety_name"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:layout_gravity="start"
+                android:textColor="@color/black"
+                android:textStyle="normal"
+                android:padding="5dp"
+                android:text="land_holding:"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:layout_weight="0.9"
+                android:textStyle="normal"
+                android:id="@+id/pending_land_holding"
+                android:textColor="@color/black"
+                android:padding="5dp"
+                android:text="land_holding"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:layout_gravity="start"
+                android:textColor="@color/black"
+                android:textStyle="normal"
+                android:padding="5dp"
+                android:text="source_of_irrigation_name:"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:layout_weight="0.9"
+                android:textStyle="normal"
+                android:id="@+id/pending_source_of_irrigation_name"
+                android:textColor="@color/black"
+                android:padding="5dp"
+                android:text="source_of_irrigation_name"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:layout_gravity="start"
+                android:textColor="@color/black"
+                android:textStyle="normal"
+                android:padding="5dp"
+                android:text="grade_of_grower_name:"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:layout_weight="0.9"
+                android:id="@+id/pending_grade_of_grower_name"
+                android:textStyle="normal"
+                android:textColor="@color/black"
+                android:padding="5dp"
+                android:text="grade_of_grower_name"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:layout_gravity="start"
+                android:textColor="@color/black"
+                android:textStyle="normal"
+                android:padding="5dp"
+                android:text="crop_details:"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:layout_weight="0.9"
+                android:id="@+id/pending_crop_details"
+                android:textStyle="normal"
+                android:textColor="@color/black"
+                android:padding="5dp"
+                android:text="crop_details"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:layout_gravity="start"
+                android:textColor="@color/black"
+                android:textStyle="normal"
+                android:padding="5dp"
+                android:text="previous_company:"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:layout_weight="0.9"
+                android:textStyle="normal"
+                android:id="@+id/pending_previous_company"
+                android:textColor="@color/black"
+                android:padding="5dp"
+                android:text="previous_company"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:layout_gravity="start"
+                android:textColor="@color/black"
+                android:textStyle="normal"
+                android:padding="5dp"
+                android:text="last_crop_taken:"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:layout_weight="0.9"
+                android:id="@+id/pending_last_crop_taken"
+                android:textStyle="normal"
+                android:textColor="@color/black"
+                android:padding="5dp"
+                android:text="last_crop_taken"/>
+
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
+</RelativeLayout>

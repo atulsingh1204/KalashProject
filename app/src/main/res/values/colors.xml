@@ -42,6 +42,14 @@
         <item>--Select--</item>
     </string-array>
 
+    <string-array name="grower_vendoer">
+
+        <item>--Select--</item>
+        <item>Grower</item>
+        <item>Vendor</item>
+
+    </string-array>
+
 <!--    <string name="app_name">GFG APP</string>-->
 <!--    <string name="toggle_flash">Toggle Flash</string>-->
 <!--    <string name="action_settings">Settings</string>-->

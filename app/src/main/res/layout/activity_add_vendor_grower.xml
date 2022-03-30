@@ -30,7 +30,7 @@
             android:layout_marginEnd="@dimen/seven"
             android:fontFamily="@font/cabin"
             android:gravity="center"
-            android:text="Add Grower/Vendor"
+            android:text="Tentative Booking"
             android:textColor="@color/white"
             android:textSize="@dimen/twenty"
             android:textStyle="bold" />
@@ -77,7 +77,8 @@
                     android:padding="@dimen/ten"
                     android:text="Full Name"
                     android:textSize="@dimen/fifteen"
-                    android:textStyle="normal" />
+                    android:textStyle="normal"
+                    android:visibility="gone" />
 
                 <EditText
                     android:id="@+id/edt_full_name"
@@ -91,7 +92,8 @@
                     android:minHeight="48dp"
                     android:padding="@dimen/ten"
                     android:textSize="@dimen/fifteen"
-                    android:textStyle="normal" />
+                    android:textStyle="normal"
+                    android:visibility="gone" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -101,7 +103,8 @@
                     android:padding="@dimen/ten"
                     android:text="Email Id"
                     android:textSize="@dimen/fifteen"
-                    android:textStyle="normal" />
+                    android:textStyle="normal"
+                    android:visibility="gone" />
 
                 <EditText
                     android:id="@+id/edt_email"
@@ -115,7 +118,8 @@
                     android:minHeight="48dp"
                     android:padding="@dimen/ten"
                     android:textSize="@dimen/fifteen"
-                    android:textStyle="normal" />
+                    android:textStyle="normal"
+                    android:visibility="gone" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -125,7 +129,8 @@
                     android:padding="@dimen/ten"
                     android:text="Mobile No"
                     android:textSize="@dimen/fifteen"
-                    android:textStyle="normal" />
+                    android:textStyle="normal"
+                    android:visibility="gone" />
 
                 <EditText
                     android:id="@+id/edt_contact"
@@ -140,94 +145,109 @@
                     android:minHeight="48dp"
                     android:padding="@dimen/ten"
                     android:textSize="@dimen/fifteen"
-                    android:textStyle="normal" />
-
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/fifteen"
-                    android:orientation="horizontal"
-                    android:weightSum="10">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_weight="3"
-                        android:fontFamily="@font/cabin"
-                        android:padding="@dimen/ten"
-                        android:text="Grower or Vendor"
-                        android:textSize="@dimen/fifteen"
-                        android:textStyle="normal" />
-
-                    <Spinner
-                        android:id="@+id/Spn_growerorvendor"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_weight="7"
-                        android:background="@drawable/shape"
-                        android:entries="@array/select"
-                        android:fontFamily="@font/cabin"
-                        android:padding="@dimen/ten"
-                        android:paddingStart="@dimen/fifteen" />
-
-
-                </LinearLayout>
+                    android:textStyle="normal"
+                    android:visibility="gone" />
 
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5sp"
                     android:fontFamily="@font/cabin"
                     android:padding="@dimen/ten"
-                    android:text="Aadhar Card Number"
+                    android:text="Type"
                     android:textSize="@dimen/fifteen"
                     android:textStyle="normal" />
 
-                <EditText
-                    android:id="@+id/edt_adhar"
+                <Spinner
+                    android:id="@+id/Spn_select_growerorvendor"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/shape"
+                    android:entries="@array/grower_vendoer"
                     android:fontFamily="@font/cabin"
-                    android:hint="Enter Aadhar Number"
-                    android:imeOptions="actionNext"
-                    android:inputType="number"
-                    android:maxLength="12"
-                    android:minHeight="48dp"
                     android:padding="@dimen/ten"
-                    android:textSize="@dimen/fifteen"
-                    android:textStyle="normal" />
+                    android:paddingStart="@dimen/fifteen" />
 
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5sp"
                     android:fontFamily="@font/cabin"
                     android:padding="@dimen/ten"
-                    android:text="Distance From Center"
+                    android:text="Village"
                     android:textSize="@dimen/fifteen"
                     android:textStyle="normal" />
 
-
-                <EditText
-                    android:id="@+id/distance_from_center"
+                <Spinner
+                    android:id="@+id/Spn_Village"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/shape"
+                    android:entries="@array/select"
                     android:fontFamily="@font/cabin"
-                    android:hint="Distance in KM"
-                    android:imeOptions="actionNext"
-                    android:inputType="number"
-                    android:maxLength="12"
-                    android:minHeight="48dp"
                     android:padding="@dimen/ten"
+                    android:paddingStart="@dimen/fifteen" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/cabin"
+                    android:padding="@dimen/ten"
+                    android:text="Grower or Vendor"
                     android:textSize="@dimen/fifteen"
                     android:textStyle="normal" />
+
+                <Spinner
+                    android:id="@+id/Spn_growerorvendor"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="@drawable/shape"
+                    android:entries="@array/select"
+                    android:fontFamily="@font/cabin"
+                    android:padding="@dimen/ten"
+                    android:paddingStart="@dimen/fifteen" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/cabin"
+                    android:padding="@dimen/ten"
+                    android:text="Crop"
+                    android:textSize="@dimen/fifteen"
+                    android:textStyle="normal" />
+
+                <Spinner
+                    android:id="@+id/Spn_Crop"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/shape"
+                    android:entries="@array/select"
+                    android:fontFamily="@font/cabin"
+                    android:padding="@dimen/ten"
+                    android:paddingStart="@dimen/fifteen" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/cabin"
+                    android:padding="@dimen/ten"
+                    android:text="Variety"
+                    android:textSize="@dimen/fifteen"
+                    android:textStyle="normal" />
+
+                <Spinner
+                    android:id="@+id/Spn_Variety"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/shape"
+                    android:entries="@array/select"
+                    android:fontFamily="@font/cabin"
+                    android:padding="@dimen/ten"
+                    android:paddingStart="@dimen/fifteen" />
 
 
                 <TextView
@@ -257,11 +277,52 @@
                     android:textStyle="normal" />
 
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/cabin"
+                    android:padding="@dimen/ten"
+                    android:text="Source of Irrigation"
+                    android:textSize="@dimen/fifteen"
+                    android:textStyle="normal" />
+
+                <Spinner
+                    android:id="@+id/Spn_SourceOfIrrigartion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/shape"
+                    android:entries="@array/select"
+                    android:fontFamily="@font/cabin"
+                    android:padding="@dimen/ten"
+                    android:paddingStart="@dimen/fifteen" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/cabin"
+                    android:padding="@dimen/ten"
+                    android:text="Grade of Grower"
+                    android:textSize="@dimen/fifteen"
+                    android:textStyle="normal" />
+
+                <Spinner
+                    android:id="@+id/Spn_GradeofGrower"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/shape"
+                    android:entries="@array/select"
+                    android:fontFamily="@font/cabin"
+                    android:padding="@dimen/ten"
+                    android:paddingStart="@dimen/fifteen" />
+
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/fifteen"
                     android:orientation="horizontal"
+                    android:visibility="gone"
                     android:weightSum="10">
 
                     <TextView
@@ -271,111 +332,12 @@
                         android:layout_weight="3"
                         android:fontFamily="@font/cabin"
                         android:padding="@dimen/ten"
-                        android:text="Crop"
+                        android:text="Grower"
                         android:textSize="@dimen/fifteen"
                         android:textStyle="normal" />
 
                     <Spinner
-                        android:id="@+id/Spn_Crop"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center"
-                        android:layout_weight="7"
-                        android:background="@drawable/shape"
-                        android:entries="@array/select"
-                        android:fontFamily="@font/cabin"
-                        android:padding="@dimen/ten"
-                        android:paddingStart="@dimen/fifteen" />
-
-                </LinearLayout>
-
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/fifteen"
-                    android:orientation="horizontal"
-                    android:weightSum="10">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_weight="3"
-                        android:fontFamily="@font/cabin"
-                        android:padding="@dimen/ten"
-                        android:text="Variety"
-                        android:textSize="@dimen/fifteen"
-                        android:textStyle="normal" />
-
-                    <Spinner
-                        android:id="@+id/Spn_Variety"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_weight="7"
-                        android:background="@drawable/shape"
-                        android:entries="@array/select"
-                        android:fontFamily="@font/cabin"
-                        android:padding="@dimen/ten"
-                        android:paddingStart="@dimen/fifteen" />
-
-                </LinearLayout>
-
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/fifteen"
-                    android:orientation="horizontal"
-                    android:weightSum="10">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_weight="3"
-                        android:fontFamily="@font/cabin"
-                        android:padding="@dimen/ten"
-                        android:text="Grade of Grower"
-                        android:textSize="@dimen/fifteen"
-                        android:textStyle="normal" />
-
-                    <Spinner
-                        android:id="@+id/Spn_GradeofGrower"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_weight="7"
-                        android:background="@drawable/shape"
-                        android:entries="@array/select"
-                        android:fontFamily="@font/cabin"
-                        android:padding="@dimen/ten"
-                        android:paddingStart="@dimen/fifteen" />
-
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/fifteen"
-                    android:orientation="horizontal"
-                    android:weightSum="10">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_weight="3"
-                        android:fontFamily="@font/cabin"
-                        android:padding="@dimen/ten"
-                        android:text="Source of Irrigation"
-                        android:textSize="@dimen/fifteen"
-                        android:textStyle="normal" />
-
-                    <Spinner
-                        android:id="@+id/Spn_SourceOfIrrigartion"
+                        android:id="@+id/Spn_grower"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -395,6 +357,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/fifteen"
                     android:orientation="horizontal"
+                    android:visibility="gone"
                     android:weightSum="10">
 
                     <TextView
@@ -404,12 +367,12 @@
                         android:layout_weight="3"
                         android:fontFamily="@font/cabin"
                         android:padding="@dimen/ten"
-                        android:text="Last Crop Taken"
+                        android:text="Vendor"
                         android:textSize="@dimen/fifteen"
                         android:textStyle="normal" />
 
                     <Spinner
-                        android:id="@+id/Spn_LastCropTaken"
+                        android:id="@+id/Spn_vendor"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -424,11 +387,150 @@
                 </LinearLayout>
 
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5sp"
+                    android:fontFamily="@font/cabin"
+                    android:padding="@dimen/ten"
+                    android:text="Aadhar Card Number"
+                    android:textSize="@dimen/fifteen"
+                    android:textStyle="normal"
+                    android:visibility="gone" />
+
+                <EditText
+                    android:id="@+id/edt_adhar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/shape"
+                    android:fontFamily="@font/cabin"
+                    android:hint="Enter Aadhar Number"
+                    android:imeOptions="actionNext"
+                    android:inputType="number"
+                    android:maxLength="12"
+                    android:minHeight="48dp"
+                    android:padding="@dimen/ten"
+                    android:textSize="@dimen/fifteen"
+                    android:textStyle="normal"
+                    android:visibility="gone" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5sp"
+                    android:fontFamily="@font/cabin"
+                    android:padding="@dimen/ten"
+                    android:text="Distance From Center"
+                    android:textSize="@dimen/fifteen"
+                    android:textStyle="normal" />
+
+                <EditText
+                    android:id="@+id/distance_from_center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/shape"
+                    android:fontFamily="@font/cabin"
+                    android:hint="Distance in KM"
+                    android:imeOptions="actionNext"
+                    android:inputType="number"
+                    android:maxLength="12"
+                    android:minHeight="48dp"
+                    android:padding="@dimen/ten"
+                    android:textSize="@dimen/fifteen"
+                    android:textStyle="normal" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/cabin"
+                    android:padding="@dimen/ten"
+                    android:text="Last Crop Taken"
+                    android:textSize="@dimen/fifteen"
+                    android:textStyle="normal" />
+
+<!--                <Spinner-->
+<!--                    android:id="@+id/Spn_LastCropTaken"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:background="@drawable/shape"-->
+<!--                    android:entries="@array/select"-->
+<!--                    android:fontFamily="@font/cabin"-->
+<!--                    android:visibility="gone"-->
+<!--                    android:padding="@dimen/ten"-->
+<!--                    android:paddingStart="@dimen/fifteen" />-->
+
+                <EditText
+                    android:id="@+id/last_crop_taken"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/shape"
+                    android:fontFamily="@font/cabin"
+                    android:hint="Enter crop details"
+                    android:imeOptions="actionNext"
+                    android:minHeight="48dp"
+                    android:padding="@dimen/ten"
+                    android:textSize="@dimen/fifteen"
+                    android:textStyle="normal" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5sp"
+                    android:fontFamily="@font/cabin"
+                    android:padding="@dimen/ten"
+                    android:text="Crop Details"
+                    android:textSize="@dimen/fifteen"
+                    android:textStyle="normal" />
+
+
+                <EditText
+                    android:id="@+id/crop_details"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/shape"
+                    android:fontFamily="@font/cabin"
+                    android:hint="Enter crop details"
+                    android:imeOptions="actionNext"
+                    android:minHeight="48dp"
+                    android:padding="@dimen/ten"
+                    android:textSize="@dimen/fifteen"
+                    android:textStyle="normal" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5sp"
+                    android:fontFamily="@font/cabin"
+                    android:padding="@dimen/ten"
+                    android:text="Previous Company"
+                    android:textSize="@dimen/fifteen"
+                    android:textStyle="normal" />
+
+
+                <EditText
+                    android:id="@+id/previous_company"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/shape"
+                    android:fontFamily="@font/cabin"
+                    android:hint="Enter crop details"
+                    android:imeOptions="actionNext"
+                    android:minHeight="48dp"
+                    android:padding="@dimen/ten"
+                    android:textSize="@dimen/fifteen"
+                    android:textStyle="normal" />
+
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/fifteen"
                     android:orientation="horizontal"
+                    android:visibility="gone"
                     android:weightSum="10">
 
                     <TextView
@@ -454,6 +556,14 @@
                         android:padding="@dimen/ten"
                         android:paddingStart="@dimen/fifteen" />
 
+                    <Switch
+                        android:id="@+id/switch1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Switch"
+                        android:visibility="gone" />
+
                 </LinearLayout>
 
                 <LinearLayout
@@ -461,6 +571,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/fifteen"
                     android:orientation="horizontal"
+                    android:visibility="gone"
                     android:weightSum="10">
 
                     <TextView
@@ -493,6 +604,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/fifteen"
                     android:orientation="horizontal"
+                    android:visibility="gone"
                     android:weightSum="10">
 
                     <TextView
@@ -520,38 +632,6 @@
 
                 </LinearLayout>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/fifteen"
-                    android:orientation="horizontal"
-                    android:weightSum="10">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_weight="3"
-                        android:fontFamily="@font/cabin"
-                        android:padding="@dimen/ten"
-                        android:text="Village"
-                        android:textSize="@dimen/fifteen"
-                        android:textStyle="normal" />
-
-                    <Spinner
-                        android:id="@+id/Spn_Village"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_weight="7"
-                        android:background="@drawable/shape"
-                        android:entries="@array/select"
-                        android:fontFamily="@font/cabin"
-                        android:padding="@dimen/ten"
-                        android:paddingStart="@dimen/fifteen" />
-
-                </LinearLayout>
-
 
                 <Button
                     android:id="@+id/btn_scanner"
@@ -560,7 +640,8 @@
                     android:layout_marginTop="5sp"
                     android:fontFamily="@font/cabin"
                     android:padding="@dimen/ten"
-                    android:text="Scanner"
+                    android:visibility="gone"
+                    android:text="Scan QR Code"
                     android:textAllCaps="false"
                     android:textSize="@dimen/fifteen"
                     android:textStyle="normal" />
@@ -579,7 +660,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:background="@color/grey_color"
-        android:gravity="end"
+        android:gravity="center"
         android:orientation="horizontal"
         android:padding="@dimen/ten">
 
@@ -599,6 +680,69 @@
             android:textSize="@dimen/eighteen"
             android:textStyle="bold" />
     </LinearLayout>
+
+
+    <FrameLayout
+        android:id="@+id/linLayHeader"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true">
+
+        <LinearLayout
+            android:id="@+id/fabLayout1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_marginEnd="@dimen/thirty"
+            android:layout_marginRight="@dimen/twentythree"
+            android:layout_marginBottom="@dimen/twentythree"
+            android:clipToPadding="false"
+            android:gravity="center_vertical"
+            android:padding="@dimen/twelve"
+            android:visibility="gone"
+            app:layout_behavior="com.dist.soildistributor.MyLibrary.MoveUpwardBehavior">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/cabin"
+                android:padding="@dimen/seven"
+                android:text="Add Grower/Vendor"
+                android:textColor="@color/white"
+                android:textStyle="bold" />
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/fab1"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="bottom|end"
+                android:gravity="center_vertical"
+                android:src="@drawable/addnew_farmer" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_marginRight="@dimen/fab_margin"
+            android:layout_marginBottom="@dimen/fab_margin"
+            android:clipToPadding="false"
+            android:gravity="center_vertical"
+            android:padding="@dimen/twelve"
+            app:layout_behavior="com.dist.soildistributor.MyLibrary.MoveUpwardBehavior">
+
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/fab"
+                android:layout_width="55dp"
+                android:layout_height="55dp"
+                android:layout_gravity="bottom|end"
+                android:gravity="center_vertical"
+                android:src="@drawable/addnew" />
+        </LinearLayout>
+    </FrameLayout>
 
 
 </RelativeLayout>

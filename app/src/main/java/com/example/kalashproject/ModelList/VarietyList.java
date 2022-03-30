@@ -30,4 +30,20 @@ public class VarietyList
         this.id = id;
         this.variety_name = variety_name;
     }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getVariety_name() {
+        return variety_name;
+    }
+
+    public void setVariety_name(String variety_name) {
+        this.variety_name = variety_name;
+    }
 }

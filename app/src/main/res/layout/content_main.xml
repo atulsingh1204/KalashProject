@@ -9,7 +9,7 @@
     android:focusableInTouchMode="true"
     android:orientation="vertical"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".MainActivity"
+    tools:context=".StartActivities.MainActivity"
     tools:showIn="@layout/app_bar_main">
 
     <androidx.core.widget.NestedScrollView
@@ -146,65 +146,5 @@
 
     </androidx.core.widget.NestedScrollView>
 
-    <FrameLayout
-        android:id="@+id/linLayHeader"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true">
 
-        <LinearLayout
-            android:id="@+id/fabLayout1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|end"
-            android:layout_marginEnd="@dimen/thirty"
-            android:layout_marginRight="@dimen/twentythree"
-            android:layout_marginBottom="@dimen/twentythree"
-            android:clipToPadding="false"
-            android:gravity="center_vertical"
-            android:padding="@dimen/twelve"
-            android:visibility="gone"
-            app:layout_behavior="com.dist.soildistributor.MyLibrary.MoveUpwardBehavior">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/cabin"
-                android:padding="@dimen/seven"
-                android:text="Add Grower/Vendor"
-                android:textColor="@color/white"
-                android:textStyle="bold" />
-
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/fab1"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_gravity="bottom|end"
-                android:gravity="center_vertical"
-                android:src="@drawable/addnew_farmer" />
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|end"
-            android:layout_marginRight="@dimen/fab_margin"
-            android:layout_marginBottom="@dimen/fab_margin"
-            android:clipToPadding="false"
-            android:gravity="center_vertical"
-            android:padding="@dimen/twelve"
-            app:layout_behavior="com.dist.soildistributor.MyLibrary.MoveUpwardBehavior">
-
-
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/fab"
-                android:layout_width="55dp"
-                android:layout_height="55dp"
-                android:layout_gravity="bottom|end"
-                android:gravity="center_vertical"
-                android:src="@drawable/addnew" />
-        </LinearLayout>
-    </FrameLayout>
 </RelativeLayout>

@@ -8,14 +8,17 @@
         <entry key="..\:/Atul Project/KalashProject/app/src/main/res/drawable-v24/ic_arrow_back_black_24dp.xml" value="0.25" />
         <entry key="..\:/Atul Project/KalashProject/app/src/main/res/drawable-v24/loginbutton.xml" value="0.257" />
         <entry key="..\:/Atul Project/KalashProject/app/src/main/res/drawable-v24/shape.xml" value="0.25" />
+        <entry key="..\:/Atul Project/KalashProject/app/src/main/res/drawable/green_border.xml" value="0.243" />
         <entry key="..\:/Atul Project/KalashProject/app/src/main/res/drawable/loginbutton.xml" value="0.257" />
         <entry key="..\:/Atul Project/KalashProject/app/src/main/res/drawable/rounded_backgroun_blue.xml" value="0.21" />
         <entry key="..\:/Atul Project/KalashProject/app/src/main/res/layout/activity_add_vendor.xml" value="0.27291666666666664" />
         <entry key="..\:/Atul Project/KalashProject/app/src/main/res/layout/activity_add_vendor_grower.xml" value="0.33" />
         <entry key="..\:/Atul Project/KalashProject/app/src/main/res/layout/activity_form3.xml" value="0.27291666666666664" />
         <entry key="..\:/Atul Project/KalashProject/app/src/main/res/layout/activity_login.xml" value="0.27291666666666664" />
+        <entry key="..\:/Atul Project/KalashProject/app/src/main/res/layout/activity_login2.xml" value="0.27291666666666664" />
         <entry key="..\:/Atul Project/KalashProject/app/src/main/res/layout/activity_main.xml" value="0.25885416666666666" />
         <entry key="..\:/Atul Project/KalashProject/app/src/main/res/layout/activity_order.xml" value="0.33" />
+        <entry key="..\:/Atul Project/KalashProject/app/src/main/res/layout/activity_pending_order.xml" value="0.25885416666666666" />
         <entry key="..\:/Atul Project/KalashProject/app/src/main/res/layout/activity_progress_bar.xml" value="0.27291666666666664" />
         <entry key="..\:/Atul Project/KalashProject/app/src/main/res/layout/activity_qrcode_scanner.xml" value="0.33" />
         <entry key="..\:/Atul Project/KalashProject/app/src/main/res/layout/activity_splash.xml" value="0.27291666666666664" />
@@ -23,6 +26,7 @@
         <entry key="..\:/Atul Project/KalashProject/app/src/main/res/layout/content_main.xml" value="0.27291666666666664" />
         <entry key="..\:/Atul Project/KalashProject/app/src/main/res/layout/custome_dialog.xml" value="0.27291666666666664" />
         <entry key="..\:/Atul Project/KalashProject/app/src/main/res/layout/navigation_drawer.xml" value="0.27291666666666664" />
+        <entry key="..\:/Atul Project/KalashProject/app/src/main/res/layout/pending_order.xml" value="0.5" />
         <entry key="..\:/Atul Project/KalashProject/app/src/main/res/layout/toolbar.xml" value="0.25885416666666666" />
         <entry key="..\:/Users/Hemant/Documents/Android Studio/KalashProject/app/src/main/res/layout/activity_add_vendor_grower.xml" value="0.2539787798408488" />
         <entry key="..\:/Users/Hemant/Documents/Android Studio/KalashProject/app/src/main/res/layout/dropdown_item.xml" value="0.19947916666666668" />

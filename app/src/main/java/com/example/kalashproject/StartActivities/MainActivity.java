@@ -1,11 +1,10 @@
-package com.example.kalashproject;
+package com.example.kalashproject.StartActivities;
 
 import android.animation.Animator;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
@@ -15,9 +14,15 @@ import android.widget.Toolbar;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
+
+import com.example.kalashproject.AddVendor;
+import com.example.kalashproject.AddVendorGrower;
+import com.example.kalashproject.Form3;
+import com.example.kalashproject.MyLibrary.Shared_Preferences;
+import com.example.kalashproject.PendingOrderActivity;
+import com.example.kalashproject.R;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -25,30 +30,36 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     Toolbar toolbar;
     ActionBarDrawerToggle toggle;
     DrawerLayout drawerLayout;
-    boolean isFABOpen = false;
-    FrameLayout linLayHeader;
+//    boolean isFABOpen = false;
+//    FrameLayout linLayHeader;
     Context context;
-
    private TableRow trprofile,trtarget,tr_visits,li_farmar_meeting,li_distributor,li_youtube,tr_subscribe,tr_sct_result,tr_meetings,tr_orders,li_orders,li_sales,tr_massage_com,li_massage,li_compilent,tr_new_dist,tr_downloads,li_brochure,li_banner,tr_video,li_all_vedio,li_target,tr_blogs,tr_product,tr_farmerGroup,tr_about,tr_Logout;
    private  TableRow trprofile_two,tr_orders_two,tr_add_order,tr_pending_order,tr_approved_order,tr_closed_orders,tr_inspection;
    private LinearLayout tv_teargets, linLay_farmer_vist, linLay_farmer_meet, linLay_new_farmer, linLay_watch_video,
            linLayyuotube_subscriber, linLay_upload_photo;
 
-    CircleImageView fab, fab1;
+
     LinearLayout fabLayout1;
 
     LinearLayout linearLayout_meeting, linearLayout_orders, linearLayout_massages, linearLayout_download, linearLayout_vedio;
 
     LinearLayout linearLayout_order_two;
 
+    String url1="https://wallpapercave.com/wp/wp4184149.jpg";
+    String url2 = "https://thumbs.dreamstime.com/z/vegetables-1430407.jpg";
+    String url3= "https://thumbs.dreamstime.com/z/vegetables-1430407.jpg";
+    String url4="https://www.news-medical.net/image.axd?picture=2020%2F1%2Fshutterstock_321864554.jpg";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        fab = (CircleImageView) findViewById(R.id.fab);
-        fab1 = (CircleImageView) findViewById(R.id.fab1);
+        Log.e("Reg_id ", " "+ Shared_Preferences.getPrefs(MainActivity.this, "Reg_id"));
+        Log.e("user_name ", " "+ Shared_Preferences.getPrefs(MainActivity.this, "User_name"));
+        Log.e("Email Id ", " "+ Shared_Preferences.getPrefs(MainActivity.this, "Email_id"));
+
+
 
         trprofile_two = findViewById(R.id.trprofile_two);
         tr_orders_two = findViewById(R.id.tr_orders_two);
@@ -57,13 +68,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         tr_approved_order = findViewById(R.id.tr_approved_order);
         tr_closed_orders = findViewById(R.id.tr_closed_orders);
         tr_inspection = findViewById(R.id.tr_inspection);
+        tr_pending_order = findViewById(R.id.tr_pending_order);
 
-        linLayHeader = (FrameLayout) findViewById(R.id.linLayHeader);
+//        linLayHeader = (FrameLayout) findViewById(R.id.linLayHeader);
         linearLayout_order_two = findViewById(R.id.linearLayout_order_two);
         fabLayout1 = (LinearLayout) findViewById(R.id.fabLayout1);
 
         TableRow tr_Logout = findViewById(R.id.tr_Logout);
-        linLayHeader = (FrameLayout) findViewById(R.id.linLayHeader);
+//        linLayHeader = (FrameLayout) findViewById(R.id.linLayHeader);
         linearLayout_meeting = findViewById(R.id.linearLayout_meeting);
         drawerLayout = findViewById(R.id.drawer_layout);
 
@@ -80,38 +92,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         tr_orders_two.setOnClickListener(this);
         tr_add_order.setOnClickListener(this);
         tr_inspection.setOnClickListener(this);
-
-
-
-
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (!isFABOpen) {
-                    linLayHeader.setBackgroundColor(getResources().getColor(R.color.trans_grey_color));
-                    showFABMenu();
-                } else {
-                    linLayHeader.setBackgroundColor(getResources().getColor(R.color.white2));
-                    closeFABMenu();
-                }
-            }
-        });
-
-
-        fab1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this, AddVendor.class));
-                overridePendingTransition(R.anim.right_in, R.anim.left_out);
-                if (!isFABOpen) {
-                } else {
-                    closeFABMenu();
-                }
-            }
-        });
-
-
-
+        tr_pending_order.setOnClickListener(this);
 
 
 
@@ -150,6 +131,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 break;
 
+            case R.id.tr_pending_order:
+                startActivity(new Intent(MainActivity.this, PendingOrderActivity.class));
+                overridePendingTransition(R.anim.right_in, R.anim.left_out);
+                // linearLayout_orders.setVisibility(View.GONE);
+                drawerLayout.closeDrawers();
+                break;
+
             case R.id.tr_Logout:
 
                 startActivity(new Intent(MainActivity.this, Form3.class));
@@ -172,42 +160,5 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
 
-    private void showFABMenu() {
-        isFABOpen = true;
-        fabLayout1.setVisibility(View.VISIBLE);
-        fab.animate().rotationBy(180);
-        fabLayout1.animate().translationY(-getResources().getDimension(R.dimen.standard_55));
-    }
-
-
-    private void closeFABMenu() {
-        linLayHeader.setBackgroundColor(getResources().getColor(R.color.white2));
-        isFABOpen = false;
-        fab.animate().rotation(0);
-        fabLayout1.animate().translationY(0);
-        fabLayout1.animate().translationY(0).setListener(new Animator.AnimatorListener() {
-            @Override
-            public void onAnimationStart(Animator animator) {
-
-            }
-
-            @Override
-            public void onAnimationEnd(Animator animator) {
-                if (!isFABOpen) {
-                    fabLayout1.setVisibility(View.GONE);
-                }
-            }
-
-            @Override
-            public void onAnimationCancel(Animator animator) {
-
-            }
-
-            @Override
-            public void onAnimationRepeat(Animator animator) {
-
-            }
-        });
-    }
 
 }

@@ -30,6 +30,9 @@ public interface ApiInterface
     @GET("source_of_irrigation_list.php")
     Call<ResponseBody>getSourceofirrigation();
 
+    @GET("crops_list.php")
+    Call<ResponseBody>getLastCropTaken();
+
     @FormUrlEncoded
     @POST("state_list.php")
     Call<ResponseBody> getState(@Field("fld_country_id") String fld_country_id);
@@ -50,29 +53,37 @@ public interface ApiInterface
 
 
     @FormUrlEncoded
-    @POST("fsd")
-    Call<ResponseBody> AddVendorGrower(@Field("str_full_name") String str_full_name,
-                                       @Field("str_contact") String str_contact,
-                                       @Field("str_adhar") String str_adhar,
-                                       @Field("str_email") String str_email,
+    @POST("order_add.php")
+    Call<ResponseBody> AddVendorGrower(@Field("growervendorid") String growervendorid,
                                        @Field("distance") String distance,
-                                       @Field("total_land_holding") String total_land_holding,
+                                       @Field("land_holding") String land_holding,
                                        @Field("st_id") String st_id,
                                        @Field("dist_id") String dist_id,
                                        @Field("tal_id") String tal_id,
                                        @Field("vil_id") String vil_id,
-                                       @Field("SpLastCropTaken") String SpLastCropTaken,
-                                       @Field("sp_source_of_irrigation") String sp_source_of_irrigation,
-                                       @Field("Sp_GradeofGrower") String Sp_GradeofGrower,
-                                       @Field("Sp_Variety") String Sp_Variety,
-                                       @Field("Sp_Crop") String Sp_Crop,
-                                       @Field("Sp_growerorvendor") String Sp_growerorvendor);
+                                       @Field("last_crop_taken") String last_crop_taken,
+                                       @Field("irrigationid") String irrigationid,
+                                       @Field("gradeid") String gradeid,
+                                       @Field("varietyid") String varietyid,
+                                       @Field("cropid") String cropid,
+                                       @Field("crop_details") String crop_details,
+                                       @Field("grower_or_vendor") String grower_or_vendor,
+                                       @Field("previous_company") String previous_company);
 
 
 
+//    @Field("grower_or_vendor") String grower_or_vendor,
 
 
 
+    @FormUrlEncoded
+    @POST("login.php")
+    Call<ResponseBody> getLogin(@Field("emailid") String emailid,
+                                @Field("password") String password);
+
+    @FormUrlEncoded
+    @POST("order_list.php")
+    Call<ResponseBody> getPendingOrderList(@Field("id") String id);
 
 
 

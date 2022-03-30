@@ -2,26 +2,14 @@ package com.example.kalashproject;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
-import android.content.res.Configuration;
-import android.content.res.Resources;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
-import android.view.View;
 import android.widget.TextView;
 
-import com.example.kalashproject.MyLibrary.CheckNetwork;
 import com.example.kalashproject.MyLibrary.Shared_Preferences;
-import com.google.android.material.snackbar.Snackbar;
-
-import java.util.Locale;
+import com.example.kalashproject.StartActivities.LoginActivity;
+import com.example.kalashproject.StartActivities.MainActivity;
 
 public class SplashActivity extends AppCompatActivity {
     private static int SPLASH_TIME_OUT = 2000;
@@ -162,9 +150,23 @@ public class SplashActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent ii = new Intent(SplashActivity.this, LoginActivity.class);
-                startActivity(ii);
-                finish();
+
+                if (Shared_Preferences.getPrefs(SplashActivity.this, "Email_id")!= null)
+                {
+                    Intent ii = new Intent(SplashActivity.this, MainActivity.class);
+                    startActivity(ii);
+                    overridePendingTransition(R.anim.right_in, R.anim.left_out);
+                    finish();
+                }
+                else
+                {
+                    Intent ii = new Intent(SplashActivity.this, LoginActivity.class);
+                    startActivity(ii);
+                    overridePendingTransition(R.anim.right_in, R.anim.left_out);
+                    finish();
+
+                }
+
             }
         },2000);
 
