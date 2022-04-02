@@ -3,7 +3,7 @@ package com.example.kalashproject.ModelList;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class PendigOrderList
+public class ApprovedOrderList
 {
 
     String growervendorid;
@@ -20,10 +20,10 @@ public class PendigOrderList
     String last_crop_taken;
 
 
-    public PendigOrderList() {
+    public ApprovedOrderList() {
     }
 
-    public PendigOrderList(JSONObject jsonObject)
+    public ApprovedOrderList(JSONObject jsonObject)
     {
         try {
             this.growervendorid = jsonObject.getString("growervendorid");
@@ -138,4 +138,6 @@ public class PendigOrderList
     public void setLast_crop_taken(String last_crop_taken) {
         this.last_crop_taken = last_crop_taken;
     }
+
+
 }

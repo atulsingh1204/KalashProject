@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".PendingOrderActivity">
+    tools:context=".ApprovedOrderActivity">
 
     <include
         android:id="@+id/toolbar"
@@ -14,16 +14,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/toolbar"
+        android:padding="10dp"
         android:orientation="vertical">
 
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rec_pending_oder"
+            android:id="@+id/rec_approved_order"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="10dp" />
+            android:layout_height="wrap_content" />
 
-   
     </LinearLayout>
 
 

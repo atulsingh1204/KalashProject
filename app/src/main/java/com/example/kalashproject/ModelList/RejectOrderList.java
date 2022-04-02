@@ -3,8 +3,8 @@ package com.example.kalashproject.ModelList;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class PendigOrderList
-{
+public class RejectOrderList {
+
 
     String growervendorid;
     String full_name;
@@ -17,14 +17,14 @@ public class PendigOrderList
     String grade_of_grower_name;
     String crop_details;
     String previous_company;
+    String reason;
     String last_crop_taken;
 
 
-    public PendigOrderList() {
+    public RejectOrderList() {
     }
 
-    public PendigOrderList(JSONObject jsonObject)
-    {
+    public RejectOrderList(JSONObject jsonObject) {
         try {
             this.growervendorid = jsonObject.getString("growervendorid");
             this.full_name = jsonObject.getString("full_name");
@@ -37,6 +37,7 @@ public class PendigOrderList
             this.grade_of_grower_name = jsonObject.getString("grade_of_grower_name");
             this.crop_details = jsonObject.getString("crop_details");
             this.previous_company = jsonObject.getString("previous_company");
+            this.reason = jsonObject.getString("reason");
             this.last_crop_taken = jsonObject.getString("last_crop_taken");
         } catch (JSONException e) {
             e.printStackTrace();
@@ -129,6 +130,14 @@ public class PendigOrderList
 
     public void setPrevious_company(String previous_company) {
         this.previous_company = previous_company;
+    }
+
+    public String getReason() {
+        return reason;
+    }
+
+    public void setReason(String reason) {
+        this.reason = reason;
     }
 
     public String getLast_crop_taken() {

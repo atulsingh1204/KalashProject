@@ -1,23 +1,21 @@
 package com.example.kalashproject;
 
-import static java.security.AccessController.getContext;
-
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.appcompat.widget.Toolbar;
-import android.content.Context;
+
 import android.os.Bundle;
 import android.util.Log;
-import android.webkit.JsPromptResult;
 import android.widget.Toast;
 
-
+import com.example.kalashproject.Adapters.ApprovedOrderAdapter;
 import com.example.kalashproject.Adapters.PendingOrdersAdapter;
-import com.example.kalashproject.ModelList.PendigOrderList;
+import com.example.kalashproject.ModelList.ApprovedOrderList;
 import com.example.kalashproject.MyLibrary.Shared_Preferences;
 import com.example.kalashproject.WebService.ApiInterface;
 import com.example.kalashproject.WebService.Myconfig;
+import com.google.android.gms.common.api.Api;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -31,39 +29,34 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class PendingOrderActivity extends AppCompatActivity {
+public class ApprovedOrderActivity extends AppCompatActivity {
 
-    RecyclerView rec_pending_order;
-    PendingOrdersAdapter pendingOrdersAdapter;
-    ArrayList<PendigOrderList> list = new ArrayList<PendigOrderList>();
-
+    RecyclerView rec_approved_order;
+    ArrayList<ApprovedOrderList> list = new ArrayList<ApprovedOrderList>();
+    ApprovedOrderAdapter approvedOrderAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_pending_order);
+        setContentView(R.layout.activity_approved_order);
 
-        rec_pending_order = findViewById(R.id.rec_pending_oder);
+        rec_approved_order = findViewById(R.id.rec_approved_order);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setTitle("Pending Orders");
+        getSupportActionBar().setTitle("Approved Orders");
 
-
-
-
-
-
-
-        getPendiOrderList();
+        getApprovedData();
     }
 
-    private void getPendiOrderList() {
+    private void getApprovedData()
+    {
 
         ApiInterface apiInterface = Myconfig.getRetrofit().create(ApiInterface.class);
-        Call<ResponseBody> result = (Call<ResponseBody>) apiInterface.getPendingOrderList(Shared_Preferences.getPrefs(PendingOrderActivity.this, "Reg_id"));
-        result.enqueue(new Callback<ResponseBody>() {
+        Call<ResponseBody> Result = (Call<ResponseBody>) apiInterface.getApprovedOrderList(Shared_Preferences.getPrefs(ApprovedOrderActivity.this,"Reg_id"));
+
+        Result.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
 
@@ -72,34 +65,34 @@ public class PendingOrderActivity extends AppCompatActivity {
 
                 try {
                     String output = response.body().string();
+
                     JSONObject jsonObject = new JSONObject(output);
-                    Log.e("Abc", "onResponse: "+output);
-                    if(jsonObject.getString("ResponseCode").equals("1"))
-                    {
+
+                    Log.e("ApprovedOrderResponse", " " +output);
+
+                    if (jsonObject.getString("ResponseCode").equals("1")){
+
+                        Toast.makeText(ApprovedOrderActivity.this, "Fetched Successfully", Toast.LENGTH_SHORT).show();
 
                         JSONArray jsonArray = jsonObject.getJSONArray("Data");
-
 
                         for(int i = 0; i<jsonArray.length(); i++){
 
                             JSONObject object = jsonArray.getJSONObject(i);
-                            Log.e("Object", "" +object);
-                            list.add(new PendigOrderList(object));
+                            list.add(new ApprovedOrderList(object));
 
                         }
 
-                        rec_pending_order.setLayoutManager(new LinearLayoutManager(getApplicationContext(),RecyclerView.VERTICAL,false));
-                        pendingOrdersAdapter = new PendingOrdersAdapter(PendingOrderActivity.this, list);
-                        rec_pending_order.setAdapter(pendingOrdersAdapter);
-
-                        Log.e("PendingOrderList", " " +list);
+                        rec_approved_order.setLayoutManager(new LinearLayoutManager(getApplicationContext(),RecyclerView.VERTICAL,false));
+                        approvedOrderAdapter = new ApprovedOrderAdapter(ApprovedOrderActivity.this, list);
+                        rec_approved_order.setAdapter(approvedOrderAdapter);
 
                     }
+
 
                 } catch (JSONException | IOException e) {
                     e.printStackTrace();
                 }
-
 
             }
 
@@ -108,12 +101,13 @@ public class PendingOrderActivity extends AppCompatActivity {
 
             }
         });
-    }
 
+    }
     @Override
     public boolean onSupportNavigateUp() {
         onBackPressed();
         return true;
     }
+
 
 }

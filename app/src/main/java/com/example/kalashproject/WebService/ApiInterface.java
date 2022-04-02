@@ -82,10 +82,23 @@ public interface ApiInterface
                                 @Field("password") String password);
 
     @FormUrlEncoded
-    @POST("order_list.php")
+    @POST("pending_order_list.php")
     Call<ResponseBody> getPendingOrderList(@Field("id") String id);
 
 
+    @FormUrlEncoded
+    @POST("pending_order_list.php")
+    Call<ResponseBody> getApprovedOrderList(@Field("id") String id);
+
+
+    @FormUrlEncoded
+    @POST("rejected_order_list.php")
+    Call<ResponseBody>rejectedOrderList(@Field("id") String id);
+
+
+    @FormUrlEncoded
+    @POST("fetch_growervendor_list_on_grower_or_vendor.php")
+    Call<ResponseBody>getVendorListByOption(@Field("growr_or_vendor") String growr_or_vendor);
 
 }
 

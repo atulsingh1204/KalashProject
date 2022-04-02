@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TableRow;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.Toolbar;
 
@@ -19,10 +20,12 @@ import androidx.fragment.app.Fragment;
 
 import com.example.kalashproject.AddVendor;
 import com.example.kalashproject.AddVendorGrower;
+import com.example.kalashproject.ApprovedOrderActivity;
 import com.example.kalashproject.Form3;
 import com.example.kalashproject.MyLibrary.Shared_Preferences;
 import com.example.kalashproject.PendingOrderActivity;
 import com.example.kalashproject.R;
+import com.example.kalashproject.RejectedOrderActivity;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -38,6 +41,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
    private LinearLayout tv_teargets, linLay_farmer_vist, linLay_farmer_meet, linLay_new_farmer, linLay_watch_video,
            linLayyuotube_subscriber, linLay_upload_photo;
 
+    TextView tv_drwer_user_name;
 
     LinearLayout fabLayout1;
 
@@ -60,6 +64,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Log.e("Email Id ", " "+ Shared_Preferences.getPrefs(MainActivity.this, "Email_id"));
 
 
+        tv_drwer_user_name = findViewById(R.id.tv_drwer_user_name);
 
         trprofile_two = findViewById(R.id.trprofile_two);
         tr_orders_two = findViewById(R.id.tr_orders_two);
@@ -69,6 +74,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         tr_closed_orders = findViewById(R.id.tr_closed_orders);
         tr_inspection = findViewById(R.id.tr_inspection);
         tr_pending_order = findViewById(R.id.tr_pending_order);
+        tr_approved_order = findViewById(R.id.tr_approved_order);
+        tr_closed_orders  = findViewById(R.id.tr_closed_orders);
 
 //        linLayHeader = (FrameLayout) findViewById(R.id.linLayHeader);
         linearLayout_order_two = findViewById(R.id.linearLayout_order_two);
@@ -93,8 +100,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         tr_add_order.setOnClickListener(this);
         tr_inspection.setOnClickListener(this);
         tr_pending_order.setOnClickListener(this);
+        tr_approved_order.setOnClickListener(this);
+        tr_closed_orders.setOnClickListener(this);
 
 
+
+        tv_drwer_user_name.setText("Hello " +Shared_Preferences.getPrefs(MainActivity.this, "User_name"));  // showing user name in navigation drawer
 
     }
 
@@ -137,6 +148,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 // linearLayout_orders.setVisibility(View.GONE);
                 drawerLayout.closeDrawers();
                 break;
+
+            case R.id.tr_approved_order:
+                startActivity(new Intent(MainActivity.this, ApprovedOrderActivity.class));
+                overridePendingTransition(R.anim.right_in, R.anim.left_out);
+                // linearLayout_orders.setVisibility(View.GONE);
+                drawerLayout.closeDrawers();
+                break;
+
+
+            case R.id.tr_closed_orders:
+                startActivity(new Intent(MainActivity.this, RejectedOrderActivity.class));
+                overridePendingTransition(R.anim.right_in, R.anim.left_out);
+                // linearLayout_orders.setVisibility(View.GONE);
+                drawerLayout.closeDrawers();
+                break;
+
+
+
 
             case R.id.tr_Logout:
 

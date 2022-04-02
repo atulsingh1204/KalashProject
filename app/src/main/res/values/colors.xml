@@ -44,7 +44,6 @@
 
     <string-array name="grower_vendoer">
 
-        <item>--Select--</item>
         <item>Grower</item>
         <item>Vendor</item>
 

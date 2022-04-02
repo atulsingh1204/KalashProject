@@ -20,15 +20,14 @@
         android:theme="@style/Theme.KalashProject"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".RejectedOrderActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ApprovedOrderActivity"
+            android:exported="false" />
+        <activity
             android:name=".PendingOrderActivity"
-            android:exported="true">
-
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:exported="true" />
         <activity
             android:name=".QRCodeScanner"
             android:exported="true" />
@@ -46,7 +45,15 @@
             android:exported="false" />
         <activity
             android:name=".AddVendorGrower"
-            android:exported="true"></activity>
+            android:exported="true">
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+        </activity>
         <activity
             android:name=".SplashActivity"
             android:exported="true">
