@@ -6,19 +6,19 @@ import org.json.JSONObject;
 public class RejectOrderList {
 
 
-    String growervendorid;
-    String full_name;
-    String grower_or_vendor;
-    String distance;
-    String crop_name;
-    String variety_name;
-    String land_holding;
-    String source_of_irrigation_name;
-    String grade_of_grower_name;
-    String crop_details;
-    String previous_company;
-    String reason;
-    String last_crop_taken;
+  String growervendorid;
+  String full_name;
+  String grower_or_vendor;
+  String distance;
+  String crop_name;
+  String variety_name;
+  String land_holding;
+  String source_of_irrigation_name;
+  String grade_of_grower_name;
+  String crop_details;
+  String previous_company;
+  String reason;
+  String last_crop_taken;
 
 
     public RejectOrderList() {
@@ -39,6 +39,7 @@ public class RejectOrderList {
             this.previous_company = jsonObject.getString("previous_company");
             this.reason = jsonObject.getString("reason");
             this.last_crop_taken = jsonObject.getString("last_crop_taken");
+
         } catch (JSONException e) {
             e.printStackTrace();
         }

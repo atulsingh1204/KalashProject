@@ -18,6 +18,7 @@ public class ApprovedOrderList
     String crop_details;
     String previous_company;
     String last_crop_taken;
+    String seed_or_seedling;
 
 
     public ApprovedOrderList() {
@@ -38,6 +39,8 @@ public class ApprovedOrderList
             this.crop_details = jsonObject.getString("crop_details");
             this.previous_company = jsonObject.getString("previous_company");
             this.last_crop_taken = jsonObject.getString("last_crop_taken");
+            this.seed_or_seedling = jsonObject.getString("seed_or_seedling");
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -139,5 +142,11 @@ public class ApprovedOrderList
         this.last_crop_taken = last_crop_taken;
     }
 
+    public String getSeed_or_seedling() {
+        return seed_or_seedling;
+    }
 
+    public void setSeed_or_seedling(String seed_or_seedling) {
+        this.seed_or_seedling = seed_or_seedling;
+    }
 }

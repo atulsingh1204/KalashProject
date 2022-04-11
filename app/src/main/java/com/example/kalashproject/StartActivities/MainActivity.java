@@ -1,12 +1,17 @@
 package com.example.kalashproject.StartActivities;
 
 import android.animation.Animator;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -18,14 +23,21 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
+import com.denzcoskun.imageslider.ImageSlider;
+import com.denzcoskun.imageslider.constants.ScaleTypes;
+import com.denzcoskun.imageslider.models.SlideModel;
 import com.example.kalashproject.AddVendor;
 import com.example.kalashproject.AddVendorGrower;
 import com.example.kalashproject.ApprovedOrderActivity;
 import com.example.kalashproject.Form3;
+import com.example.kalashproject.ModelList.SliderData;
 import com.example.kalashproject.MyLibrary.Shared_Preferences;
 import com.example.kalashproject.PendingOrderActivity;
 import com.example.kalashproject.R;
 import com.example.kalashproject.RejectedOrderActivity;
+import com.example.kalashproject.WebService.AppConfig;
+
+import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -35,17 +47,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     DrawerLayout drawerLayout;
 //    boolean isFABOpen = false;
 //    FrameLayout linLayHeader;
+
+    private AppConfig appConfig;
+
+    private Dialog mdialog;
+    private Button btn_yes, btn_no;
+
     Context context;
    private TableRow trprofile,trtarget,tr_visits,li_farmar_meeting,li_distributor,li_youtube,tr_subscribe,tr_sct_result,tr_meetings,tr_orders,li_orders,li_sales,tr_massage_com,li_massage,li_compilent,tr_new_dist,tr_downloads,li_brochure,li_banner,tr_video,li_all_vedio,li_target,tr_blogs,tr_product,tr_farmerGroup,tr_about,tr_Logout;
    private  TableRow trprofile_two,tr_orders_two,tr_add_order,tr_pending_order,tr_approved_order,tr_closed_orders,tr_inspection;
    private LinearLayout tv_teargets, linLay_farmer_vist, linLay_farmer_meet, linLay_new_farmer, linLay_watch_video,
            linLayyuotube_subscriber, linLay_upload_photo;
 
+    ArrayList<SlideModel> sliderModelList=new ArrayList<>();
+    private ImageSlider imageSlider;
     TextView tv_drwer_user_name;
 
     LinearLayout fabLayout1;
 
     LinearLayout linearLayout_meeting, linearLayout_orders, linearLayout_massages, linearLayout_download, linearLayout_vedio;
+    // Slider
+    ArrayList<SliderData> sliderDataArrayList = new ArrayList<>();
 
     LinearLayout linearLayout_order_two;
 
@@ -63,7 +85,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Log.e("user_name ", " "+ Shared_Preferences.getPrefs(MainActivity.this, "User_name"));
         Log.e("Email Id ", " "+ Shared_Preferences.getPrefs(MainActivity.this, "Email_id"));
 
+        sliderModelList.add(new SlideModel("https://d3mvlb3hz2g78.cloudfront.net/wp-content/uploads/2016/12/thumb_720_450_Plants_Make_Fruits_and_Vegetablesdreamstime_xxl_10601543.jpg", ScaleTypes.FIT));
+        sliderModelList.add(new SlideModel("https://www.news-medical.net/image.axd?picture=2020%2F1%2Fshutterstock_321864554.jpg", ScaleTypes.FIT));
+        sliderModelList.add(new SlideModel("https://www.lalpathlabs.com/blog/wp-content/uploads/2019/01/Fruits-and-Vegetables.jpg", ScaleTypes.FIT));
+        sliderModelList.add(new SlideModel("https://sunnewsonline.com/wp-content/uploads/2018/09/fruits_and_vegetables.jpg", ScaleTypes.FIT));
 
+        //Slider
+        imageSlider=findViewById(R.id.slider);
+        imageSlider.setImageList(sliderModelList);
         tv_drwer_user_name = findViewById(R.id.tv_drwer_user_name);
 
         trprofile_two = findViewById(R.id.trprofile_two);
@@ -102,6 +131,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         tr_pending_order.setOnClickListener(this);
         tr_approved_order.setOnClickListener(this);
         tr_closed_orders.setOnClickListener(this);
+        tr_Logout.setOnClickListener(this);
 
 
 
@@ -132,6 +162,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                // linearLayout_orders.setVisibility(View.GONE);
                 drawerLayout.closeDrawers();
               //  Toast.makeText(MainActivity.this, "Add orders", Toast.LENGTH_SHORT).show();
+                finish();
                 break;
 
             case R.id.tr_inspection:
@@ -169,9 +200,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             case R.id.tr_Logout:
 
-                startActivity(new Intent(MainActivity.this, Form3.class));
-                overridePendingTransition(R.anim.right_in, R.anim.left_out);
+              //  startActivity(new Intent(MainActivity.this, Form3.class));
+               // overridePendingTransition(R.anim.right_in, R.anim.left_out);
+
+                ShowDialog();
                // linearLayout_orders.setVisibility(View.GONE);
+
                 drawerLayout.closeDrawers();
 
                 break;
@@ -189,5 +223,50 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
 
+    void ShowDialog(){
 
+        mdialog = new Dialog(MainActivity.this);
+        mdialog.setCancelable(false);
+        mdialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        mdialog.setContentView(R.layout.alert_dialog);
+        btn_yes = mdialog.findViewById(R.id.btn_logout_yes);
+        btn_no = mdialog.findViewById(R.id.btn_logout_no);
+        btn_yes.setText("Submit");
+        btn_no.setText("Cancel");
+        TextView text_msg = (TextView) mdialog.findViewById(R.id.text_msg);
+        ImageView iv_image = (ImageView) mdialog.findViewById(R.id.iv_image);
+        iv_image.setImageDrawable(getResources().getDrawable(R.drawable.logout));
+        TextView text = (TextView) mdialog.findViewById(R.id.text);
+        text.setText("Logout...");
+        text_msg.setText("Are You Sure .. !!");
+        text.setGravity(View.TEXT_ALIGNMENT_CENTER);
+        appConfig = new AppConfig(this);
+        btn_yes.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+               appConfig.updateUserLogin(false);
+                Intent ii = new Intent(MainActivity.this, LoginActivity.class);
+                startActivity(ii);
+                finish();
+                mdialog.dismiss();
+            }
+        });
+
+        btn_no.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                mdialog.dismiss();
+            }
+        });
+        mdialog.show();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
 }

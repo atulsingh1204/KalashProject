@@ -258,7 +258,7 @@
                             android:layout_margin="7dp"
                             android:fontFamily="@font/cabin"
                             android:paddingLeft="8dp"
-                            android:text="Closed Orders"
+                            android:text="Rejected Orders"
                             android:textColor="@android:color/black"
                             android:textSize="14dp"
                             android:textStyle="normal" />

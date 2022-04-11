@@ -15,6 +15,7 @@ import com.example.kalashproject.MyLibrary.CheckNetwork;
 import com.example.kalashproject.MyLibrary.Shared_Preferences;
 import com.example.kalashproject.R;
 import com.example.kalashproject.WebService.ApiInterface;
+import com.example.kalashproject.WebService.AppConfig;
 import com.example.kalashproject.WebService.Myconfig;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.JsonObject;
@@ -37,6 +38,9 @@ public class LoginActivity extends AppCompatActivity {
     Button btn_login;
     TextView tv_forget;
 
+    private boolean isRememberUserLogin = false;
+    private AppConfig appConfig;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,6 +50,14 @@ public class LoginActivity extends AppCompatActivity {
         btn_login = findViewById(R.id.btn_login);
         tv_forget = findViewById(R.id.tv_forget);
 
+        appConfig = new AppConfig(this);
+        if (appConfig.isUserLogin()){
+            String name  = appConfig.getNameofUser();
+            Intent ii = new Intent(LoginActivity.this, MainActivity.class);
+            ii.putExtra("name", name);
+            startActivity(ii);
+            finish();
+        }
 
 
 
@@ -69,6 +81,7 @@ public class LoginActivity extends AppCompatActivity {
                             if (jsonObject.getString("ResponseCode").equals("1"))
                             {
 
+                                appConfig.updateUserLogin(true);
                                 JSONArray jsonArray = jsonObject.getJSONArray("Data");
                                 JSONObject object =jsonArray.getJSONObject(0);
                                 Shared_Preferences.setPrefs(LoginActivity.this, "Reg_id", object.getString("id"));

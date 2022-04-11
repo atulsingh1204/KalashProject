@@ -2,7 +2,12 @@ package com.example.kalashproject.WebService;
 public class Constant
 {
 
-	public static final String LINK = "https://sumagotest.in/kalashseeds/fdo/";
+//	public static final String LINK = "https://sumagotest.in/kalashseeds/fdo/";
+
+	public static final String LINK = "http://www.kalashseeds.com/kalashseeds/fdo/";
+
+
+//	public static final String LINK = "http://www.kalashseeds.com/kalash_sumago/fdo/";
 //	public static final String LINK = "http://192.168.1.46/kalashseeds/fdo/";
 	public static String token;
 	public static String Dist_reg_name,Dist_reg_Lname,Dist_reg_Mname,Dist_contact,Dist_alt_contact,Dist_emailid,Dist_address;
@@ -11,4 +16,6 @@ public class Constant
 
 	public static String Farmer_name,Farmer_email,Farmer_contact,Farmer_adhar,Farmer_state,Farmer_dist,Farmer_image_path,Farmer_image;
 	public static String Farmer_tal,Farmer_village,Farmer_address,Farmer_pincode,Farmer_Crop,Farmer_Acer;
+
+	public static String USER_ID;
 }

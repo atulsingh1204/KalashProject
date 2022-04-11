@@ -5,10 +5,15 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable;
 
 import android.animation.Animator;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.telecom.CallScreeningService;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -18,6 +23,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,6 +32,7 @@ import com.example.kalashproject.ModelList.CropList;
 import com.example.kalashproject.ModelList.DistrictList;
 import com.example.kalashproject.ModelList.GradeofGrowerList;
 import com.example.kalashproject.ModelList.GrowerorVendorList;
+import com.example.kalashproject.ModelList.NewVillageList;
 import com.example.kalashproject.ModelList.SourceofIrrigationList;
 import com.example.kalashproject.ModelList.StateList;
 import com.example.kalashproject.ModelList.TalukaList;
@@ -33,6 +40,8 @@ import com.example.kalashproject.ModelList.VarietyList;
 import com.example.kalashproject.ModelList.VillageList;
 
 import com.example.kalashproject.MyLibrary.MyValidator;
+import com.example.kalashproject.MyLibrary.Shared_Preferences;
+import com.example.kalashproject.StartActivities.MainActivity;
 import com.example.kalashproject.WebService.ApiInterface;
 import com.example.kalashproject.WebService.Myconfig;
 import com.google.android.gms.common.api.Api;
@@ -53,10 +62,14 @@ import retrofit2.Response;
 
 public class AddVendorGrower extends AppCompatActivity {
 
-    Spinner spnGrowerorvendor, spnCrop, spnVariety, spnGrade, spnSource, spnLstCrop, spnState, spnDistrict, spnTaluka, spnVillage, Spn_LastCropTaken, Spn_Variety, Spn_Crop, Spn_growerorvendor, Spn_SourceOfIrrigartion, Spn_select_growerorvendor;
+    Spinner spnGrowerorvendor, spnCrop, spnVariety, spnGrade, spnSource, spnLstCrop, spnState, spnDistrict, spnTaluka, spnVillage, Spn_LastCropTaken, Spn_Variety, Spn_Crop, Spn_growerorvendor, Spn_SourceOfIrrigartion, Spn_select_growerorvendor, Spn_Village;
     TextView tv_next;
-    public String state_id = "1", district = "1", taluka = "1", village = "1", GrowerVendorId = "", CropId = "", Varietyid = "", SourceOfIrrigationId = "", GradeId = "", LastCropTakenId = "";
+    public String state_id = "1", district = "1", taluka = "1", village = "", GrowerVendorId = "", CropId = "", Varietyid = "", SourceOfIrrigationId = "", GradeId = "", LastCropTakenId = "", str_Grower_vendor_id="";
     Button btn_scanner;
+
+    Dialog dialog;
+    String  GrowerOrvendorName="";
+    TextView text_view;
 
     CircleImageView fab, fab1;
     LinearLayout fabLayout1;
@@ -64,7 +77,7 @@ public class AddVendorGrower extends AppCompatActivity {
     FrameLayout linLayHeader;
     LinearLayout linearLayout_order_two;
 
-    public String spstate, spdist, sptaluka, spvillage, SpLastCropTaken, Sp_GradeofGrower, Sp_Variety, Sp_Crop, Sp_growerorvendor, sp_source_of_irrigation, Spnselect_growerorvendor;
+    public String spstate, spdist, sptaluka, spvillage, SpLastCropTaken, Sp_GradeofGrower, Sp_Variety, Sp_Crop, Sp_growerorvendor, sp_source_of_irrigation, Spnselect_growerorvendor, str_Village;
 
 
     ArrayList<CropList> croplist = new ArrayList<CropList>();
@@ -77,6 +90,16 @@ public class AddVendorGrower extends AppCompatActivity {
     ArrayList<TalukaList> talukaLists = new ArrayList<TalukaList>();
     ArrayList<VillageList> VillageLists = new ArrayList<VillageList>();
     ArrayList<CropList> lastTakenCropLists = new ArrayList<CropList>();
+
+
+
+    ////////////////////////////////////////// Testing start
+    ArrayList<NewVillageList> newVillageLists = new  ArrayList<NewVillageList>();
+
+
+
+    /////////////////////////////// Testing End
+
 
     //LoadingDialog loadingDialog = new LoadingDialog(AddVendorGrower.this);
 
@@ -97,6 +120,20 @@ public class AddVendorGrower extends AppCompatActivity {
         fab1 = (CircleImageView) findViewById(R.id.fab1);
         linLayHeader = (FrameLayout) findViewById(R.id.linLayHeader);
 
+        ///////////////////////// Testing Start
+
+        newVillageLists.add(new NewVillageList("1","Ghoti"));
+        newVillageLists.add(new NewVillageList("2","Gonde"));
+        newVillageLists.add(new NewVillageList("3","vilhodi"));
+
+
+        //////////////////////// Testing End
+
+
+
+
+        //spinner with search
+        text_view = findViewById(R.id.text_view);
 
         // toolbar
 
@@ -131,6 +168,7 @@ public class AddVendorGrower extends AppCompatActivity {
         Spn_growerorvendor = findViewById(R.id.Spn_growerorvendor);
         Spn_SourceOfIrrigartion = findViewById(R.id.Spn_SourceOfIrrigartion);
         Spn_select_growerorvendor = findViewById(R.id.Spn_select_growerorvendor);
+        Spn_Village = findViewById(R.id.Spn_Village);
 
 
         distance_from_center = findViewById(R.id.distance_from_center);
@@ -154,17 +192,7 @@ public class AddVendorGrower extends AppCompatActivity {
             }
         });
 
-        selectType();
 
-
-        getcroplist();
-        getGradeofGrowerList();
-        getGrowerorvendorList();
-        getSourceofIrrigationList();
-        getVarietyList();
-        // lastCroptaken();
-
-        getStatedata("1");
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -196,6 +224,7 @@ public class AddVendorGrower extends AppCompatActivity {
         tv_next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
 
                 spstate = spnState.getSelectedItem().toString();
                 spdist = spnDistrict.getSelectedItem().toString();
@@ -259,10 +288,116 @@ public class AddVendorGrower extends AppCompatActivity {
 
 
 
+        selectType();
+        getVillage();
+        SpinnerWithSearch();
+
+      //  getVendorGrowerVillage();
+
+        getcroplist();
+        getGradeofGrowerList();
+
+        getSourceofIrrigationList();
+
+        // lastCroptaken();
+
+      //  getStatedata("1");
 
 
 
+    }
 
+//    private void getVendorGrowerVillage()
+//    {
+//
+//        ApiInterface apiInterface = Myconfig.getRetrofit().create(ApiInterface.class);
+//        Call<ResponseBody> result = (Call<ResponseBody>) apiInterface.getVendorGrowerVillageList();
+//
+//        result.enqueue(new Callback<ResponseBody>() {
+//            @Override
+//            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+//
+//                try {
+//                    String output = response.body().string();
+//                    JSONObject jsonObject = new JSONObject(output);
+//
+//                    if (jsonObject.getString("ResponseCode").equals("1")){
+//
+//                        JSONArray jsonArray = jsonObject.getJSONArray("Data");
+//
+//                        for (int i = 0; i<jsonArray.length(); i++)
+//                    }
+//
+//
+//
+//                } catch (IOException | JSONException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<ResponseBody> call, Throwable t) {
+//
+//            }
+//        });
+//    }
+
+    private void SpinnerWithSearch() {
+
+        text_view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog = new Dialog(AddVendorGrower.this);
+                dialog.setContentView(R.layout.dialog_searchable_spinner);
+                dialog.getWindow().setLayout(650,800);
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                dialog.show();
+
+                EditText editText = dialog.findViewById(R.id.edit_text);
+                ListView listView = dialog.findViewById(R.id.list_view);
+
+
+                ArrayAdapter<GrowerorVendorList> newGrowerVendorAdapter = new ArrayAdapter<GrowerorVendorList>(AddVendorGrower.this, android.R.layout.simple_list_item_1,growerorVendorLists);
+                listView.setAdapter(newGrowerVendorAdapter);
+
+                editText.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                        newGrowerVendorAdapter.getFilter().filter(charSequence);
+                        int id = i;
+
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable editable) {
+
+                    }
+                });
+
+                listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                        //text_view.setText((CharSequence) newGrowerVendorAdapter.getItem(i));
+                        GrowerOrvendorName = String.valueOf(newGrowerVendorAdapter.getItem(i));
+                        str_Grower_vendor_id = growerorVendorLists.get(i).getId();
+                        Log.e("grower_id", " " +str_Grower_vendor_id);
+                        text_view.setText(GrowerOrvendorName);
+//                        String abc = newGrowerVendorAdapter.getItem(i).getId();
+//                        Log.e("grower_two"," " +abc);
+
+                        dialog.dismiss();
+
+                    }
+                });
+            }
+        });
     }
 
     private void selectType() {
@@ -272,8 +407,12 @@ public class AddVendorGrower extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
                 Spnselect_growerorvendor = Spn_select_growerorvendor.getSelectedItem().toString();
+                Log.e("this"," " +Spnselect_growerorvendor);
 
-                Toast.makeText(AddVendorGrower.this, " " +Spnselect_growerorvendor, Toast.LENGTH_SHORT).show();
+                getGrowerorvendorList(Spnselect_growerorvendor);
+
+              //  Toast.makeText(AddVendorGrower.this, " " +Spnselect_growerorvendor, Toast.LENGTH_SHORT).show();
+
 
             }
 
@@ -350,7 +489,7 @@ public class AddVendorGrower extends AppCompatActivity {
 
         // loadingDialog.startLoadingDialog();
         ApiInterface apiInterface = Myconfig.getRetrofit().create(ApiInterface.class);
-        Call<ResponseBody> result = apiInterface.getvarientlist();
+        Call<ResponseBody> result = apiInterface.getNewvarientlist(CropId);
         result.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -366,6 +505,7 @@ public class AddVendorGrower extends AppCompatActivity {
                     if (jsonObject.getString("ResponseCode").equals("1")) {
                         JSONArray jsonArray = jsonObject.getJSONArray("Data");
 
+                        varietyLists.clear();
                         varietyLists.add(new VarietyList("--Select Variety--"));
                         for (int i = 0; i < jsonArray.length(); i++) {
                             JSONObject object = jsonArray.getJSONObject(i);
@@ -474,7 +614,7 @@ public class AddVendorGrower extends AppCompatActivity {
         });
     }
 
-    private void getGrowerorvendorList() {
+    private void getGrowerorvendorList(String Grower_Vendor) {
         //loadingDialog.startLoadingDialog();
 
 //        pDialog = new ProgressDialog(AddVendorGrower.this);
@@ -482,10 +622,14 @@ public class AddVendorGrower extends AppCompatActivity {
 //        pDialog.setCancelable(false);
 //        pDialog.show();
 
+
+        String abc = Grower_Vendor;
+
         Log.e("two", " " + Spnselect_growerorvendor);
 
         ApiInterface apiInterface = Myconfig.getRetrofit().create(ApiInterface.class);
-        Call<ResponseBody> result = apiInterface.getVendorListByOption(Spnselect_growerorvendor);
+        Log.e("GetVendor_Grower_List","value of send parameter: " +abc +" " +village);
+        Call<ResponseBody> result = apiInterface.fetch_growervendor_on_gv_vill_id(abc,village);
         result.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -498,10 +642,12 @@ public class AddVendorGrower extends AppCompatActivity {
                 try {
                     String output = response.body().string();
                     JSONObject jsonObject = new JSONObject(output);
+                    Log.e("GetVendor_Grower_List"," " +output);
                     if (jsonObject.getString("ResponseCode").equals("1")) {
                         JSONArray jsonArray = jsonObject.getJSONArray("Data");
 
-                        growerorVendorLists.add(new GrowerorVendorList("--Select Grower or Vendor--"));
+                        growerorVendorLists.clear();
+                      //  growerorVendorLists.add(new GrowerorVendorList("--Select Grower or Vendor--"));
                         for (int i = 0; i < jsonArray.length(); i++) {
                             JSONObject object = jsonArray.getJSONObject(i);
                             growerorVendorLists.add(new GrowerorVendorList(object));
@@ -582,6 +728,7 @@ public class AddVendorGrower extends AppCompatActivity {
                             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                                 String item = adapterView.getItemAtPosition(i).toString();
                                 GradeId = gradeofGrowerLists.get(i).getId();
+                                Log.e("GradeId", "" +GradeId);
                             }
 
                             @Override
@@ -647,6 +794,8 @@ public class AddVendorGrower extends AppCompatActivity {
                                 String item = adapterView.getItemAtPosition(i).toString();
                                 Log.e("CropItem", " " + item);
                                 CropId = croplist.get(i).getId();
+                                Log.e("oneCropId"," " +CropId);
+                                getVarietyList();
                             }
 
                             @Override
@@ -887,7 +1036,7 @@ public class AddVendorGrower extends AppCompatActivity {
                                 String item = adapterView.getItemAtPosition(i).toString();
                                 taluka = talukaLists.get(i).getId();
 
-                                getVillage();
+                               // getVillage();
 
                             }
 
@@ -927,7 +1076,8 @@ public class AddVendorGrower extends AppCompatActivity {
 
         ApiInterface apiInterface = Myconfig.getRetrofit().create(ApiInterface.class);
         Log.e("getTaluka: ", "state_id: " + state_id + "District_id " + district);
-        final Call<ResponseBody> result = (Call<ResponseBody>) apiInterface.getVillage(state_id, district, village);
+        Log.e("Reg_id_vendor","" +Shared_Preferences.getPrefs(AddVendorGrower.this,"Reg_id"));
+        final Call<ResponseBody> result = (Call<ResponseBody>) apiInterface.fetch_village_of_fdo(Shared_Preferences.getPrefs(AddVendorGrower.this,"Reg_id"));
         result.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -936,10 +1086,12 @@ public class AddVendorGrower extends AppCompatActivity {
 //                }
 
                 Log.e("Village_Error", "" + response.toString());
-                String output = "";
+
 
                 try {
+                    String output = "";
                     output = response.body().string();
+                    Log.e("ResponseOfVillage","" +output);
                     JSONObject jsonObject = new JSONObject(output);
 
                     if (jsonObject.getString("ResponseCode").equals("1")) {
@@ -952,6 +1104,7 @@ public class AddVendorGrower extends AppCompatActivity {
                             try {
                                 JSONObject object = jsonArray.getJSONObject(i);
                                 VillageLists.add(new VillageList(object));
+
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
@@ -961,11 +1114,14 @@ public class AddVendorGrower extends AppCompatActivity {
                         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                         spnVillage.setAdapter(dataAdapter);
 
+                        Log.e("village_List","" +VillageLists);
+
                         spnVillage.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                             @Override
                             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                                 String item = adapterView.getItemAtPosition(i).toString();
                                 village = VillageLists.get(i).getId();
+                                Log.e("Village_Id"," " +village);
 
                                 //Toast.makeText(AddVendorGrower.this, "Village Method called", Toast.LENGTH_SHORT).show();
                             }
@@ -1016,39 +1172,48 @@ public class AddVendorGrower extends AppCompatActivity {
         str_contact = edt_contact.getText().toString().trim();
         str_adhar = edt_adhar.getText().toString().trim();
         str_email = edt_email.getText().toString().trim();
+
+
         str_distance_from_center = distance_from_center.getText().toString().trim();
         str_total_land_holding = total_land_holding.getText().toString().trim();
         str_crop_details = crop_details.getText().toString().trim();
         str_previous_company = previous_company.getText().toString().trim();
         str_last_crop_taken = last_crop_taken.getText().toString().trim();
 
-//        Log.e("sendData", "full name" + str_full_name);
-//        Log.e("sendData", "contact " + str_contact);
-//        Log.e("sendData", "aadhar " + str_adhar);
-//        Log.e("sendData", "email " + str_email);
-        Log.e("sendData", "state " + state_id);
-        Log.e("sendData", " district" + district);
-        Log.e("sendData", "taluka " + taluka);
-        Log.e("sendData", "village " + village);
-        Log.e("sendData", "distance from center " + distance_from_center);
-        Log.e("sendData", "total land holding " + total_land_holding);
-        Log.e("sendData", "source of irrigation" + SourceOfIrrigationId);
-        Log.e("sendData", "GradeId" + GradeId);
-        Log.e("sendData", "Varietyid " + Varietyid);
-        Log.e("sendData", "CropId " + CropId);
-        Log.e("sendData", "Sp_growerorvendor " + Sp_growerorvendor);
-        Log.e("sendData", "GrowerVendorId " + GrowerVendorId);
+//
+
+//        Log.e("sendData", "distance from center " + distance_from_center);
+//        Log.e("sendData", "total land holding " + total_land_holding);
+//        Log.e("sendData", "source of irrigation" + SourceOfIrrigationId);
+//        Log.e("sendData", "GradeId" + GradeId);
+//        Log.e("sendData", "Varietyid " + Varietyid);
+//        Log.e("sendData", "CropId " + CropId);
+//        Log.e("sendData", "Sp_growerorvendor " + Sp_growerorvendor);
+//        Log.e("sendData", "GrowerVendorId " + GrowerVendorId);
+//        Log.e("sendData", "GrowerOrvendorName " + GrowerOrvendorName);
+
+        // check new data send
+        Log.e("sendDataNew", "str_Grower_vendor_id= " + str_Grower_vendor_id);
+        Log.e("sendDataNew", "str_distance_from_center= " + str_distance_from_center);
+        Log.e("sendDataNew", "str_total_land_holding= " + str_total_land_holding);
+//        Log.e("sendDataNew", "village= " + village);
+        Log.e("sendDataNew", "str_last_crop_taken= " + str_last_crop_taken);
+        Log.e("sendDataNew", "SourceOfIrrigationId= " + SourceOfIrrigationId);
+        Log.e("sendDataNew", "GradeId= " + GradeId);
+        Log.e("sendDataNew", "Varietyid= " + Varietyid);
+        Log.e("sendDataNew", "CropId= " + CropId);
+        Log.e("sendDataNew", "str_crop_details= " + str_crop_details);
+        Log.e("sendDataNew", "Spnselect_growerorvendor= " + Spnselect_growerorvendor);
+        Log.e("sendDataNew", "str_previous_company= " + str_previous_company);
+        Log.e("sendDataNew","Reg_id= " +Shared_Preferences.getPrefs(AddVendorGrower.this,"Reg_id")  );
+
 
 
         ApiInterface apiInterface = Myconfig.getRetrofit().create(ApiInterface.class);
         Call<ResponseBody> result = (Call<ResponseBody>) apiInterface.AddVendorGrower(
-                GrowerVendorId,
+                str_Grower_vendor_id,
                 str_distance_from_center,
                 str_total_land_holding,
-                state_id,
-                district,
-                taluka,
-                village,
                 str_last_crop_taken,
                 SourceOfIrrigationId,
                 GradeId,
@@ -1056,14 +1221,45 @@ public class AddVendorGrower extends AppCompatActivity {
                 CropId,
                 str_crop_details,
                 Spnselect_growerorvendor,
-                str_previous_company);
+                str_previous_company,
+                Shared_Preferences.getPrefs(AddVendorGrower.this,"Reg_id"));
 
 //        Sp_growerorvendor,
         result.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
 
-                Toast.makeText(AddVendorGrower.this, "Data sent successfully! ", Toast.LENGTH_SHORT).show();
+                try {
+                    String output = response.body().string();
+                    JSONObject jsonObject = new JSONObject(output);
+
+                    Log.e("AddVendorGrower", " " +output);
+
+
+
+                  if (jsonObject.getString("ResponseCode").equals("1")){
+
+                      Toast.makeText(AddVendorGrower.this, "Data sent successfully! ", Toast.LENGTH_SHORT).show();
+
+                      Intent ii = new Intent(AddVendorGrower.this, MainActivity.class);
+                      startActivity(ii);
+                      finish();
+
+                  }else if (jsonObject.getString("ResponseCode").equals("0")){
+
+                      Toast.makeText(AddVendorGrower.this, "" +jsonObject.getString("ResponseMessage"), Toast.LENGTH_SHORT).show();
+                  }
+//
+                } catch (IOException | JSONException e) {
+                    e.printStackTrace();
+                }
+
+
+
+
+
+
+
 
 
             }
@@ -1125,4 +1321,11 @@ public class AddVendorGrower extends AppCompatActivity {
         return true;
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent ii = new Intent(AddVendorGrower.this, MainActivity.class);
+        startActivity(ii);
+        finish();
+    }
 }

@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.widget.TextView;
 
 import com.example.kalashproject.MyLibrary.Shared_Preferences;
@@ -151,23 +152,15 @@ public class SplashActivity extends AppCompatActivity {
             @Override
             public void run() {
 
-                if (Shared_Preferences.getPrefs(SplashActivity.this, "Email_id")!= null)
-                {
-                    Intent ii = new Intent(SplashActivity.this, MainActivity.class);
-                    startActivity(ii);
-                    overridePendingTransition(R.anim.right_in, R.anim.left_out);
-                    finish();
-                }
-                else
-                {
+
                     Intent ii = new Intent(SplashActivity.this, LoginActivity.class);
                     startActivity(ii);
                     overridePendingTransition(R.anim.right_in, R.anim.left_out);
                     finish();
-
                 }
 
-            }
+
+
         },2000);
 
 

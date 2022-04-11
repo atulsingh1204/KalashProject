@@ -5,8 +5,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -19,9 +21,21 @@ import com.budiyev.android.codescanner.CodeScannerView;
 import com.budiyev.android.codescanner.DecodeCallback;
 import com.budiyev.android.codescanner.ScanMode;
 import com.example.kalashproject.ModelList.QRCodeList;
+import com.example.kalashproject.WebService.ApiInterface;
+import com.example.kalashproject.WebService.Myconfig;
 import com.google.zxing.Result;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
+
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class QRCodeScanner extends AppCompatActivity {
 
@@ -30,9 +44,18 @@ public class QRCodeScanner extends AppCompatActivity {
     private EditText codeData;
     Button btn_qr_code_submit;
     String data;
+    String abc = "";
+    String abcde = "";
+
     TextView tv_one, tv_two, tv_three;
 
-    ArrayList<QRCodeList> list = new ArrayList<QRCodeList>();
+   // ArrayList<QRCodeList> list = new ArrayList<QRCodeList>();
+    //ArrayList<QRCodeList> list = new ArrayList();
+
+    ArrayList<String> listtransfer = new ArrayList<>();
+
+    //ArrayList<String> listOne = new ArrayList<>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,10 +93,18 @@ public class QRCodeScanner extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                list.add(new QRCodeList(data));
-                Log.e("listSize", " " +list.size());
-                Toast.makeText(QRCodeScanner.this, " " + list.toString(), Toast.LENGTH_SHORT).show();
-//
+
+
+                 abc = listtransfer.toString();
+                 abc = abc.replace("[","").replace("]","").replace(" ","");
+                 Log.e("abc", "" +abc);
+
+                Log.e("convertList", " " +abc);
+
+                Intent ii = new Intent(QRCodeScanner.this, ApprovedOrderActivity.class);
+                startActivity(ii);
+                finish();
+
 //                for(int i = 0; i<list.size(); i++){
 //
 //                    codeData.setText(list.get(i).getQRData());
@@ -89,12 +120,15 @@ public class QRCodeScanner extends AppCompatActivity {
 //                tv_two.setText((CharSequence) list.get(2).QRData);
 //                tv_three.setText((CharSequence) list.get(3).QRData);
 
-
+                SendQRCodedata();
             }
         });
 
 
+
     }
+
+
 
     private void runCodeScanner()
     {
@@ -111,14 +145,23 @@ public class QRCodeScanner extends AppCompatActivity {
                     {
                          data = result.getText();
 
-                        list.add(new QRCodeList(data));
+//                         String abcd = "\""+data+"\"";
+//
+//                        String abcde=abcd.replace("[", "").replace("]","").replace(" ","");
+//                        Log.e("abcde", "" +abcde);
 
+                        listtransfer.add(data);
+
+                        int h=listtransfer.size();
+                        tv_one.setText(String.valueOf(h));
+                        Log.e("h", "" +h);
+
+
+//
                         Toast.makeText(QRCodeScanner.this, "Added successfully!", Toast.LENGTH_SHORT).show();
-                        tv_one.setText(" " +list.size());
 
                       //  codeData.setText(data);
 
-                        Log.e("QRCode", " " +list.toString());
                     }
                 });
             }
@@ -161,5 +204,41 @@ public class QRCodeScanner extends AppCompatActivity {
         }
         return true;
     }
+
+    private void SendQRCodedata() {
+
+        ApiInterface apiInterface = Myconfig.getRetrofit().create(ApiInterface.class);
+        Call<ResponseBody> result= apiInterface.sendQRCodeList(abc);
+        result.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+
+                try {
+                    String output = response.body().string();
+
+                    JSONObject jsonObject = new JSONObject(output);
+
+                    if (jsonObject.getString("ResponseCode").equals("1")){
+
+                        Toast.makeText(QRCodeScanner.this, ""+jsonObject.getString("ResponseMessage") ,Toast.LENGTH_SHORT).show();
+
+                        Log.e("sendDataResponse",""+jsonObject.getString("ResponseMessage") );
+                    }
+
+
+                } catch (IOException | JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+            }
+        });
+
+    }
+
 }
 

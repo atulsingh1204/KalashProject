@@ -59,31 +59,31 @@ public class RejectedOrderActivity extends AppCompatActivity {
 
         result.enqueue(new Callback<ResponseBody>() {
             @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response)
+            {
                 try {
                     String output = response.body().string();
-                    Log.e("RejectedOrdersResponse", " " +output);
-
                     JSONObject jsonObject = new JSONObject(output);
 
-                    if (jsonObject.getString("ResponseCode").equals("1")){
-
+                    if(jsonObject.getString("ResponseCode").equals("1"))
+                    {
                         JSONArray jsonArray = jsonObject.getJSONArray("Data");
+                        {
+                            for (int i=0; i<jsonArray.length(); i++)
+                            {
+                                JSONObject object = jsonArray.getJSONObject(i);
+                                list.add(new RejectOrderList(object));
+                                Log.e("xyz", "onResponse: "+list );
+                            }
+                            rec_rejected_oder.setLayoutManager(new LinearLayoutManager(getApplicationContext(),RecyclerView.VERTICAL,false));
+                            rejectOrderAdapter = new RejectOrderAdapter(RejectedOrderActivity.this, list);
+                            rec_rejected_oder.setAdapter(rejectOrderAdapter);
 
-                        for(int i = 1; i<jsonArray.length(); i++){
-                            JSONObject object = jsonArray.getJSONObject(i);
-                            list.add(new RejectOrderList(object));
                         }
-
-//                        Toast.makeText(RejectedOrderActivity.this, "Size of rejected list is " +list, Toast.LENGTH_SHORT).show();
-                        Log.e("rejectedList", " " +list);
-                        rec_rejected_oder.setLayoutManager(new LinearLayoutManager(getApplicationContext(),RecyclerView.VERTICAL,false));
-                        rejectOrderAdapter = new RejectOrderAdapter(RejectedOrderActivity.this, list);
-                        rec_rejected_oder.setAdapter(rejectOrderAdapter);
                     }
-
-                } catch (IOException | JSONException e) {
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (JSONException e) {
                     e.printStackTrace();
                 }
             }

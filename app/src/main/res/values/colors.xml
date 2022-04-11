@@ -36,6 +36,8 @@
     <color name="darkseagreen">#8BC34A</color>
     <color name="seagreen">#2E8B57</color>
 
+    <color name="AppColor">#009688</color>
+
 
     <string-array name="select">
 

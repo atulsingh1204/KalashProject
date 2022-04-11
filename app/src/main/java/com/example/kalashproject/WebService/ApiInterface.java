@@ -3,6 +3,8 @@ package com.example.kalashproject.WebService;
 
 import androidx.annotation.Nullable;
 
+import java.util.ArrayList;
+
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
@@ -23,6 +25,10 @@ public interface ApiInterface
 
     @GET("variety_list.php")
     Call<ResponseBody>getvarientlist();
+
+    @FormUrlEncoded
+    @POST("fetch_variety_on_crop_id.php")
+    Call<ResponseBody> getNewvarientlist(@Field("crop_id") String crop_id);
 
     @GET("grade_of_growers_list.php")
     Call<ResponseBody>getgradeofgrower();
@@ -57,10 +63,6 @@ public interface ApiInterface
     Call<ResponseBody> AddVendorGrower(@Field("growervendorid") String growervendorid,
                                        @Field("distance") String distance,
                                        @Field("land_holding") String land_holding,
-                                       @Field("st_id") String st_id,
-                                       @Field("dist_id") String dist_id,
-                                       @Field("tal_id") String tal_id,
-                                       @Field("vil_id") String vil_id,
                                        @Field("last_crop_taken") String last_crop_taken,
                                        @Field("irrigationid") String irrigationid,
                                        @Field("gradeid") String gradeid,
@@ -68,7 +70,8 @@ public interface ApiInterface
                                        @Field("cropid") String cropid,
                                        @Field("crop_details") String crop_details,
                                        @Field("grower_or_vendor") String grower_or_vendor,
-                                       @Field("previous_company") String previous_company);
+                                       @Field("previous_company") String previous_company,
+                                       @Field("fdo_id") String fdo_id);
 
 
 
@@ -78,7 +81,7 @@ public interface ApiInterface
 
     @FormUrlEncoded
     @POST("login.php")
-    Call<ResponseBody> getLogin(@Field("emailid") String emailid,
+    Call<ResponseBody> getLogin(@Field("email") String emailid,
                                 @Field("password") String password);
 
     @FormUrlEncoded
@@ -87,7 +90,7 @@ public interface ApiInterface
 
 
     @FormUrlEncoded
-    @POST("pending_order_list.php")
+    @POST("approved_order_list.php")
     Call<ResponseBody> getApprovedOrderList(@Field("id") String id);
 
 
@@ -99,6 +102,32 @@ public interface ApiInterface
     @FormUrlEncoded
     @POST("fetch_growervendor_list_on_grower_or_vendor.php")
     Call<ResponseBody>getVendorListByOption(@Field("growr_or_vendor") String growr_or_vendor);
+
+
+
+    @GET("village_list.php")
+    Call<ResponseBody> getVendorGrowerVillageList();
+
+
+    @FormUrlEncoded
+    @POST("village_list.php")
+    Call<ResponseBody>village_list(@Field("fdo_id") String fdo_id);
+
+
+    @FormUrlEncoded
+    @POST("packet_invoice_add.php")
+    Call<ResponseBody>sendQRCodeList(@Field("qr_list") String qr_list);
+
+    @FormUrlEncoded
+    @POST("fetch_village_of_fdo.php")
+    Call<ResponseBody> fetch_village_of_fdo(@Field("fdo_id") String fdo_id);
+
+
+    @FormUrlEncoded
+    @POST("fetch_growervendor_on_gv_vill_id.php")
+    Call<ResponseBody> fetch_growervendor_on_gv_vill_id(@Field("gv")String gv,
+                                                        @Field("vlid")String vlid);
+
 
 }
 

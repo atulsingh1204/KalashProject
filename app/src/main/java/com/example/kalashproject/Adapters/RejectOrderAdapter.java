@@ -45,7 +45,8 @@ public class RejectOrderAdapter extends RecyclerView.Adapter<RejectOrderAdapter.
         return rejectOrderLists.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder
+    {
 
         TextView rejected_grower_name, rejected_grower_crop, rejected_variety;
         public ViewHolder(@NonNull View itemView) {
