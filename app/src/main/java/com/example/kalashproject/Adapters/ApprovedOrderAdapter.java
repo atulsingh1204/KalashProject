@@ -49,6 +49,7 @@ public class ApprovedOrderAdapter extends RecyclerView.Adapter<ApprovedOrderAdap
 
                 Intent ii = new Intent(context, ViewApprovedData.class);
 
+                ii.putExtra("order_id","" +approvedOrderLists.get(position).getOrder_id());
                 ii.putExtra("growervendorid",approvedOrderLists.get(position).getGrowervendorid());
                 ii.putExtra("full_name",approvedOrderLists.get(position).getFull_name());
                 ii.putExtra("grower_or_vendor",approvedOrderLists.get(position).getGrower_or_vendor());

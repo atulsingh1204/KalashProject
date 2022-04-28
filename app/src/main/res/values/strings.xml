@@ -13,4 +13,8 @@
     <string name="navigation_drawer_close">Drawer close</string>
     <string name="please_wait">please Wait</string>
 
+    <string name="runtime_permissions_txt">
+        <![CDATA[Settings->Permission->Enable All Permissions.         \\n Please enable ALL permissions from app settings.]]>
+</string>
+
 </resources>

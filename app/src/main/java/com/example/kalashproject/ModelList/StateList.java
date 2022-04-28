@@ -11,6 +11,7 @@ public class StateList {
         try {
             this.id = jsonObject.getString("id");
             this.state_name = jsonObject.getString("state_name");
+
         } catch (JSONException e) {
             e.printStackTrace();
         }

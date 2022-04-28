@@ -63,6 +63,9 @@ public class ViewApprovedData extends AppCompatActivity {
 
 
         Intent ii = getIntent();
+
+       String order_id = ii.getStringExtra("order_id");
+       Log.e("order_id","" +order_id);
       String growervendorid =  ii.getStringExtra("growervendorid");
       String full_name =  ii.getStringExtra("full_name");
       String grower_or_vendor =  ii.getStringExtra("grower_or_vendor");
@@ -109,6 +112,7 @@ public class ViewApprovedData extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent ii = new Intent(ViewApprovedData.this, QRCodeScanner.class);
+                ii.putExtra("order_id","" +order_id);
                 startActivity(ii);
                 finish();
 

@@ -289,7 +289,7 @@ public class AddVendorGrower extends AppCompatActivity {
 
 
         selectType();
-        getVillage();
+
         SpinnerWithSearch();
 
       //  getVendorGrowerVillage();
@@ -409,7 +409,8 @@ public class AddVendorGrower extends AppCompatActivity {
                 Spnselect_growerorvendor = Spn_select_growerorvendor.getSelectedItem().toString();
                 Log.e("this"," " +Spnselect_growerorvendor);
 
-                getGrowerorvendorList(Spnselect_growerorvendor);
+               // getGrowerorvendorList(Spnselect_growerorvendor);
+                getVillage();
 
               //  Toast.makeText(AddVendorGrower.this, " " +Spnselect_growerorvendor, Toast.LENGTH_SHORT).show();
 
@@ -670,6 +671,10 @@ public class AddVendorGrower extends AppCompatActivity {
 
                             }
                         });
+
+                    } else if (jsonObject.getString("ResponseCode").equals("0")){
+
+                        growerorVendorLists.clear();
 
                     }
                 } catch (IOException e) {
@@ -1123,6 +1128,7 @@ public class AddVendorGrower extends AppCompatActivity {
                                 village = VillageLists.get(i).getId();
                                 Log.e("Village_Id"," " +village);
 
+                                getGrowerorvendorList(Spnselect_growerorvendor);
                                 //Toast.makeText(AddVendorGrower.this, "Village Method called", Toast.LENGTH_SHORT).show();
                             }
 

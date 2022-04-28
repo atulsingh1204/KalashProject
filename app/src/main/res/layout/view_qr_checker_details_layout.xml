@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+
+    <TextView
+        android:id="@+id/heading"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/toolbar"
+        android:layout_marginTop="30dp"
+        android:fontFamily="@font/aclonica"
+        android:text="QR Details"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="30dp" />
+
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/heading">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/heading"
+            android:orientation="vertical">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="15dp"
+                android:layout_marginTop="30dp"
+                android:backgroundTint="#F3FBEA"
+                app:cardCornerRadius="15dp"
+                app:cardElevation="0dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="10dp"
+                        android:layout_marginTop="10dp"
+                        android:orientation="horizontal"
+                        android:weightSum="6">
+
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="4"
+                            android:fontFamily="@font/cabin"
+                            android:paddingVertical="4dp"
+                            android:text="Crop Name"
+                            android:textColor="@color/black"
+                            android:textSize="15dp" />
+
+                        <TextView
+                            android:id="@+id/view_qr_checker_details_crop_name"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:fontFamily="@font/cabin"
+                            android:paddingVertical="4dp"
+                            android:text="Crop Name"
+                            android:textColor="@color/black"
+                            android:textSize="15dp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="10dp"
+                        android:layout_marginTop="10dp"
+                        android:orientation="horizontal"
+                        android:weightSum="6">
+
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="4"
+                            android:fontFamily="@font/cabin"
+                            android:paddingVertical="4dp"
+                            android:text="Variety Name"
+                            android:textColor="@color/black"
+                            android:textSize="15dp" />
+
+                        <TextView
+                            android:id="@+id/view_qr_checker_variety_name"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:fontFamily="@font/cabin"
+                            android:paddingVertical="4dp"
+                            android:text="Variety Name"
+                            android:textColor="@color/black"
+                            android:textSize="15dp" />
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="10dp"
+                        android:layout_marginTop="10dp"
+                        android:orientation="horizontal"
+                        android:weightSum="6">
+
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="4"
+                            android:fontFamily="@font/cabin"
+                            android:paddingVertical="4dp"
+                            android:text="Batch Number"
+                            android:textColor="@color/black"
+                            android:textSize="15dp" />
+
+                        <TextView
+                            android:id="@+id/view_qr_checker_batch_number"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:fontFamily="@font/cabin"
+                            android:paddingVertical="4dp"
+                            android:text="Variety Name"
+                            android:textColor="@color/black"
+                            android:textSize="15dp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="10dp"
+                        android:layout_marginTop="10dp"
+                        android:orientation="horizontal"
+                        android:weightSum="6">
+
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="4"
+                            android:fontFamily="@font/cabin"
+                            android:paddingVertical="4dp"
+                            android:text="Number of Packing"
+                            android:textColor="@color/black"
+                            android:textSize="15dp" />
+
+                        <TextView
+                            android:id="@+id/view_qr_checker_number_of_packing"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:fontFamily="@font/cabin"
+                            android:paddingVertical="4dp"
+                            android:text="Variety Name"
+                            android:textColor="@color/black"
+                            android:textSize="15dp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="10dp"
+                        android:layout_marginTop="10dp"
+                        android:orientation="horizontal"
+                        android:weightSum="6">
+
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="4"
+                            android:fontFamily="@font/cabin"
+                            android:paddingVertical="4dp"
+                            android:text="Weights in Packets"
+                            android:textColor="@color/black"
+                            android:textSize="15dp" />
+
+                        <TextView
+                            android:id="@+id/view_qr_checker_weight_in_packets"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:fontFamily="@font/cabin"
+                            android:paddingVertical="4dp"
+                            android:text="Variety Name"
+                            android:textColor="@color/black"
+                            android:textSize="15dp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="10dp"
+                        android:layout_marginTop="10dp"
+                        android:orientation="horizontal"
+                        android:weightSum="6">
+
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="4"
+                            android:fontFamily="@font/cabin"
+                            android:paddingVertical="4dp"
+                            android:text="Germination Rate"
+                            android:textColor="@color/black"
+                            android:textSize="15dp" />
+
+                        <TextView
+                            android:id="@+id/view_qr_checker_germination_rate"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:fontFamily="@font/cabin"
+                            android:paddingVertical="4dp"
+                            android:text="Variety Name"
+                            android:textColor="@color/black"
+                            android:textSize="15dp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="10dp"
+                        android:layout_marginTop="10dp"
+                        android:orientation="horizontal"
+                        android:weightSum="6">
+
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="4"
+                            android:fontFamily="@font/cabin"
+                            android:paddingVertical="4dp"
+                            android:text="Genetic Purity"
+                            android:textColor="@color/black"
+                            android:textSize="15dp" />
+
+                        <TextView
+                            android:id="@+id/view_qr_checker_genetic_purity"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:fontFamily="@font/cabin"
+                            android:paddingVertical="4dp"
+                            android:text="Variety Name"
+                            android:textColor="@color/black"
+                            android:textSize="15dp" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+
+            </androidx.cardview.widget.CardView>
+
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+
+</RelativeLayout>

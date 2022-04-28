@@ -3,6 +3,9 @@ package com.example.kalashproject.WebService;
 
 import androidx.annotation.Nullable;
 
+import com.google.android.gms.common.annotation.KeepForSdkWithFieldsAndMethods;
+
+import java.security.SecureRandom;
 import java.util.ArrayList;
 
 import okhttp3.MultipartBody;
@@ -116,7 +119,8 @@ public interface ApiInterface
 
     @FormUrlEncoded
     @POST("packet_invoice_add.php")
-    Call<ResponseBody>sendQRCodeList(@Field("qr_list") String qr_list);
+    Call<ResponseBody>sendQRCodeList(@Field("qr_list") String qr_list,
+                                     @Field("order_id") String order_id);
 
     @FormUrlEncoded
     @POST("fetch_village_of_fdo.php")
@@ -127,6 +131,116 @@ public interface ApiInterface
     @POST("fetch_growervendor_on_gv_vill_id.php")
     Call<ResponseBody> fetch_growervendor_on_gv_vill_id(@Field("gv")String gv,
                                                         @Field("vlid")String vlid);
+
+
+
+    @FormUrlEncoded
+    @POST("qr_code_details.php")
+    Call<ResponseBody> GetQRDetails(@Field("qr_data") String qr_data);
+
+
+
+    @FormUrlEncoded
+    @POST("first_inspection_add.php")
+    Call<ResponseBody> first_inspection_add(@Field("male_sowing_date") String qr_male_sowing_date,
+                                            @Field("female_sowing_date")String female_sowing_date,
+                                            @Field("male_row")String male_row,
+                                            @Field("female_row") String female_row,
+                                            @Field("male_plant_in_row")String male_plant_in_row,
+                                            @Field("female_plant_in_row")String female_plant_in_row,
+                                            @Field("is_isolation")String is_isolation,
+                                            @Field("pld_acre")String pld_acre,
+                                            @Field("reason_of_pld")String reason_of_pld,
+                                            @Field("rejected_acre")String rejected_acre,
+                                            @Field("reason_of_rejected")String reason_of_rejected,
+                                            @Field("expected_date_of_dispatch")String expected_date_of_dispatch,
+                                            @Field("fq_flag_id")String fq_flag_id,
+                                            @Field("breeder_remark")String breeder_remark);
+
+
+
+
+    @GET("fq_flag_list.php")
+    Call<ResponseBody>fq_flag_list();
+
+
+
+//    @Field("order_id")String order_id,
+//    @Field("fdo_id")String fod_id,
+
+
+//    @Field("order_id")String order_id,
+//    @Field("fdo_id")String fdo_id,
+
+
+    @FormUrlEncoded
+    @POST("second_inspection_add.php")
+    Call<ResponseBody> second_inspection_add(@Field("order_id") String order_id,
+                                             @Field("fdo_id") String fdo_id,
+                                             @Field("gps_location") String gps_location,
+                                             @Field("ot_plant_in_female")String ot_plant_in_female,
+                                             @Field("female_date_of_roughing") String female_date_of_roughing,
+                                             @Field("ot_plant_in_male") String ot_plant_in_male,
+                                             @Field("male_date_of_roughing")String male_date_of_roughing,
+                                             @Field("disease_plant_in_male")String disease_plant_in_male,
+                                             @Field("details")String details,
+                                             @Field("pld_acre")String pld_acre,
+                                             @Field("reason_of_pld")String reason_of_pld,
+                                             @Field("rejected_acre")String rejected_acre,
+                                             @Field("reason_of_rejected")String reason_of_rejected,
+                                             @Field("fq_flag_id")String fq_flag_id,
+                                             @Field("expected_date_of_dispatch")String expected_date_of_dispatch,
+                                             @Field("breeder_remark")String breeder_remark);
+
+
+
+
+
+
+    @FormUrlEncoded
+    @POST("third_inspection_add.php")
+    Call<ResponseBody> third_inspection_add(
+                                             @Field("order_id") String order_id,
+                                            @Field("fdo_id") String fdo_id,
+                                             @Field("ot_plant_in_female") String ot_plant_in_female,
+                                            @Field("details")String details,
+                                            @Field("disease_plant_in_f")String disease_plant_in_f,
+                                            @Field("date_of_roughing") String date_of_roughing,
+                                            @Field("polln_start_date") String polln_start_date,
+                                            @Field("pld_acre") String pld_acre,
+                                            @Field("reason_of_pld")String reason_of_pld,
+                                            @Field("rejected_acre")String rejected_acre,
+                                            @Field("reason_of_rejected")String reason_of_rejected,
+                                            @Field("exi_fruit")String exi_fruit,
+                                            @Field("exp_fruit")String exp_fruit,
+                                            @Field("total_fruit")String total_fruit,
+                                            @Field("avg_wt_of_seed_fruit")String avg_wt_of_seed_fruit,
+                                            @Field("fq_flag_id")String fq_flag_id,
+                                            @Field("expected_date_of_dispatch")String expected_date_of_dispatch,
+                                            @Field("breeder_remark")String breeder_remark);
+
+
+
+
+    @FormUrlEncoded
+    @POST("fourth_inspection_add")
+    Call<ResponseBody> fourth_inspection_add(@Field("order_id")String order_id,
+                                             @Field("fdo_id")String fdo_id,
+                                             @Field("ot_fruit_f")String ot_fruit_f,
+                                             @Field("date_of_roughing")String date_of_roughing,
+                                             @Field("polln_end_date")String polln_end_date,
+                                             @Field("pld_acre")String pld_acre,
+                                             @Field("reason_of_pld")String reason_of_pld,
+                                             @Field("rejected_acre")String rejected_acre,
+                                             @Field("reason_of_rejected")String reason_of_rejected,
+                                             @Field("exi_fruit")String exi_fruit,
+                                             @Field("exp_fruit")String exp_fruit,
+                                             @Field("total_fruit")String total_fruit,
+                                             @Field("avg_wt_of_seed_fruit")String avg_wt_of_seed_fruit,
+                                             @Field("fq_flag_id")String fq_flag_id,
+                                             @Field("expected_date_of_harvesting")String expected_date_of_harvesting,
+                                             @Field("expected_date_of_dispatch")String expected_date_of_dispatch,
+                                             @Field("breeder_remark")String breeder_remark);
 
 
 }

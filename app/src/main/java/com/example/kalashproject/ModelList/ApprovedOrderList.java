@@ -6,6 +6,7 @@ import org.json.JSONObject;
 public class ApprovedOrderList
 {
 
+    String order_id;
     String growervendorid;
     String full_name;
     String grower_or_vendor;
@@ -27,6 +28,7 @@ public class ApprovedOrderList
     public ApprovedOrderList(JSONObject jsonObject)
     {
         try {
+            this.order_id = jsonObject.getString("order_id");
             this.growervendorid = jsonObject.getString("growervendorid");
             this.full_name = jsonObject.getString("full_name");
             this.grower_or_vendor = jsonObject.getString("grower_or_vendor");
@@ -44,6 +46,15 @@ public class ApprovedOrderList
         } catch (JSONException e) {
             e.printStackTrace();
         }
+    }
+
+
+    public String getOrder_id() {
+        return order_id;
+    }
+
+    public void setOrder_id(String order_id) {
+        this.order_id = order_id;
     }
 
     public String getGrowervendorid() {

@@ -51,6 +51,20 @@
 
     </string-array>
 
+
+    <string-array name="isolation">
+
+        <item>--- Choose Options ---</item>
+        <item>Yes</item>
+        <item>No</item>
+
+    </string-array>
+
+    <string-array name="options">
+        <item>--- Choose Options ---</item>
+    </string-array>
+
+
 <!--    <string name="app_name">GFG APP</string>-->
 <!--    <string name="toggle_flash">Toggle Flash</string>-->
 <!--    <string name="action_settings">Settings</string>-->

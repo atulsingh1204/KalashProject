@@ -1,0 +1,632 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".InspectionFormThree">
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar" />
+
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/bottomLinear"
+        android:layout_below="@+id/toolbar">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/cabin"
+                android:padding="10dp"
+                android:text="Total Female"
+                android:textSize="15dp"
+                android:textStyle="normal" />
+
+            <EditText
+                android:id="@+id/three_total_female"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape"
+                android:fontFamily="@font/cabin"
+                android:hint="Enter total female"
+                android:imeOptions="actionNext"
+                android:inputType="number"
+                android:minHeight="48dp"
+                android:padding="10dp"
+                android:textSize="15dp"
+                android:textStyle="normal" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/cabin"
+                android:padding="10dp"
+                android:text="OT Plant In F"
+                android:textSize="15dp"
+                android:textStyle="normal" />
+
+            <EditText
+                android:id="@+id/three_ot_plant_in_f"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape"
+                android:fontFamily="@font/cabin"
+                android:hint="OT Plant In F"
+                android:imeOptions="actionNext"
+                android:inputType="number"
+                android:minHeight="48dp"
+                android:padding="10dp"
+                android:textSize="15dp"
+                android:textStyle="normal" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/cabin"
+                android:padding="10dp"
+                android:text="Details"
+                android:textSize="15dp"
+                android:textStyle="normal" />
+
+            <EditText
+                android:id="@+id/three_details"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:background="@drawable/shape"
+                android:fontFamily="@font/cabin"
+                android:gravity="top"
+                android:hint="Enter Details Here"
+                android:imeOptions="actionNext"
+                android:inputType="text"
+                android:minHeight="48dp"
+                android:padding="10dp"
+                android:textSize="15dp"
+                android:textStyle="normal" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/cabin"
+                android:padding="10dp"
+                android:text="Disease Plant In F"
+                android:textSize="15dp"
+                android:textStyle="normal" />
+
+            <EditText
+                android:id="@+id/disease_plant_in_f"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape"
+                android:fontFamily="@font/cabin"
+                android:hint="Disease Plant In F"
+                android:imeOptions="actionNext"
+                android:inputType="number"
+                android:minHeight="48dp"
+                android:padding="10dp"
+                android:textSize="15dp"
+                android:textStyle="normal" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/ten"
+                android:fontFamily="@font/cabin"
+                android:padding="@dimen/ten"
+                android:text="Add Images"
+                android:textSize="@dimen/fifteen"
+                android:textStyle="normal" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="10dp">
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="90dp"
+                    android:layout_height="90dp"
+                    app:cardCornerRadius="5dp"
+                    app:cardElevation="5dp"
+                    app:cardUseCompatPadding="true">
+
+                    <ImageView
+                        android:id="@+id/three_iv_image_1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:padding="5dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/uploading" />
+
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="90dp"
+                    android:layout_height="90dp"
+                    app:cardCornerRadius="5dp"
+                    app:cardElevation="5dp"
+                    app:cardUseCompatPadding="true">
+
+                    <ImageView
+                        android:id="@+id/three_iv_image_2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:padding="5dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/uploading" />
+
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="90dp"
+                    android:layout_height="90dp"
+                    app:cardCornerRadius="5dp"
+                    app:cardElevation="5dp"
+                    app:cardUseCompatPadding="true">
+
+                    <ImageView
+                        android:id="@+id/three_iv_image_3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:padding="5dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/uploading" />
+
+
+                </androidx.cardview.widget.CardView>
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/cabin"
+                    android:padding="10dp"
+                    android:text="Date of Roughing"
+                    android:textSize="15dp"
+                    android:textStyle="normal" />
+
+                <TextView
+                    android:id="@+id/three_date_of_roughing"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="25dp"
+                    android:gravity="right"
+                    android:text="Select date"
+                    android:textColor="@color/apptheme_green" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/cabin"
+                    android:padding="10dp"
+                    android:text="Polln Start Date"
+                    android:textSize="15dp"
+                    android:textStyle="normal" />
+
+                <TextView
+                    android:id="@+id/three_polln_start_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="25dp"
+                    android:gravity="right"
+                    android:text="Select date"
+                    android:textColor="@color/apptheme_green" />
+
+            </LinearLayout>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/cabin"
+                android:padding="10dp"
+                android:text="PLD Acre"
+                android:textSize="15dp"
+                android:textStyle="normal" />
+
+            <EditText
+                android:id="@+id/three_pld_acre"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape"
+                android:fontFamily="@font/cabin"
+                android:hint="Enter PLD Acre"
+                android:imeOptions="actionNext"
+                android:inputType="number"
+                android:minHeight="48dp"
+                android:padding="10dp"
+                android:textSize="15dp"
+                android:textStyle="normal" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/cabin"
+                android:padding="10dp"
+                android:text="Reason of PLD"
+                android:textSize="15dp"
+                android:textStyle="normal" />
+
+            <EditText
+                android:id="@+id/three_reason_of_pld"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape"
+                android:fontFamily="@font/cabin"
+                android:hint="Enter Reasons of PLD"
+                android:imeOptions="actionNext"
+                android:inputType="text"
+                android:minHeight="48dp"
+                android:padding="10dp"
+                android:textSize="15dp"
+                android:textStyle="normal" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/cabin"
+                android:padding="10dp"
+                android:text="Rejected Acre"
+                android:textSize="15dp"
+                android:textStyle="normal" />
+
+            <EditText
+                android:id="@+id/three_rejected_acre"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape"
+                android:fontFamily="@font/cabin"
+                android:hint="Enter Rejected Acre"
+                android:imeOptions="actionNext"
+                android:inputType="number"
+                android:minHeight="48dp"
+                android:padding="10dp"
+                android:textSize="15dp"
+                android:textStyle="normal" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/cabin"
+                android:padding="10dp"
+                android:text="Reasons of Rejected Acre"
+                android:textSize="15dp"
+                android:textStyle="normal" />
+
+            <EditText
+                android:id="@+id/three_reason_rejected_acre"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape"
+                android:fontFamily="@font/cabin"
+                android:hint="Enter Reasons Rejected Acre"
+                android:imeOptions="actionNext"
+                android:inputType="text"
+                android:minHeight="48dp"
+                android:padding="10dp"
+                android:textSize="15dp"
+                android:textStyle="normal" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/cabin"
+                android:padding="10dp"
+                android:text="Exi Fruit"
+                android:textSize="15dp"
+                android:textStyle="normal" />
+
+            <EditText
+                android:id="@+id/three_exi_fruit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape"
+                android:fontFamily="@font/cabin"
+                android:hint="Enter Exi Fruit"
+                android:imeOptions="actionNext"
+                android:inputType="number"
+                android:minHeight="48dp"
+                android:padding="10dp"
+                android:textSize="15dp"
+                android:textStyle="normal" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/cabin"
+                android:padding="10dp"
+                android:text="Exp Fruit"
+                android:textSize="15dp"
+                android:textStyle="normal" />
+
+            <EditText
+                android:id="@+id/three_exp_fruit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape"
+                android:fontFamily="@font/cabin"
+                android:hint="Enter Exp Fruit"
+                android:imeOptions="actionNext"
+                android:inputType="number"
+                android:minHeight="48dp"
+                android:padding="10dp"
+                android:textSize="15dp"
+                android:textStyle="normal" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/cabin"
+                android:padding="10dp"
+                android:text="Total Fruit"
+                android:textSize="15dp"
+                android:textStyle="normal" />
+
+            <EditText
+                android:id="@+id/three_total_fruit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape"
+                android:fontFamily="@font/cabin"
+                android:hint="Enter Total Fruit"
+                android:imeOptions="actionNext"
+                android:inputType="number"
+                android:minHeight="48dp"
+                android:padding="10dp"
+                android:textSize="15dp"
+                android:textStyle="normal" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/cabin"
+                android:padding="10dp"
+                android:text="Avg Weight of Seed Fruit"
+                android:textSize="15dp"
+                android:textStyle="normal" />
+
+            <EditText
+                android:id="@+id/three_avg_wt_seed_fruit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape"
+                android:fontFamily="@font/cabin"
+                android:hint="Enter Avg Weight of Seed Fruit"
+                android:imeOptions="actionNext"
+                android:inputType="number"
+                android:minHeight="48dp"
+                android:padding="10dp"
+                android:textSize="15dp"
+                android:textStyle="normal" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/cabin"
+                android:padding="@dimen/ten"
+                android:text="FA Flag"
+                android:textSize="@dimen/fifteen"
+                android:textStyle="normal" />
+
+            <Spinner
+                android:id="@+id/spn_fa_flag_three"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape"
+                android:entries="@array/options"
+                android:fontFamily="@font/cabin"
+                android:padding="@dimen/ten"
+                android:paddingStart="@dimen/fifteen" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/cabin"
+                    android:padding="10dp"
+                    android:text="Expected Date of Dispatch"
+                    android:textSize="15dp"
+                    android:textStyle="normal" />
+
+                <TextView
+                    android:id="@+id/expected_date_of_dispatch_two"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="25dp"
+                    android:gravity="right"
+                    android:text="Select date"
+                    android:textColor="@color/apptheme_green" />
+
+
+            </LinearLayout>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/cabin"
+                android:padding="10dp"
+                android:text="Breeder Remark"
+                android:textSize="15dp"
+                android:textStyle="normal" />
+
+            <EditText
+                android:id="@+id/three_breeder_remark"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape"
+                android:fontFamily="@font/cabin"
+                android:hint="Enter Breeder Remakr"
+                android:imeOptions="actionNext"
+                android:inputType="text"
+                android:minHeight="48dp"
+                android:padding="10dp"
+                android:textSize="15dp"
+                android:textStyle="normal" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/ten"
+                android:fontFamily="@font/cabin"
+                android:padding="@dimen/ten"
+                android:text="Add Photos"
+                android:textSize="@dimen/fifteen"
+                android:textStyle="normal" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="10dp">
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="90dp"
+                    android:layout_height="90dp"
+                    app:cardCornerRadius="5dp"
+                    app:cardElevation="5dp"
+                    app:cardUseCompatPadding="true">
+
+                    <ImageView
+                        android:id="@+id/three_iv_photo_1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:padding="5dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/uploading" />
+
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="90dp"
+                    android:layout_height="90dp"
+                    app:cardCornerRadius="5dp"
+                    app:cardElevation="5dp"
+                    app:cardUseCompatPadding="true">
+
+                    <ImageView
+                        android:id="@+id/three_iv_photo_2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:padding="5dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/uploading" />
+
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="90dp"
+                    android:layout_height="90dp"
+                    app:cardCornerRadius="5dp"
+                    app:cardElevation="5dp"
+                    app:cardUseCompatPadding="true">
+
+                    <ImageView
+                        android:id="@+id/three_iv_photo_3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:padding="5dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/uploading" />
+
+
+                </androidx.cardview.widget.CardView>
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+    </androidx.core.widget.NestedScrollView>
+
+
+
+    <LinearLayout
+        android:id="@+id/bottomLinear"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/grey_color"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/inspection_three_tv_next"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginEnd="@dimen/seven"
+            android:background="@drawable/rounded_background_gray_with_stoke"
+            android:fontFamily="@font/cabin"
+            android:gravity="center"
+            android:minHeight="48dp"
+            android:padding="7dp"
+            android:text="Submit"
+            android:textColor="#fff"
+            android:textSize="@dimen/eighteen"
+            android:textStyle="bold" />
+
+
+
+
+
+    </LinearLayout>
+
+
+</RelativeLayout>

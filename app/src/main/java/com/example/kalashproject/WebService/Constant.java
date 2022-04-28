@@ -2,9 +2,9 @@ package com.example.kalashproject.WebService;
 public class Constant
 {
 
-//	public static final String LINK = "https://sumagotest.in/kalashseeds/fdo/";
+	public static final String LINK = "http://sumagotest.in/kalashseeds/fdo/";
 
-	public static final String LINK = "http://www.kalashseeds.com/kalashseeds/fdo/";
+//	public static final String LINK = "http://www.kalashseeds.com/kalashseeds/fdo/";
 
 
 //	public static final String LINK = "http://www.kalashseeds.com/kalash_sumago/fdo/";

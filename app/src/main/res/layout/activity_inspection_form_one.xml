@@ -1,0 +1,443 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".InspectionFormOne">
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar" />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/bottomLinear"
+        android:layout_below="@+id/toolbar">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/cabin"
+                    android:padding="10dp"
+                    android:text="Male Sowing Date"
+                    android:textSize="15dp"
+                    android:textStyle="normal" />
+
+                <TextView
+                    android:id="@+id/male_sowing_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="25dp"
+                    android:gravity="right"
+                    android:text="Select date"
+                    android:textColor="@color/apptheme_green" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/cabin"
+                    android:padding="10dp"
+                    android:text="Female Sowing Date"
+                    android:textSize="15dp"
+                    android:textStyle="normal" />
+
+                <TextView
+                    android:id="@+id/female_sowing_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="25dp"
+                    android:gravity="right"
+                    android:text="Select date"
+                    android:textColor="@color/apptheme_green" />
+
+            </LinearLayout>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/cabin"
+                android:padding="10dp"
+                android:text="Male Row"
+                android:textSize="15dp"
+                android:textStyle="normal" />
+
+            <EditText
+                android:id="@+id/male_row"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape"
+                android:fontFamily="@font/cabin"
+                android:hint="Enter Male Row"
+                android:imeOptions="actionNext"
+                android:inputType="number"
+                android:minHeight="48dp"
+                android:padding="10dp"
+                android:textSize="15dp"
+                android:textStyle="normal" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/cabin"
+                android:padding="10dp"
+                android:text="Female Row"
+                android:textSize="15dp"
+                android:textStyle="normal" />
+
+            <EditText
+                android:id="@+id/female_row"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape"
+                android:fontFamily="@font/cabin"
+                android:hint="Enter Female Row"
+                android:imeOptions="actionNext"
+                android:inputType="number"
+                android:minHeight="48dp"
+                android:padding="10dp"
+                android:textSize="15dp"
+                android:textStyle="normal" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/cabin"
+                android:padding="10dp"
+                android:text="Male Plant in Row"
+                android:textSize="15dp"
+                android:textStyle="normal" />
+
+            <EditText
+                android:id="@+id/male_plant_in_row"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape"
+                android:fontFamily="@font/cabin"
+                android:hint="Enter Male Plant in Row"
+                android:imeOptions="actionNext"
+                android:inputType="number"
+                android:minHeight="48dp"
+                android:padding="10dp"
+                android:textSize="15dp"
+                android:textStyle="normal" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/cabin"
+                android:padding="10dp"
+                android:text="Female Plant in Row"
+                android:textSize="15dp"
+                android:textStyle="normal" />
+
+            <EditText
+                android:id="@+id/female_plant_in_row"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape"
+                android:fontFamily="@font/cabin"
+                android:hint="Enter Female Plant in Row"
+                android:imeOptions="actionNext"
+                android:inputType="number"
+                android:minHeight="48dp"
+                android:padding="10dp"
+                android:textSize="15dp"
+                android:textStyle="normal" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/cabin"
+                android:padding="@dimen/ten"
+                android:text="Isolation"
+                android:textSize="@dimen/fifteen"
+                android:textStyle="normal" />
+
+            <Spinner
+                android:id="@+id/spn_isolation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape"
+                android:entries="@array/isolation"
+                android:fontFamily="@font/cabin"
+                android:padding="@dimen/ten"
+                android:paddingStart="@dimen/fifteen" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/cabin"
+                android:padding="10dp"
+                android:text="PLD Acre"
+                android:textSize="15dp"
+                android:textStyle="normal" />
+
+            <EditText
+                android:id="@+id/pld_acre"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape"
+                android:fontFamily="@font/cabin"
+                android:hint="Enter PLD Acre"
+                android:imeOptions="actionNext"
+                android:inputType="number"
+                android:minHeight="48dp"
+                android:padding="10dp"
+                android:textSize="15dp"
+                android:textStyle="normal" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/cabin"
+                android:padding="10dp"
+                android:text="Reason of PLD"
+                android:textSize="15dp"
+                android:textStyle="normal" />
+
+            <EditText
+                android:id="@+id/reason_of_pld"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape"
+                android:fontFamily="@font/cabin"
+                android:hint="Enter Reason of PLD"
+                android:imeOptions="actionNext"
+                android:inputType="text"
+                android:minHeight="48dp"
+                android:padding="10dp"
+                android:textSize="15dp"
+                android:textStyle="normal" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/cabin"
+                android:padding="10dp"
+                android:text="Rejected Acre"
+                android:textSize="15dp"
+                android:textStyle="normal" />
+
+            <EditText
+                android:id="@+id/rejected_acre"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape"
+                android:fontFamily="@font/cabin"
+                android:hint="Enter Rejected Acre"
+                android:imeOptions="actionNext"
+                android:inputType="number"
+                android:minHeight="48dp"
+                android:padding="10dp"
+                android:textSize="15dp"
+                android:textStyle="normal" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/cabin"
+                android:padding="10dp"
+                android:text="Reason of Rejected PLD"
+                android:textSize="15dp"
+                android:textStyle="normal" />
+
+            <EditText
+                android:id="@+id/reason_of_rejected_pld"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape"
+                android:fontFamily="@font/cabin"
+                android:hint="Enter Reason of Rejected PLD"
+                android:imeOptions="actionNext"
+                android:inputType="text"
+                android:minHeight="48dp"
+                android:padding="10dp"
+                android:textSize="15dp"
+                android:textStyle="normal" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/cabin"
+                    android:padding="10dp"
+                    android:text="Expected Date of Dispatch"
+                    android:textSize="15dp"
+                    android:textStyle="normal" />
+
+                <TextView
+                    android:id="@+id/expected_date_of_dispatch"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="25dp"
+                    android:gravity="right"
+                    android:text="Select date"
+                    android:textColor="@color/apptheme_green" />
+
+            </LinearLayout>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/cabin"
+                android:padding="@dimen/ten"
+                android:text="FA Flag"
+                android:textSize="@dimen/fifteen"
+                android:textStyle="normal" />
+
+            <Spinner
+                android:id="@+id/spn_fa_flag"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape"
+                android:fontFamily="@font/cabin"
+                android:entries="@array/options"
+                android:padding="@dimen/ten"
+                android:paddingStart="@dimen/fifteen" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/ten"
+                android:fontFamily="@font/cabin"
+                android:padding="@dimen/ten"
+                android:text="Add Photos"
+                android:textSize="@dimen/fifteen"
+                android:textStyle="normal" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="10dp">
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="90dp"
+                    android:layout_height="90dp"
+                    app:cardCornerRadius="5dp"
+                    app:cardElevation="5dp"
+                    app:cardUseCompatPadding="true">
+
+                    <ImageView
+                        android:id="@+id/iv_form_one_1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:padding="5dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/uploading" />
+
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="90dp"
+                    android:layout_height="90dp"
+                    app:cardCornerRadius="5dp"
+                    app:cardElevation="5dp"
+                    app:cardUseCompatPadding="true">
+
+                    <ImageView
+                        android:id="@+id/iv_form_one_2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:padding="5dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/uploading" />
+
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="90dp"
+                    android:layout_height="90dp"
+                    app:cardCornerRadius="5dp"
+                    app:cardElevation="5dp"
+                    app:cardUseCompatPadding="true">
+
+                    <ImageView
+                        android:id="@+id/iv_form_one_3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:padding="5dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/uploading" />
+
+
+                </androidx.cardview.widget.CardView>
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+    <LinearLayout
+        android:id="@+id/bottomLinear"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/grey_color"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/inspection_one_tv_next"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginEnd="@dimen/seven"
+            android:background="@drawable/rounded_background_gray_with_stoke"
+            android:fontFamily="@font/cabin"
+            android:gravity="center"
+            android:minHeight="48dp"
+            android:padding="7dp"
+            android:text="Submit"
+            android:textColor="#fff"
+            android:textSize="@dimen/eighteen"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+</RelativeLayout>

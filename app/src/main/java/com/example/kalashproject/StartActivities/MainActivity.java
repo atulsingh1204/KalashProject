@@ -30,9 +30,14 @@ import com.example.kalashproject.AddVendor;
 import com.example.kalashproject.AddVendorGrower;
 import com.example.kalashproject.ApprovedOrderActivity;
 import com.example.kalashproject.Form3;
+import com.example.kalashproject.InspectionFormFour;
+import com.example.kalashproject.InspectionFormOne;
+import com.example.kalashproject.InspectionFormThree;
+import com.example.kalashproject.InspectionFormTwo;
 import com.example.kalashproject.ModelList.SliderData;
 import com.example.kalashproject.MyLibrary.Shared_Preferences;
 import com.example.kalashproject.PendingOrderActivity;
+import com.example.kalashproject.QRCheckerActivity;
 import com.example.kalashproject.R;
 import com.example.kalashproject.RejectedOrderActivity;
 import com.example.kalashproject.WebService.AppConfig;
@@ -55,7 +60,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     Context context;
    private TableRow trprofile,trtarget,tr_visits,li_farmar_meeting,li_distributor,li_youtube,tr_subscribe,tr_sct_result,tr_meetings,tr_orders,li_orders,li_sales,tr_massage_com,li_massage,li_compilent,tr_new_dist,tr_downloads,li_brochure,li_banner,tr_video,li_all_vedio,li_target,tr_blogs,tr_product,tr_farmerGroup,tr_about,tr_Logout;
-   private  TableRow trprofile_two,tr_orders_two,tr_add_order,tr_pending_order,tr_approved_order,tr_closed_orders,tr_inspection;
+   private  TableRow trprofile_two,tr_orders_two,tr_add_order,tr_pending_order,tr_approved_order,tr_closed_orders,tr_inspection, tr_qr_checker, tr_inspection_one,tr_inspection_two,tr_inspection_three,tr_inspection_four;
    private LinearLayout tv_teargets, linLay_farmer_vist, linLay_farmer_meet, linLay_new_farmer, linLay_watch_video,
            linLayyuotube_subscriber, linLay_upload_photo;
 
@@ -69,7 +74,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     // Slider
     ArrayList<SliderData> sliderDataArrayList = new ArrayList<>();
 
-    LinearLayout linearLayout_order_two;
+    LinearLayout linearLayout_order_two, linearlayout_inspection;
 
     String url1="https://wallpapercave.com/wp/wp4184149.jpg";
     String url2 = "https://thumbs.dreamstime.com/z/vegetables-1430407.jpg";
@@ -105,9 +110,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         tr_pending_order = findViewById(R.id.tr_pending_order);
         tr_approved_order = findViewById(R.id.tr_approved_order);
         tr_closed_orders  = findViewById(R.id.tr_closed_orders);
+        tr_qr_checker = findViewById(R.id.tr_qr_checker);
+        tr_inspection_one = findViewById(R.id.tr_inspection_one);
+        tr_inspection_two = findViewById(R.id.tr_inspection_two);
+        tr_inspection_three = findViewById(R.id.tr_inspection_three);
+        tr_inspection_four = findViewById(R.id.tr_inspection_four);
 
 //        linLayHeader = (FrameLayout) findViewById(R.id.linLayHeader);
         linearLayout_order_two = findViewById(R.id.linearLayout_order_two);
+        linearlayout_inspection = findViewById(R.id.linearlayout_inspection);
         fabLayout1 = (LinearLayout) findViewById(R.id.fabLayout1);
 
         TableRow tr_Logout = findViewById(R.id.tr_Logout);
@@ -132,6 +143,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         tr_approved_order.setOnClickListener(this);
         tr_closed_orders.setOnClickListener(this);
         tr_Logout.setOnClickListener(this);
+        tr_qr_checker.setOnClickListener(this);
+        tr_inspection_one.setOnClickListener(this);
+        tr_inspection_two.setOnClickListener(this);
+        tr_inspection_three.setOnClickListener(this);
+        tr_inspection_four.setOnClickListener(this);
 
 
 
@@ -159,31 +175,32 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.tr_add_order:
                 startActivity(new Intent(MainActivity.this, AddVendorGrower.class));
                 overridePendingTransition(R.anim.right_in, R.anim.left_out);
-               // linearLayout_orders.setVisibility(View.GONE);
+                linearLayout_order_two.setVisibility(View.GONE);
                 drawerLayout.closeDrawers();
               //  Toast.makeText(MainActivity.this, "Add orders", Toast.LENGTH_SHORT).show();
                 finish();
                 break;
 
             case R.id.tr_inspection:
-                startActivity(new Intent(MainActivity.this, Form3.class));
-                overridePendingTransition(R.anim.right_in, R.anim.left_out);
-                // linearLayout_orders.setVisibility(View.GONE);
-                drawerLayout.closeDrawers();
+               if (!linearlayout_inspection.isShown()){
+                   linearlayout_inspection.setVisibility(View.VISIBLE);
+               }else {
+                   linearlayout_inspection.setVisibility(View.GONE);
+               }
 
                 break;
 
             case R.id.tr_pending_order:
                 startActivity(new Intent(MainActivity.this, PendingOrderActivity.class));
                 overridePendingTransition(R.anim.right_in, R.anim.left_out);
-                // linearLayout_orders.setVisibility(View.GONE);
+                linearLayout_order_two.setVisibility(View.GONE);
                 drawerLayout.closeDrawers();
                 break;
 
             case R.id.tr_approved_order:
                 startActivity(new Intent(MainActivity.this, ApprovedOrderActivity.class));
                 overridePendingTransition(R.anim.right_in, R.anim.left_out);
-                // linearLayout_orders.setVisibility(View.GONE);
+                 linearLayout_order_two.setVisibility(View.GONE);
                 drawerLayout.closeDrawers();
                 break;
 
@@ -191,10 +208,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.tr_closed_orders:
                 startActivity(new Intent(MainActivity.this, RejectedOrderActivity.class));
                 overridePendingTransition(R.anim.right_in, R.anim.left_out);
-                // linearLayout_orders.setVisibility(View.GONE);
+                linearLayout_order_two.setVisibility(View.GONE);
                 drawerLayout.closeDrawers();
                 break;
 
+
+            case R.id.tr_qr_checker:
+                startActivity(new Intent(MainActivity.this, QRCheckerActivity.class));
+                overridePendingTransition(R.anim.right_in, R.anim.left_out);
+                // linearLayout_orders.setVisibility(View.GONE);
+                drawerLayout.closeDrawers();
+                break;
 
 
 
@@ -210,8 +234,40 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 break;
 
+            case R.id.tr_inspection_one:
+                startActivity(new Intent(MainActivity.this, InspectionFormOne.class));
+                overridePendingTransition(R.anim.right_in,R.anim.left_out);
+                linearlayout_inspection.setVisibility(View.GONE);
+                drawerLayout.closeDrawers();
+                break;
+
+            case R.id.tr_inspection_two:
+                startActivity(new Intent(MainActivity.this, InspectionFormTwo.class));
+                overridePendingTransition(R.anim.right_in, R.anim.left_out);
+                linearlayout_inspection.setVisibility(View.GONE);
+                drawerLayout.closeDrawers();
+                break;
+
+
+            case R.id.tr_inspection_three:
+                startActivity(new Intent(MainActivity.this, InspectionFormThree.class));
+                overridePendingTransition(R.anim.right_in, R.anim.left_out);
+                linearlayout_inspection.setVisibility(View.GONE);
+                drawerLayout.closeDrawers();
+                break;
+
+
+
+            case R.id.tr_inspection_four:
+                startActivity(new Intent(MainActivity.this, InspectionFormFour.class));
+                overridePendingTransition(R.anim.right_in, R.anim.left_out);
+                linearlayout_inspection.setVisibility(View.GONE);
+                drawerLayout.closeDrawers();
+                break;
+
+
             default:
-                Toast.makeText(this, "Switch case", Toast.LENGTH_SHORT).show();
+               // Toast.makeText(this, "Switch case", Toast.LENGTH_SHORT).show();
 
 
         }
