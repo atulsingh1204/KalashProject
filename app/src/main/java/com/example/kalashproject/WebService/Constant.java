@@ -6,6 +6,9 @@ public class Constant
 
 //	public static final String LINK = "http://www.kalashseeds.com/kalashseeds/fdo/";
 
+	//==== End point
+	public static final String ENDPOINT = "/Intuenty/staging/api/user/"; // just for testing to upload multiple images
+
 
 //	public static final String LINK = "http://www.kalashseeds.com/kalash_sumago/fdo/";
 //	public static final String LINK = "http://192.168.1.46/kalashseeds/fdo/";

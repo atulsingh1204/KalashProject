@@ -18,12 +18,16 @@ import android.provider.MediaStore;
 import android.speech.RecognitionService;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.kalashproject.ModelList.FQ_flag_list;
 import com.example.kalashproject.MyLibrary.FileUtils;
 import com.example.kalashproject.MyLibrary.Shared_Preferences;
 import com.example.kalashproject.StartActivities.MainActivity;
@@ -53,7 +57,11 @@ public class InspectionFormTwo extends AppCompatActivity {
     ImageView iv_image_1, iv_image_2, iv_image_3;
     ImageView iv_photo_1, iv_photo_2, iv_photo_3;
 
+    Spinner spn_fa_flag_two;
+    String str_Fa_flag_id_two;
+
     ArrayList<Uri> iv_photo_list = new ArrayList<Uri>();
+    ArrayList<FQ_flag_list> fq_flag_lists_two = new ArrayList<FQ_flag_list>();
 
     String str_total_female, str_ot_plant_in_f, str_ot_plant_in_m, str_details, str_disease_plant_in_m, str_pld_acre, str_reason_of_pld, str_rejected_acre, str_reason_rejected_acre, str_breeder_remark,
             str_date_of_roughing, str_date_of_roughing_two, str_expected_date_of_dispatch_two;
@@ -94,6 +102,8 @@ public class InspectionFormTwo extends AppCompatActivity {
         iv_photo_2 = findViewById(R.id.iv_photo_2);
         iv_photo_3 = findViewById(R.id.iv_photo_3);
 
+
+        spn_fa_flag_two = findViewById(R.id.spn_fa_flag_two);
 
         inspection_two_tv_next = findViewById(R.id.inspection_two_tv_next);
 
@@ -175,6 +185,7 @@ public class InspectionFormTwo extends AppCompatActivity {
             }
         };
 
+        getFaFlag();
         GetImages();
 
         inspection_two_tv_next.setOnClickListener(new View.OnClickListener() {
@@ -295,7 +306,7 @@ public class InspectionFormTwo extends AppCompatActivity {
         Log.e("fdo_id","" +fdo_id);
 
         ApiInterface apiInterface = Myconfig.getRetrofit().create(ApiInterface.class);
-        Call<ResponseBody> Result = (Call<ResponseBody>) apiInterface.second_inspection_add("1",fdo_id,"abc",str_ot_plant_in_f,str_date_of_roughing,str_ot_plant_in_m,str_date_of_roughing_two,str_disease_plant_in_m ,str_details,str_pld_acre, str_reason_of_pld,str_rejected_acre,str_reason_rejected_acre,"1", str_expected_date_of_dispatch_two,str_breeder_remark);
+        Call<ResponseBody> Result = (Call<ResponseBody>) apiInterface.second_inspection_add("1",fdo_id,"abc",str_ot_plant_in_f,str_date_of_roughing,str_ot_plant_in_m,str_date_of_roughing_two,str_disease_plant_in_m ,str_details,str_pld_acre, str_reason_of_pld,str_rejected_acre,str_reason_rejected_acre,str_Fa_flag_id_two, str_expected_date_of_dispatch_two,str_breeder_remark);
 
         Result.enqueue(new Callback<ResponseBody>() {
             @Override
@@ -392,4 +403,69 @@ public class InspectionFormTwo extends AppCompatActivity {
 
         return Uri.parse(profile);
     }
+
+
+    private void getFaFlag()
+    {
+        ApiInterface apiInterface = Myconfig.getRetrofit().create(ApiInterface.class);
+        Call<ResponseBody> result = apiInterface.fq_flag_list();
+        result.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+//                if (pDialog.isShowing()){
+//                    pDialog.dismiss();
+//                }
+                // loadingDialog.dismissDialog();
+                Log.e("getCropList", " " + response);
+                try {
+                    String output = response.body().string();
+                    JSONObject jsonObject = new JSONObject(output);
+                    if (jsonObject.getString("ResponseCode").equals("1")) {
+                        JSONArray jsonArray = jsonObject.getJSONArray("Data");
+
+                        fq_flag_lists_two.add(new FQ_flag_list("--- Select FA Flag ---"));
+                        for (int i = 0; i < jsonArray.length(); i++) {
+                            JSONObject object = jsonArray.getJSONObject(i);
+                            fq_flag_lists_two.add(new FQ_flag_list(object));
+                        }
+                        ArrayAdapter<FQ_flag_list> cropAdapter = new ArrayAdapter<FQ_flag_list>(InspectionFormTwo.this, android.R.layout.simple_spinner_item, fq_flag_lists_two);
+                        cropAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        spn_fa_flag_two.setAdapter(cropAdapter);
+
+                        spn_fa_flag_two.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                            @Override
+                            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+                                String item = adapterView.getItemAtPosition(i).toString();
+                                Log.e("FA_Flag_Item", " " + item);
+                                str_Fa_flag_id_two = fq_flag_lists_two.get(i).getId();
+                                Log.e("FA_Id"," " +str_Fa_flag_id_two);
+
+                            }
+
+                            @Override
+                            public void onNothingSelected(AdapterView<?> adapterView) {
+
+                            }
+                        });
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Log.e("Error", " " + t);
+//                if (pDialog.isShowing()){
+//                    pDialog.dismiss();
+//                }
+            }
+        });
+    }
+
+
+
 }

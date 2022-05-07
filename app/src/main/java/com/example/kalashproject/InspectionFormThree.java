@@ -10,6 +10,8 @@ import android.os.Bundle;
 import android.print.PrintAttributes;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -17,13 +19,16 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.kalashproject.ModelList.FQ_flag_list;
 import com.example.kalashproject.WebService.ApiInterface;
 import com.example.kalashproject.WebService.Myconfig;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -40,6 +45,9 @@ public class InspectionFormThree extends AppCompatActivity {
     TextView three_date_of_roughing, three_polln_start_date, expected_date_of_dispatch_two;
     ImageView three_iv_image_1, three_iv_image_2, three_iv_image_3;
     ImageView three_iv_photo_1, three_iv_photo_2, three_iv_photo_3;
+
+    ArrayList<FQ_flag_list> fq_flag_lists_three = new ArrayList<FQ_flag_list>();
+    String str_Fa_flag_id_three;
 
     TextView inspection_three_tv_next;
 
@@ -99,6 +107,8 @@ public class InspectionFormThree extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setTitle("Inspection Form Three");
 
+
+        getFaFlag();
 
         Calendar calendar = Calendar.getInstance();
         final int year = calendar.get(Calendar.YEAR);
@@ -176,6 +186,8 @@ public class InspectionFormThree extends AppCompatActivity {
 
     }
 
+
+
     private void sendData()
     {
 
@@ -203,7 +215,7 @@ public class InspectionFormThree extends AppCompatActivity {
 
 
         ApiInterface apiInterface = Myconfig.getRetrofit().create(ApiInterface.class);
-        Call<ResponseBody> Result = (Call<ResponseBody>) apiInterface.third_inspection_add("1","1",str_three_ot_plant_in_f,str_three_details,str_disease_plant_in_f, str_three_date_of_roughing, str_three_polln_start_date,str_three_pld_acre, str_three_reason_of_pld, str_three_rejected_acre, str_three_reason_rejected_acre, str_three_exi_fruit, str_three_exp_fruit, str_three_total_fruit, str_three_avg_wt_seed_fruit, "1", str_expected_date_of_dispatch_two,str_three_breeder_remark);
+        Call<ResponseBody> Result = (Call<ResponseBody>) apiInterface.third_inspection_add("1","1",str_three_ot_plant_in_f,str_three_details,str_disease_plant_in_f, str_three_date_of_roughing, str_three_polln_start_date,str_three_pld_acre, str_three_reason_of_pld, str_three_rejected_acre, str_three_reason_rejected_acre, str_three_exi_fruit, str_three_exp_fruit, str_three_total_fruit, str_three_avg_wt_seed_fruit, str_Fa_flag_id_three, str_expected_date_of_dispatch_two,str_three_breeder_remark);
 
         Result.enqueue(new Callback<ResponseBody>() {
             @Override
@@ -242,16 +254,6 @@ public class InspectionFormThree extends AppCompatActivity {
 
 
 
-
-
-
-
-
-
-
-
-
-
     }
 
 
@@ -260,4 +262,70 @@ public class InspectionFormThree extends AppCompatActivity {
         onBackPressed();
         return true;
     }
+
+
+    private void getFaFlag()
+    {
+        ApiInterface apiInterface = Myconfig.getRetrofit().create(ApiInterface.class);
+        Call<ResponseBody> result = apiInterface.fq_flag_list();
+        result.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+//                if (pDialog.isShowing()){
+//                    pDialog.dismiss();
+//                }
+                // loadingDialog.dismissDialog();
+                Log.e("getCropList", " " + response);
+                try {
+                    String output = response.body().string();
+                    JSONObject jsonObject = new JSONObject(output);
+                    if (jsonObject.getString("ResponseCode").equals("1")) {
+                        JSONArray jsonArray = jsonObject.getJSONArray("Data");
+
+                        fq_flag_lists_three.add(new FQ_flag_list("--- Select FA Flag ---"));
+                        for (int i = 0; i < jsonArray.length(); i++) {
+                            JSONObject object = jsonArray.getJSONObject(i);
+                            fq_flag_lists_three.add(new FQ_flag_list(object));
+                        }
+                        ArrayAdapter<FQ_flag_list> cropAdapter = new ArrayAdapter<FQ_flag_list>(InspectionFormThree.this, android.R.layout.simple_spinner_item, fq_flag_lists_three);
+                        cropAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        spn_fa_flag_three.setAdapter(cropAdapter);
+
+                        spn_fa_flag_three.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                            @Override
+                            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+                                String item = adapterView.getItemAtPosition(i).toString();
+                                Log.e("FA_Flag_Item", " " + item);
+                                str_Fa_flag_id_three = fq_flag_lists_three.get(i).getId();
+                                Log.e("FA_Id"," " +str_Fa_flag_id_three);
+
+                            }
+
+                            @Override
+                            public void onNothingSelected(AdapterView<?> adapterView) {
+
+                            }
+                        });
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Log.e("Error", " " + t);
+//                if (pDialog.isShowing()){
+//                    pDialog.dismiss();
+//                }
+            }
+        });
+    }
+
+
+
+
 }

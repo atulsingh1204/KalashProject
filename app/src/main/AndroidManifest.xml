@@ -22,6 +22,25 @@
         android:theme="@style/Theme.KalashProject"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".TestTwoActivity"
+            android:exported="true">
+
+
+
+        </activity>
+        <activity
+            android:name=".InspectionTwoList"
+            android:exported="false" />
+        <activity
+            android:name=".InspectionOneFullData"
+            android:exported="false" />
+        <activity
+            android:name=".InsoectionOneList"
+            android:exported="false" />
+        <activity
+            android:name=".GRPO"
+            android:exported="true" />
+        <activity
             android:name=".InspectionFormFour"
             android:exported="false" />
         <activity
@@ -77,6 +96,7 @@
         <activity
             android:name=".SplashActivity"
             android:exported="true">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

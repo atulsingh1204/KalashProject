@@ -97,4 +97,15 @@ dependencies {
     implementation 'com.karumi:dexter:6.2.1'
     implementation 'de.hdodenhof:circleimageview:3.1.0'
 
+
+
+
+    // dependency for Loading button
+    implementation 'br.com.simplepass:loading-button-android:1.14.0'
+
+    // dependency for Displaying images
+//    implementation 'com.squareup.picasso:picasso:2.71828'
+
+//    implementation 'com.squareup.retrofit2:converter-scalars:2.9.0'
+
 }

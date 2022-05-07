@@ -295,6 +295,10 @@
 
 
 
+
+
+
+
                 <LinearLayout
                     android:id="@+id/linearlayout_inspection"
                     android:layout_width="match_parent"
@@ -415,6 +419,34 @@
 
 
                 </LinearLayout>
+
+
+                <TableRow
+                    android:id="@+id/tr_tentative_grpo"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="20dp"
+                    android:gravity="center_vertical">
+
+                    <ImageView
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:layout_margin="7dp"
+                        android:src="@drawable/target_icon"
+                        tools:ignore="VectorDrawableCompat" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="7dp"
+                        android:fontFamily="@font/cabin"
+                        android:paddingLeft="8dp"
+                        android:text="Tentative GRPO"
+                        android:textColor="@android:color/black"
+                        android:textSize="14dp"
+                        android:textStyle="normal" />
+
+                </TableRow>
 
 
                 <TableRow

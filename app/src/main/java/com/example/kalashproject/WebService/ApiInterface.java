@@ -1,21 +1,20 @@
 package com.example.kalashproject.WebService;
 
 
-import androidx.annotation.Nullable;
+import com.example.kalashproject.ModelList.ApiModel;
 
-import com.google.android.gms.common.annotation.KeepForSdkWithFieldsAndMethods;
-
-import java.security.SecureRandom;
 import java.util.ArrayList;
+import java.util.List;
 
 import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 
 
 public interface ApiInterface
@@ -242,6 +241,53 @@ public interface ApiInterface
                                              @Field("expected_date_of_dispatch")String expected_date_of_dispatch,
                                              @Field("breeder_remark")String breeder_remark);
 
+
+
+
+    @FormUrlEncoded
+    @POST("grpo_add.php")
+    Call<ResponseBody> grpo_add(@Field("order_id")String order_id,
+                                @Field("total_quantity")String total_quantity,
+                                @Field("first_bag_size")String first_bag_size,
+                                @Field("first_number_of_bags")String first_number_of_bags,
+                                @Field("second_bag_size")String second_bag_size,
+                                @Field("second_number_of_bags")String second_number_of_bags,
+                                @Field("third_bag_size")String third_bag_size,
+                                @Field("third_number_of_bags")String third_number_of_bags,
+                                @Field("fourth_bag_size")String fourth_bag_size,
+                                @Field("fourth_number_of_bags")String fourth_number_of_bags,
+                                @Field("fifth_bag_size")String fifth_bag_size,
+                                @Field("fifth_number_of_bags")String fifth_number_of_bags,
+                                @Field("moisture")String moisture,
+                                @Field("want_to_close_document")String want_to_close_document,
+                                @Field("pending_quantity")String pending_quantity);
+
+    @FormUrlEncoded
+    @POST("first_inspections_list.php")
+    Call<ResponseBody> InspectionOneList(@Field("fdo_id")String fdo_id);
+
+
+    @FormUrlEncoded
+    @POST("second_inspections_list.php")
+    Call<ResponseBody> InspectionTwoList(@Field("fdo_id")String fdo_id);
+
+//    @Multipart
+//    @POST("first_inspection_add.php")
+//    Call<ResponseBody> uploadImages (@Part MultipartBody.Part file1, @Part MultipartBody.Part file2);
+
+    @Multipart
+    @POST("first_inspection_add.php")
+    Call<ResponseBody> uploadImages(@Part ArrayList<MultipartBody.Part> document_name);
+
+
+
+//    @Multipart
+//    @POST(Constant.ENDPOINT+"NewsFeed/uploadImage")
+//    Call<ApiModel> uploadNewsFeedImages(@Part List<MultipartBody.Part> files);
+
+    @Multipart
+    @POST("first_inspection_add.php")
+    Call<ResponseBody> upload(@Part List<MultipartBody.Part> files);
 
 }
 
