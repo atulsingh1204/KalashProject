@@ -1,41 +1,68 @@
 package com.example.kalashproject;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.Manifest;
 import android.app.DatePickerDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.graphics.Camera;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.kalashproject.ModelList.CropList;
 import com.example.kalashproject.ModelList.FQ_flag_list;
+import com.example.kalashproject.MyLibrary.Shared_Preferences;
+import com.example.kalashproject.Utils.FileUtil;
 import com.example.kalashproject.WebService.ApiInterface;
 import com.example.kalashproject.WebService.Myconfig;
 import com.github.dhaval2404.imagepicker.ImagePicker;
+import com.karumi.dexter.Dexter;
+import com.karumi.dexter.MultiplePermissionsReport;
+import com.karumi.dexter.PermissionToken;
+import com.karumi.dexter.listener.PermissionRequest;
+import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
 
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -45,23 +72,44 @@ public class InspectionFormOne extends AppCompatActivity {
 
     TextView male_sowing_date, female_sowing_date, expected_date_of_dispatch;
 
-    EditText male_row, female_row, male_plant_in_row, female_plant_in_row, pld_acre, reason_of_pld, rejected_acre, reason_of_rejected_pld;
+    EditText male_row, female_row, male_plant_in_row, female_plant_in_row, pld_acre, reason_of_pld, rejected_acre, reason_of_rejected_pld, first_breeder_remark;
 
     String MaleRow, FemaleRow, MalePlantInRow, FemalePlantInRow, PLDAcre, ReasonOfPLD, RejectedAcre, ReasonOfRejectedPLD;
     String MaleSowingDate,FemaleSowingDate, ExpectedDateOfDispatch;
 
-    ImageView iv_form_one_1, iv_form_one_2, iv_form_one_3;
 
-    int Code = 2404;
 
-    ArrayList<Uri> imagesList = new ArrayList<Uri>();
+    ///Multiple Images
+    ImageView selectedImage;
+    List<Uri> files = new ArrayList<>();
+
+    private LinearLayout parentLinearLayout;
+
+    final private int REQUEST_CODE_ASK_PERMISSIONS = 123;
+
+
+
+
+
+
+
+
+
+
 
     ArrayList<FQ_flag_list> fq_flag_lists = new ArrayList<FQ_flag_list>();
 
 
 
 
-    String str_isolation, str_Fa_flag_id = "";
+    //String str_isolation;
+
+   // String str_Fa_flag_id = "";
+
+    RequestBody str_isolation, str_Fa_flag_id;
+
+    RequestBody order_id , fdo_id;
+
 
     Spinner spn_isolation, spn_fa_flag;
         DatePickerDialog.OnDateSetListener setListenerMale;
@@ -97,6 +145,7 @@ public class InspectionFormOne extends AppCompatActivity {
         rejected_acre = findViewById(R.id.rejected_acre);
         expected_date_of_dispatch = findViewById(R.id.expected_date_of_dispatch);
         reason_of_rejected_pld = findViewById(R.id.reason_of_rejected_pld);
+        first_breeder_remark = findViewById(R.id.first_breeder_remark);
 
         inspection_one_tv_next = findViewById(R.id.inspection_one_tv_next);
 
@@ -106,6 +155,20 @@ public class InspectionFormOne extends AppCompatActivity {
 
         spn_isolation = findViewById(R.id.spn_isolation);
         spn_fa_flag = findViewById(R.id.spn_fa_flag);
+
+        // Images
+
+
+        parentLinearLayout= findViewById(R.id.parent_linear_layout);
+
+        ImageView addImage = findViewById(R.id.iv_add_image);
+
+        addImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                addImage();
+            }
+        });
 
 
         Calendar calendar = Calendar.getInstance();
@@ -186,7 +249,7 @@ public class InspectionFormOne extends AppCompatActivity {
         getIsolation();
         getFaFlag();
 
-        getImages();
+
 
 
 
@@ -195,60 +258,78 @@ public class InspectionFormOne extends AppCompatActivity {
             public void onClick(View view) {
 
                 sendInspectionFormOne();
+
+               // sendImages();
                 Toast.makeText(InspectionFormOne.this, "Clicked!", Toast.LENGTH_SHORT).show();
+
+
+
             }
         });
+
+
 
 
 
     }
 
-    private void getImages()
-    {
-        iv_form_one_1 = findViewById(R.id.iv_form_one_1);
-        iv_form_one_2 = findViewById(R.id.iv_form_one_2);
-        iv_form_one_3 = findViewById(R.id.iv_form_one_3);
 
 
-        iv_form_one_1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ImagePicker.with(InspectionFormOne.this)
-                        .crop()	    			//Crop image(Optional), Check Customization for more option
-                        .compress(1024)			//Final image size will be less than 1 MB(Optional)
-                        .maxResultSize(1080, 1080)	//Final image resolution will be less than 1080 x 1080(Optional)
-                        .start();
+//    private void sendImages()
+//    {
+//
+//       // imageFile = new File(filepath);
+//
+////        Log.e("profileimg", "" + imageFile);
+////        Log.e("profileimg", "" + filepath);
+//
+//        RequestBody reqBody = RequestBody.create(MediaType.parse("multipart/form-data"), imageFile);
+//        MultipartBody.Part files = MultipartBody.Part.createFormData("files", imageFile.getName(), reqBody);
+//
+//        ApiInterface apiInterface = Myconfig.getRetrofit().create(ApiInterface.class);
+//        Log.e("response", "ImageList: " +imagesList);
+//        Log.e("response", "ImageList: " +files);
+//        Call<ResponseBody> Result = (Call<ResponseBody>) apiInterface.SimpleImagesList(files);
+//
+//        Result.enqueue(new Callback<ResponseBody>() {
+//            @Override
+//            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+//
+//                try {
+//                    String output = response.body().string();
+//
+//                    JSONObject jsonObject = new JSONObject(output);
+//                    if (jsonObject.getString("ResponseCode").equals("1")){
+//
+//                        Toast.makeText(InspectionFormOne.this, "" +jsonObject.getString("ResponseMessage"), Toast.LENGTH_SHORT).show();
+//                        Log.e("response","SuccessResponse" +jsonObject.getString("ResponseMessage"));
+//                    }
+//                    else {
+//                        Toast.makeText(InspectionFormOne.this, "" +jsonObject.getString("ResponseMessage"), Toast.LENGTH_SHORT).show();
+//                        Log.e("response","SuccessZero" +jsonObject.getString("ResponseMessage"));
+//                    }
+//
+//                } catch (IOException | JSONException e) {
+//                    e.printStackTrace();
+//
+//
+//                }
+//
+//
+//            }
+//
+//            @Override
+//            public void onFailure(Call<ResponseBody> call, Throwable t) {
+//
+//
+//                Toast.makeText(InspectionFormOne.this, ""+t, Toast.LENGTH_SHORT).show();
+//
+//                Log.e("response", "FailureResponse" +t);
+//            }
+//        });
+//    }
 
-            }
-        });
 
-        iv_form_one_2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ImagePicker.with(InspectionFormOne.this)
-                        .crop()	    			//Crop image(Optional), Check Customization for more option
-                        .compress(1024)			//Final image size will be less than 1 MB(Optional)
-                        .maxResultSize(1080, 1080)	//Final image resolution will be less than 1080 x 1080(Optional)
-                        .start();
-            }
-        });
-
-
-        iv_form_one_3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-
-                ImagePicker.with(InspectionFormOne.this)
-                        .crop()	    			//Crop image(Optional), Check Customization for more option
-                        .compress(1024)			//Final image size will be less than 1 MB(Optional)
-                        .maxResultSize(1080, 1080)	//Final image resolution will be less than 1080 x 1080(Optional)
-                        .start();
-            }
-        });
-
-
-    }
 
 
 
@@ -268,6 +349,9 @@ public class InspectionFormOne extends AppCompatActivity {
                 try {
                     String output = response.body().string();
                     JSONObject jsonObject = new JSONObject(output);
+
+                    Log.e("fq", " " +output);
+
                     if (jsonObject.getString("ResponseCode").equals("1")) {
                         JSONArray jsonArray = jsonObject.getJSONArray("Data");
 
@@ -286,7 +370,10 @@ public class InspectionFormOne extends AppCompatActivity {
 
                                 String item = adapterView.getItemAtPosition(i).toString();
                                 Log.e("FA_Flag_Item", " " + item);
-                                 str_Fa_flag_id = fq_flag_lists.get(i).getId();
+                               //  str_Fa_flag_id = RequestBody.create(MediaType.parse("text/plain"),fq_flag_lists.get(i).getId());
+
+
+
                                 Log.e("FA_Id"," " +str_Fa_flag_id);
 
                             }
@@ -320,7 +407,12 @@ public class InspectionFormOne extends AppCompatActivity {
         spn_isolation.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                str_isolation = spn_isolation.getSelectedItem().toString();
+               // str_isolation = spn_isolation.getSelectedItem().toString();
+
+                 str_isolation = RequestBody.create(MediaType.parse("text/plain"), spn_isolation.getSelectedItem().toString().trim());
+
+
+
                 Log.e("spinner","str_isolation" +str_isolation);
             }
 
@@ -335,17 +427,43 @@ public class InspectionFormOne extends AppCompatActivity {
 
 
 
-        MaleSowingDate = male_sowing_date.getText().toString();
-        FemaleSowingDate = female_sowing_date.getText().toString();
-        MaleRow = male_row.getText().toString().trim();
-        FemaleRow = female_row.getText().toString().trim();
-        MalePlantInRow = male_plant_in_row.getText().toString().trim();
-        FemalePlantInRow = female_plant_in_row.getText().toString().trim();
-        PLDAcre = pld_acre.getText().toString().trim();
-        ReasonOfPLD = reason_of_pld.getText().toString().trim();
-        RejectedAcre = rejected_acre.getText().toString().trim();
-        ReasonOfRejectedPLD = reason_of_rejected_pld.getText().toString().trim();
-        ExpectedDateOfDispatch = expected_date_of_dispatch.getText().toString();
+//        MaleSowingDate = male_sowing_date.getText().toString();
+//        FemaleSowingDate = female_sowing_date.getText().toString();
+//        MaleRow = male_row.getText().toString().trim();
+//        FemaleRow = female_row.getText().toString().trim();
+//        MalePlantInRow = male_plant_in_row.getText().toString().trim();
+//        FemalePlantInRow = female_plant_in_row.getText().toString().trim();
+//        PLDAcre = pld_acre.getText().toString().trim();
+//        ReasonOfPLD = reason_of_pld.getText().toString().trim();
+//        RejectedAcre = rejected_acre.getText().toString().trim();
+//        ReasonOfRejectedPLD = reason_of_rejected_pld.getText().toString().trim();
+//        ExpectedDateOfDispatch = expected_date_of_dispatch.getText().toString();
+
+
+        //Preparing Request Body
+
+        RequestBody MaleSowingDate = RequestBody.create(MediaType.parse("text/plain"), male_sowing_date.getText().toString().trim());
+        RequestBody FemaleSowingDate = RequestBody.create(MediaType.parse("text/plain"), female_sowing_date.getText().toString().trim());
+        RequestBody MaleRow = RequestBody.create(MediaType.parse("text/plain"), male_row.getText().toString().trim());
+        RequestBody FemaleRow = RequestBody.create(MediaType.parse("text/plain"), female_row.getText().toString().trim());
+        RequestBody MalePlantInRow = RequestBody.create(MediaType.parse("text/plain"), male_plant_in_row.getText().toString().trim());
+        RequestBody FemalePlantInRow = RequestBody.create(MediaType.parse("text/plain"), female_plant_in_row.getText().toString().trim());
+        RequestBody PLDAcre = RequestBody.create(MediaType.parse("text/plain"), pld_acre.getText().toString().trim());
+        RequestBody ReasonOfPLD = RequestBody.create(MediaType.parse("text/plain"), reason_of_pld.getText().toString().trim());
+        RequestBody RejectedAcre = RequestBody.create(MediaType.parse("text/plain"), rejected_acre.getText().toString().trim());
+        RequestBody ReasonOfRejectedPLD = RequestBody.create(MediaType.parse("text/plain"), reason_of_rejected_pld.getText().toString().trim());
+        RequestBody ExpectedDateOfDispatch = RequestBody.create(MediaType.parse("text/plain"), expected_date_of_dispatch.getText().toString().trim());
+        RequestBody breeder_remark = RequestBody.create(MediaType.parse("text/plain"), first_breeder_remark.getText().toString().trim());
+
+        order_id = RequestBody.create(MediaType.parse("text/plain"), "1");
+        fdo_id = RequestBody.create(MediaType.parse("text/plain"), Shared_Preferences.getPrefs(InspectionFormOne.this, "Reg_id"));
+        str_Fa_flag_id = RequestBody.create(MediaType.parse("text/plain"),"1");
+
+       // RequestBody str_isolation = str_isolation;
+
+
+
+
 
         Log.e("ReasonOfPLD","" +ReasonOfPLD);
         Log.e("RejectedAcre","" +RejectedAcre);
@@ -363,11 +481,35 @@ public class InspectionFormOne extends AppCompatActivity {
         Log.e("sendFormOne","RejectedAcre " +RejectedAcre);
         Log.e("sendFormOne","ReasonOfRejectedPLD " +ReasonOfRejectedPLD);
         Log.e("sendFormOne","ExpectedDateOfDispatch " +ExpectedDateOfDispatch);
-        Log.e("sendFormOne","fq_flag_id " +"1");
-        Log.e("sendFormOne","breeder_remark " +"Abc");
+        Log.e("sendFormOne","fq_flag_id " +str_Fa_flag_id);
+        Log.e("sendFormOne","breeder_remark " +breeder_remark);
+        Log.e("sendFormOne","fdo_id " +fdo_id);
+        Log.e("sendFormOne","order_id " +order_id);
+
+
+
+
+        //Upload Images
+
+        List<MultipartBody.Part> list = new ArrayList<>();
+
+        for (Uri uri:files){
+
+            Log.i("uris",uri.getPath());
+
+            Log.e("response","Uris: " +uri.getPath());
+
+            list.add(prepareFilePart("document_name[]", uri));
+
+            Log.e("response", "listSizeUpload: " +list);
+        }
 
         ApiInterface apiInterface = Myconfig.getRetrofit().create(ApiInterface.class);
-        Call<ResponseBody> result = (Call<ResponseBody>) apiInterface.first_inspection_add(MaleSowingDate,
+        Call<ResponseBody> result = (Call<ResponseBody>) apiInterface.first_inspection_add(  order_id,
+                                                                                            fdo_id,
+                                                                                            str_Fa_flag_id,
+                                                                                            breeder_remark,
+                                                                                            MaleSowingDate,
                                                                                             FemaleSowingDate,
                                                                                             MaleRow,
                                                                                             FemaleRow,
@@ -379,8 +521,8 @@ public class InspectionFormOne extends AppCompatActivity {
                                                                                             RejectedAcre,
                                                                                             ReasonOfRejectedPLD,
                                                                                             ExpectedDateOfDispatch,
-                                                                                            "1",
-                                                                                            "Abc");
+                                                                                            list
+                                                                                            );
 
         result.enqueue(new Callback<ResponseBody>() {
             @Override
@@ -419,26 +561,47 @@ public class InspectionFormOne extends AppCompatActivity {
         Uri uri = data.getData();
         Log.e("inspectionOne", "RequestCode: " +requestCode);
         Log.e("inspectionOne", "ResultCode: " +resultCode);
-        Log.e("uri","uri: " +uri);
+        Log.e("uri","uriNew: " +uri);
 
-        if (Code==2404){
-            iv_form_one_1.setImageURI(uri);
-            Code = Code+1;
-            imagesList.add(uri);
-            Log.e("inspectionOne","iv_form_one_1"+Code);
-        }
-        else if (Code == 2405){
-            iv_form_one_2.setImageURI(uri);
-            Code = Code+1;
-            
-            Log.e("inspectionOne","iv_form_one_2"+Code);
+        if (resultCode != RESULT_CANCELED) {
+            switch (requestCode) {
+                case 0:
+                    if (resultCode == RESULT_OK && data != null) {
+
+                        Bitmap img = (Bitmap) data.getExtras().get("data");
+                        selectedImage.setImageBitmap(img);
+                        // Picasso.get().load(getImageUri(TestTwoActivity.this,img)).into(selectedImage);
+
+                        String imgPath = FileUtil.getPath(InspectionFormOne.this,getImageUri(InspectionFormOne.this,img));
+
+                        files.add(Uri.parse(imgPath));
+                        Log.e("image", imgPath);
+                    }
+
+                    break;
+                case 1:
+                    if (resultCode == RESULT_OK && data != null) {
+                        Uri img = data.getData();
+                        Picasso.get().load(img).into(selectedImage);
+
+                        String imgPath = FileUtil.getPath(InspectionFormOne.this,img);
+
+                        files.add(Uri.parse(imgPath));
+                        /////Testing start
+                        Log.e("newresponse" , "Uri1: " +imgPath);
+                        Uri temp = Uri.parse(imgPath);
+                        Log.e("newresponse" , "addedInList: " +Uri.parse(imgPath));
+                        Log.e("newresponse" , "addedInList: " +temp);
+                        Log.e("image", imgPath);
+
+
+                        ///// Testing End
+
+                    }
+                    break;
+            }
         }
 
-        else if (Code == 2406){
-            iv_form_one_3.setImageURI(uri);
-            Code = Code+1;
-            Log.e("inspectionOne","iv_form_one_2"+Code);
-        }
 
     }
 
@@ -449,4 +612,107 @@ public class InspectionFormOne extends AppCompatActivity {
         return true;
 
     }
+
+
+
+
+
+
+
+    private void addImage()
+    {
+
+        LayoutInflater inflater=(LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        final View rowView=inflater.inflate(R.layout.image, null);
+        // Add the new row before the add field button.
+        parentLinearLayout.addView(rowView, parentLinearLayout.getChildCount() - 1);
+        parentLinearLayout.isFocusable();
+
+        selectedImage = rowView.findViewById(R.id.number_edit_text);
+        selectImage(InspectionFormOne.this);
+
+    }
+
+    private void selectImage(Context context)
+    {
+
+        Dexter.withContext(InspectionFormOne.this)
+                .withPermissions(
+                        Manifest.permission.CAMERA,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                        Manifest.permission.READ_EXTERNAL_STORAGE
+                ).withListener(new MultiplePermissionsListener() {
+            @Override
+            public void onPermissionsChecked(MultiplePermissionsReport multiplePermissionsReport) {
+
+                if (multiplePermissionsReport.areAllPermissionsGranted()){
+
+                    final CharSequence[] options = {"Take Photo", "Choose from Gallery", "Cancel"};
+
+                    AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                    builder.setCancelable(false);
+                    builder.setTitle("Choose a Media");
+
+                    builder.setItems(options, new DialogInterface.OnClickListener() {
+
+                        @Override
+                        public void onClick(DialogInterface dialog, int item) {
+
+                            if (options[item].equals("Take Photo")) {
+                                Intent takePicture = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+                                startActivityForResult(takePicture, 0);
+
+                            } else if (options[item].equals("Choose from Gallery")) {
+                                Intent pickPhoto = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                                startActivityForResult(pickPhoto, 1);//one can be replaced with any action code
+
+                            } else if (options[item].equals("Cancel")) {
+                                dialog.dismiss();
+                            }
+                        }
+                    });
+                    builder.show();
+                }
+            }
+
+            @Override
+            public void onPermissionRationaleShouldBeShown(List<PermissionRequest> list, PermissionToken permissionToken) {
+
+                permissionToken.continuePermissionRequest();
+            }
+        }).check();
+
+
+
+    }
+
+
+    public Uri getImageUri(Context inContext, Bitmap inImage) {
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "intuenty", null);
+        Log.d("image uri",path);
+        return Uri.parse(path);
+    }
+
+
+
+    @NonNull
+    private MultipartBody.Part prepareFilePart(String partName, Uri fileUri) {
+
+        File file = new File(fileUri.getPath());
+        Log.i("here is error",file.getAbsolutePath());
+        // create RequestBody instance from file
+
+        RequestBody requestFile =
+                RequestBody.create(
+                        MediaType.parse("image/*"),
+                        file);
+
+        // MultipartBody.Part is used to send also the actual file name
+        return MultipartBody.Part.createFormData(partName, file.getName(), requestFile);
+
+
+    }
+
 }

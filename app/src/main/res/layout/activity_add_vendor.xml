@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -13,9 +13,10 @@
 
 
     <androidx.core.widget.NestedScrollView
+        android:id="@+id/id_nested_scrollview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/id_nested_scrollview"
+        android:layout_above="@id/bottomLinear"
         android:layout_below="@+id/toolbar">
 
 
@@ -25,6 +26,27 @@
             android:layout_marginHorizontal="20dp"
             android:layout_marginVertical="50dp"
             android:orientation="vertical">
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/cabin"
+                android:padding="@dimen/ten"
+                android:text="Type"
+                android:textSize="@dimen/fifteen"
+                android:textStyle="normal" />
+
+            <Spinner
+                android:id="@+id/spn_type_grower"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape"
+                android:entries="@array/grower_vendoer"
+                android:fontFamily="@font/cabin"
+                android:padding="@dimen/ten"
+                android:paddingStart="@dimen/fifteen" />
+
 
             <TextView
                 android:layout_width="wrap_content"
@@ -37,7 +59,7 @@
                 android:textStyle="normal" />
 
             <EditText
-                android:id="@+id/edt_farmer_name"
+                android:id="@+id/edt_full_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/shape"
@@ -50,6 +72,7 @@
                 android:textSize="@dimen/fifteen"
                 android:textStyle="normal" />
 
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -61,14 +84,15 @@
                 android:textStyle="normal" />
 
             <EditText
-                android:id="@+id/edt_mobNo"
+                android:id="@+id/edt_mobileNumber"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/shape"
                 android:fontFamily="@font/cabin"
                 android:hint="Mobile Number"
                 android:imeOptions="actionNext"
-                android:inputType="text"
+                android:inputType="number"
+                android:maxLength="10"
                 android:minHeight="48dp"
                 android:padding="@dimen/ten"
                 android:textSize="@dimen/fifteen"
@@ -92,10 +116,60 @@
                 android:fontFamily="@font/cabin"
                 android:hint="Enter Aadhar Number"
                 android:imeOptions="actionNext"
-                android:inputType="text"
+                android:inputType="number"
+                android:maxLength="12"
                 android:minHeight="48dp"
                 android:padding="@dimen/ten"
                 android:textSize="@dimen/fifteen"
+                android:textStyle="normal" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/cabin"
+                android:padding="@dimen/ten"
+                android:text="Generate New Family Code?"
+                android:textSize="@dimen/fifteen"
+                android:textStyle="normal" />
+
+
+            <Spinner
+                android:id="@+id/spn_generateFamilyCode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape"
+                android:entries="@array/isolation"
+                android:fontFamily="@font/cabin"
+                android:padding="@dimen/ten"
+                android:paddingStart="@dimen/fifteen" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/cabin"
+                android:padding="@dimen/ten"
+                android:id="@+id/tv_familyCode"
+                android:text="Family Code"
+                android:textSize="@dimen/fifteen"
+                android:visibility="gone"
+                android:textStyle="normal" />
+
+
+            <TextView
+                android:id="@+id/edt_family_code"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@drawable/shape"
+                android:fontFamily="@font/cabin"
+                android:gravity="start"
+                android:visibility="gone"
+                android:hint="--Select Option--"
+                android:padding="10dp"
+                android:paddingStart="15dp"
+                android:textColor="@color/black"
                 android:textStyle="normal" />
 
             <TextView
@@ -115,9 +189,9 @@
                 android:background="@drawable/shape"
                 android:fontFamily="@font/cabin"
                 android:hint="Address"
-                android:maxLines="5"
                 android:imeOptions="actionNext"
                 android:inputType="text"
+                android:maxLines="5"
                 android:minHeight="48dp"
                 android:padding="@dimen/ten"
                 android:textSize="@dimen/fifteen"
@@ -151,7 +225,8 @@
                     android:entries="@array/select"
                     android:fontFamily="@font/cabin"
                     android:padding="@dimen/ten"
-                    android:paddingStart="@dimen/fifteen" />
+                    android:paddingStart="@dimen/fifteen"
+                    tools:ignore="TouchTargetSizeCheck" />
 
             </LinearLayout>
 
@@ -253,6 +328,153 @@
 
             </LinearLayout>
 
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="7dp"
+                    android:layout_margin="7dp"
+                    android:layout_marginBottom="5dp"
+                    android:orientation="horizontal">
+
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:layout_marginEnd="7dp"
+                        android:orientation="vertical"
+                        android:visibility="visible">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:background="@drawable/green_shape"
+                            android:padding="7dp"
+                            android:text="Aadhaar Card"
+                            android:textColor="@color/green" />
+
+
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:id="@+id/upload_AadhaarCard"
+                            android:layout_width="@dimen/standard_100"
+                            android:layout_height="@dimen/standard_100"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="7dp"
+                            android:background="@drawable/shape"
+                            android:padding="7dp"
+                            android:src="@drawable/no_image_available" />
+
+<!--                        <TextView-->
+<!--                            android:id="@+id/text_aadhaarCard"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_gravity="center"-->
+<!--                            android:layout_marginTop="7dp"-->
+<!--                            android:background="@drawable/shape"-->
+<!--                            android:gravity="center"-->
+<!--                            android:padding="10dp"-->
+<!--                            android:text="Select Aadhaar"-->
+<!--                            android:textColor="@color/black" />-->
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:layout_marginEnd="7dp"
+                        android:orientation="vertical"
+                        android:visibility="visible">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:background="@drawable/green_shape"
+                            android:padding="7dp"
+                            android:text="PAN Card"
+                            android:textColor="@color/green" />
+
+
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:id="@+id/upload_PANCard"
+                            android:layout_width="@dimen/standard_100"
+                            android:layout_height="@dimen/standard_100"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="7dp"
+                            android:background="@drawable/shape"
+                            android:padding="7dp"
+                            android:src="@drawable/no_image_available" />
+
+<!--                        <TextView-->
+<!--                            android:id="@+id/text_panCard"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_gravity="center"-->
+<!--                            android:layout_marginTop="7dp"-->
+<!--                            android:background="@drawable/shape"-->
+<!--                            android:gravity="center"-->
+<!--                            android:padding="10dp"-->
+<!--                            android:text="Select PAN"-->
+<!--                            android:textColor="@color/black" />-->
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginEnd="7dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:visibility="visible">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:background="@drawable/green_shape"
+                            android:padding="7dp"
+                            android:text="Others"
+                            android:textColor="@color/green" />
+
+
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:id="@+id/upload_other"
+                            android:layout_width="@dimen/standard_100"
+                            android:layout_height="@dimen/standard_100"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="7dp"
+                            android:background="@drawable/shape"
+                            android:padding="7dp"
+                            android:src="@drawable/no_image_available" />
+
+<!--                        <TextView-->
+<!--                            android:id="@+id/text_other"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_gravity="center"-->
+<!--                            android:layout_marginTop="7dp"-->
+<!--                            android:background="@drawable/shape"-->
+<!--                            android:gravity="center"-->
+<!--                            android:padding="10dp"-->
+<!--                            android:text="Select Other"-->
+<!--                            android:textColor="@color/black" />-->
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+            </HorizontalScrollView>
+
 
         </LinearLayout>
 
@@ -265,20 +487,22 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:background="@color/grey_color"
-        android:gravity="end"
-        android:orientation="horizontal"
-        android:padding="@dimen/ten">
+        android:gravity="center"
+        android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/tv_next"
-            android:layout_width="wrap_content"
+        <TextView
+            android:id="@+id/addVendor_tv_next"
+            android:layout_width="120dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginEnd="@dimen/seven"
+            android:background="@drawable/rounded_background_gray_with_stoke"
             android:fontFamily="@font/cabin"
-            android:gravity="end"
+            android:gravity="center"
+            android:minHeight="48dp"
+            android:padding="7dp"
             android:text="Submit"
-            android:textColor="#ffff"
+            android:textColor="#fff"
             android:textSize="@dimen/eighteen"
             android:textStyle="bold" />
     </LinearLayout>

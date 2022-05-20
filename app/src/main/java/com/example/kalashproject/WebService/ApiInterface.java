@@ -1,12 +1,17 @@
 package com.example.kalashproject.WebService;
 
 
+import android.util.Log;
+
+import androidx.annotation.Nullable;
+
 import com.example.kalashproject.ModelList.ApiModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Field;
@@ -139,22 +144,49 @@ public interface ApiInterface
 
 
 
-    @FormUrlEncoded
+//    @FormUrlEncoded
+//    @POST("first_inspection_add.php")
+//    Call<ResponseBody> first_inspection_add(@Field("order_id") String order_id,
+//                                            @Field("fdo_id") String fdo_id,
+//                                            @Field("male_sowing_date") String qr_male_sowing_date,
+//                                            @Field("female_sowing_date")String female_sowing_date,
+//                                            @Field("male_row")String male_row,
+//                                            @Field("female_row") String female_row,
+//                                            @Field("male_plant_in_row")String male_plant_in_row,
+//                                            @Field("female_plant_in_row")String female_plant_in_row,
+//                                            @Field("is_isolation")String is_isolation,
+//                                            @Field("pld_acre")String pld_acre,
+//                                            @Field("reason_of_pld")String reason_of_pld,
+//                                            @Field("rejected_acre")String rejected_acre,
+//                                            @Field("reason_of_rejected")String reason_of_rejected,
+//                                            @Field("expected_date_of_dispatch")String expected_date_of_dispatch,
+//                                            @Field("fq_flag_id")String fq_flag_id,
+//                                            @Field("breeder_remark")String breeder_remark);
+
+
+
+
+
+
+    @Multipart
     @POST("first_inspection_add.php")
-    Call<ResponseBody> first_inspection_add(@Field("male_sowing_date") String qr_male_sowing_date,
-                                            @Field("female_sowing_date")String female_sowing_date,
-                                            @Field("male_row")String male_row,
-                                            @Field("female_row") String female_row,
-                                            @Field("male_plant_in_row")String male_plant_in_row,
-                                            @Field("female_plant_in_row")String female_plant_in_row,
-                                            @Field("is_isolation")String is_isolation,
-                                            @Field("pld_acre")String pld_acre,
-                                            @Field("reason_of_pld")String reason_of_pld,
-                                            @Field("rejected_acre")String rejected_acre,
-                                            @Field("reason_of_rejected")String reason_of_rejected,
-                                            @Field("expected_date_of_dispatch")String expected_date_of_dispatch,
-                                            @Field("fq_flag_id")String fq_flag_id,
-                                            @Field("breeder_remark")String breeder_remark);
+    Call<ResponseBody> first_inspection_add(@Part("order_id")@Nullable RequestBody order_id,
+                                            @Part("fdo_id") @Nullable RequestBody fdo_id,
+                                            @Part("fq_flag_id") @Nullable RequestBody fq_flag_id,
+                                            @Part("breeder_remark") @Nullable RequestBody breeder_remark,
+                                            @Part("male_sowing_date") @Nullable RequestBody male_sowing_date,
+                                            @Part("female_sowing_date") @Nullable RequestBody female_sowing_date,
+                                            @Part("male_row") @Nullable RequestBody male_row,
+                                            @Part("female_row") @Nullable RequestBody female_row,
+                                            @Part("male_plant_in_row") @Nullable RequestBody male_plant_in_row,
+                                            @Part("female_plant_in_row") @Nullable RequestBody female_plant_in_row,
+                                            @Part("is_isolation") @Nullable RequestBody is_isolation,
+                                            @Part("pld_acre") @Nullable RequestBody pld_acre,
+                                            @Part("reason_of_pld") @Nullable RequestBody reason_of_pld,
+                                            @Part("rejected_acre") @Nullable RequestBody rejected_acre,
+                                            @Part("reason_of_rejected") @Nullable RequestBody reason_of_rejected,
+                                            @Part("expected_date_of_dispatch") @Nullable RequestBody expected_date_of_dispatch,
+                                            @Part List<MultipartBody.Part> files);
 
 
 
@@ -172,74 +204,79 @@ public interface ApiInterface
 //    @Field("fdo_id")String fdo_id,
 
 
-    @FormUrlEncoded
+    @Multipart
     @POST("second_inspection_add.php")
-    Call<ResponseBody> second_inspection_add(@Field("order_id") String order_id,
-                                             @Field("fdo_id") String fdo_id,
-                                             @Field("gps_location") String gps_location,
-                                             @Field("ot_plant_in_female")String ot_plant_in_female,
-                                             @Field("female_date_of_roughing") String female_date_of_roughing,
-                                             @Field("ot_plant_in_male") String ot_plant_in_male,
-                                             @Field("male_date_of_roughing")String male_date_of_roughing,
-                                             @Field("disease_plant_in_male")String disease_plant_in_male,
-                                             @Field("details")String details,
-                                             @Field("pld_acre")String pld_acre,
-                                             @Field("reason_of_pld")String reason_of_pld,
-                                             @Field("rejected_acre")String rejected_acre,
-                                             @Field("reason_of_rejected")String reason_of_rejected,
-                                             @Field("fq_flag_id")String fq_flag_id,
-                                             @Field("expected_date_of_dispatch")String expected_date_of_dispatch,
-                                             @Field("breeder_remark")String breeder_remark);
+    Call<ResponseBody> second_inspection_add(@Part("order_id") @Nullable RequestBody order_id,
+                                             @Part("fdo_id") @Nullable RequestBody fdo_id,
+                                             @Part("gps_location")@Nullable RequestBody gps_location,
+                                             @Part("ot_plant_in_female")@Nullable RequestBody ot_plant_in_female,
+                                             @Part("female_date_of_roughing")@Nullable RequestBody female_date_of_roughing,
+                                             @Part("ot_plant_in_male")@Nullable RequestBody ot_plant_in_male,
+                                             @Part("male_date_of_roughing")@Nullable RequestBody male_date_of_roughing,
+                                             @Part("disease_plant_in_male")@Nullable RequestBody disease_plant_in_male,
+                                             @Part("details")@Nullable RequestBody details,
+                                             @Part("pld_acre")@Nullable RequestBody pld_acre,
+                                             @Part("reason_of_pld")@Nullable RequestBody reason_of_pld,
+                                             @Part("rejected_acre")@Nullable RequestBody rejected_acre,
+                                             @Part("reason_of_rejected")@Nullable RequestBody reason_of_rejected,
+                                             @Part("fq_flag_id")@Nullable RequestBody fq_flag_id,
+                                             @Part("expected_date_of_dispatch")@Nullable RequestBody expected_date_of_dispatch,
+                                             @Part("breeder_remark")@Nullable RequestBody breeder_remark,
+                                             @Part List<MultipartBody.Part> files,
+                                             @Part List<MultipartBody.Part> filesTwo);
 
 
 
 
 
 
-    @FormUrlEncoded
+    @Multipart
     @POST("third_inspection_add.php")
     Call<ResponseBody> third_inspection_add(
-                                             @Field("order_id") String order_id,
-                                            @Field("fdo_id") String fdo_id,
-                                             @Field("ot_plant_in_female") String ot_plant_in_female,
-                                            @Field("details")String details,
-                                            @Field("disease_plant_in_f")String disease_plant_in_f,
-                                            @Field("date_of_roughing") String date_of_roughing,
-                                            @Field("polln_start_date") String polln_start_date,
-                                            @Field("pld_acre") String pld_acre,
-                                            @Field("reason_of_pld")String reason_of_pld,
-                                            @Field("rejected_acre")String rejected_acre,
-                                            @Field("reason_of_rejected")String reason_of_rejected,
-                                            @Field("exi_fruit")String exi_fruit,
-                                            @Field("exp_fruit")String exp_fruit,
-                                            @Field("total_fruit")String total_fruit,
-                                            @Field("avg_wt_of_seed_fruit")String avg_wt_of_seed_fruit,
-                                            @Field("fq_flag_id")String fq_flag_id,
-                                            @Field("expected_date_of_dispatch")String expected_date_of_dispatch,
-                                            @Field("breeder_remark")String breeder_remark);
+                                             @Part("order_id")@Nullable RequestBody order_id,
+                                            @Part("fdo_id")@Nullable RequestBody fdo_id,
+                                             @Part("ot_plant_in_female")@Nullable RequestBody ot_plant_in_female,
+                                            @Part("details")@Nullable RequestBody details,
+                                            @Part("disease_plant_in_f")@Nullable RequestBody disease_plant_in_f,
+                                            @Part("date_of_roughing")@Nullable RequestBody date_of_roughing,
+                                            @Part("polln_start_date")@Nullable RequestBody polln_start_date,
+                                            @Part("pld_acre")@Nullable RequestBody pld_acre,
+                                            @Part("reason_of_pld")@Nullable RequestBody reason_of_pld,
+                                            @Part("rejected_acre")@Nullable RequestBody rejected_acre,
+                                            @Part("reason_of_rejected")@Nullable RequestBody reason_of_rejected,
+                                            @Part("exi_fruit")@Nullable RequestBody exi_fruit,
+                                            @Part("exp_fruit")@Nullable RequestBody exp_fruit,
+                                            @Part("total_fruit")@Nullable RequestBody total_fruit,
+                                            @Part("avg_wt_of_seed_fruit")@Nullable RequestBody avg_wt_of_seed_fruit,
+                                            @Part("fq_flag_id")@Nullable RequestBody fq_flag_id,
+                                            @Part("expected_date_of_dispatch")@Nullable RequestBody expected_date_of_dispatch,
+                                            @Part("breeder_remark")@Nullable RequestBody breeder_remark,
+                                             @Part List<MultipartBody.Part> files,
+                                             @Part List<MultipartBody.Part> filesTwo);
 
 
 
 
-    @FormUrlEncoded
-    @POST("fourth_inspection_add")
-    Call<ResponseBody> fourth_inspection_add(@Field("order_id")String order_id,
-                                             @Field("fdo_id")String fdo_id,
-                                             @Field("ot_fruit_f")String ot_fruit_f,
-                                             @Field("date_of_roughing")String date_of_roughing,
-                                             @Field("polln_end_date")String polln_end_date,
-                                             @Field("pld_acre")String pld_acre,
-                                             @Field("reason_of_pld")String reason_of_pld,
-                                             @Field("rejected_acre")String rejected_acre,
-                                             @Field("reason_of_rejected")String reason_of_rejected,
-                                             @Field("exi_fruit")String exi_fruit,
-                                             @Field("exp_fruit")String exp_fruit,
-                                             @Field("total_fruit")String total_fruit,
-                                             @Field("avg_wt_of_seed_fruit")String avg_wt_of_seed_fruit,
-                                             @Field("fq_flag_id")String fq_flag_id,
-                                             @Field("expected_date_of_harvesting")String expected_date_of_harvesting,
-                                             @Field("expected_date_of_dispatch")String expected_date_of_dispatch,
-                                             @Field("breeder_remark")String breeder_remark);
+    @Multipart
+    @POST("fourth_inspection_add.php")
+    Call<ResponseBody> fourth_inspection_add(@Part("order_id")@Nullable RequestBody order_id,
+                                             @Part("fdo_id")@Nullable RequestBody fdo_id,
+                                             @Part("ot_fruit_f")@Nullable RequestBody ot_fruit_f,
+                                             @Part("date_of_roughing")@Nullable RequestBody date_of_roughing,
+                                             @Part("polln_end_date")@Nullable RequestBody polln_end_date,
+                                             @Part("pld_acre")@Nullable RequestBody pld_acre,
+                                             @Part("reason_of_pld")@Nullable RequestBody reason_of_pld,
+                                             @Part("rejected_acre")@Nullable RequestBody rejected_acre,
+                                             @Part("reason_of_rejected")@Nullable RequestBody reason_of_rejected,
+                                             @Part("exi_fruit")@Nullable RequestBody exi_fruit,
+                                             @Part("exp_fruit")@Nullable RequestBody exp_fruit,
+                                             @Part("total_fruit")@Nullable RequestBody total_fruit,
+                                             @Part("avg_wt_of_seed_fruit")@Nullable RequestBody avg_wt_of_seed_fruit,
+                                             @Part("fq_flag_id")@Nullable RequestBody fq_flag_id,
+                                             @Part("expected_date_of_harvesting")@Nullable RequestBody expected_date_of_harvesting,
+                                             @Part("expected_date_of_dispatch")@Nullable RequestBody expected_date_of_dispatch,
+                                             @Part("breeder_remark")@Nullable RequestBody breeder_remark,
+                                             @Part List<MultipartBody.Part> files);
 
 
 
@@ -285,9 +322,48 @@ public interface ApiInterface
 //    @POST(Constant.ENDPOINT+"NewsFeed/uploadImage")
 //    Call<ApiModel> uploadNewsFeedImages(@Part List<MultipartBody.Part> files);
 
+//    @Multipart
+//    @POST("first_inspection_add.php")
+//    Call<ResponseBody> upload(@Part List<MultipartBody.Part> files);
+
+/////////// Testing start //////////////
     @Multipart
     @POST("first_inspection_add.php")
     Call<ResponseBody> upload(@Part List<MultipartBody.Part> files);
+
+//    @Multipart
+//    @POST("try.php")
+//    Call<ResponseBody> upload(@Part List<MultipartBody.Part> files);
+
+
+    /////////// Testing End //////////////
+    @Multipart
+    @POST("first_inspection_add.php")
+    Call<ResponseBody> SimpleImagesList(@Part MultipartBody.Part files);
+
+
+    @Multipart
+    @POST("grower_or_vendor_add.php")
+    Call<ResponseBody> sendAddVendorDetails(@Part("full_name") @Nullable RequestBody full_name,
+                                            @Part("mobile_number") @Nullable RequestBody mobile_number,
+                                            @Part("aadhar_number") @Nullable RequestBody aadhar_number,
+                                            @Part("address") @Nullable RequestBody address,
+                                            @Part("state") @Nullable RequestBody state,
+                                            @Part("district") @Nullable RequestBody district,
+                                            @Part("taluka") @Nullable RequestBody taluka,
+                                            @Part("village") @Nullable RequestBody village,
+                                            @Part("generate_fc") @Nullable RequestBody generate_fc,
+                                            @Part("fdo_id") @Nullable RequestBody fdo_id,
+                                            @Part MultipartBody.Part file1,
+                                            @Part MultipartBody.Part file2,
+                                            @Part MultipartBody.Part file3,
+                                            @Part("family_code") @Nullable RequestBody family_code);
+
+
+    @GET("family_code_list.php")
+    Call<ResponseBody> getFamilyCodeList();
+
+
 
 }
 

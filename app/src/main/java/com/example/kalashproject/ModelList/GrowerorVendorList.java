@@ -18,6 +18,7 @@ public class GrowerorVendorList
         try {
         this.id =jsonObject.getString("id");
         this.full_name = jsonObject.getString("full_name");
+
         } catch (JSONException e) {
             e.printStackTrace();
         }

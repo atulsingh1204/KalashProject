@@ -1,37 +1,67 @@
 package com.example.kalashproject;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
+import android.Manifest;
 import android.app.DatePickerDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.print.PrintAttributes;
+import android.provider.MediaStore;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.kalashproject.ModelList.FQ_flag_list;
+import com.example.kalashproject.MyLibrary.Shared_Preferences;
+import com.example.kalashproject.StartActivities.MainActivity;
+import com.example.kalashproject.Utils.FileUtil;
 import com.example.kalashproject.WebService.ApiInterface;
 import com.example.kalashproject.WebService.Myconfig;
+import com.karumi.dexter.Dexter;
+import com.karumi.dexter.MultiplePermissionsReport;
+import com.karumi.dexter.PermissionToken;
+import com.karumi.dexter.listener.PermissionRequest;
+import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -43,11 +73,25 @@ public class InspectionFormThree extends AppCompatActivity {
     EditText three_total_female, three_ot_plant_in_f, three_details, disease_plant_in_f, three_pld_acre, three_reason_of_pld, three_rejected_acre, three_reason_rejected_acre, three_exi_fruit, three_exp_fruit, three_total_fruit, three_avg_wt_seed_fruit, three_breeder_remark;
     Spinner spn_fa_flag_three;
     TextView three_date_of_roughing, three_polln_start_date, expected_date_of_dispatch_two;
-    ImageView three_iv_image_1, three_iv_image_2, three_iv_image_3;
-    ImageView three_iv_photo_1, three_iv_photo_2, three_iv_photo_3;
 
     ArrayList<FQ_flag_list> fq_flag_lists_three = new ArrayList<FQ_flag_list>();
     String str_Fa_flag_id_three;
+
+    // Multiple Images via gallery
+
+    ///Multiple Images
+    ImageView selectedImage;
+    List<Uri> files = new ArrayList<>();
+
+    private LinearLayout parentLinearLayout;
+    final private int REQUEST_CODE_ASK_PERMISSIONS = 123;
+
+    //Multiple images via camera
+
+    ImageView selectedImageTwo;
+    List<Uri> filesTwo = new ArrayList<>();
+    private  LinearLayout parentLinearLayoutTwo;
+
 
     TextView inspection_three_tv_next;
 
@@ -91,15 +135,15 @@ public class InspectionFormThree extends AppCompatActivity {
         inspection_three_tv_next = findViewById(R.id.inspection_three_tv_next);
 
         //ImageView
+        parentLinearLayout= findViewById(R.id.parent_linear_layout);
 
-        three_iv_image_1 = findViewById(R.id.three_iv_image_1);
-        three_iv_image_2 = findViewById(R.id.three_iv_image_2);
-        three_iv_image_3 = findViewById(R.id.three_iv_image_3);
-
-        three_iv_photo_1 = findViewById(R.id.three_iv_photo_1);
-        three_iv_photo_2 = findViewById(R.id.three_iv_photo_2);
-        three_iv_photo_3 = findViewById(R.id.three_iv_photo_3);
-
+        ImageView addImage = findViewById(R.id.iv_add_image);
+        addImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                addImage();
+            }
+        });
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -176,6 +220,19 @@ public class InspectionFormThree extends AppCompatActivity {
         };
 
 
+        //Initialize for second image
+
+        parentLinearLayoutTwo =  findViewById(R.id.parent_linear_layoutTwo);
+        ImageView addImageTwo = findViewById(R.id.iv_add_imageTwo);
+
+        addImageTwo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                addImageTwo();
+            }
+        });
+
+
         inspection_three_tv_next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -184,12 +241,46 @@ public class InspectionFormThree extends AppCompatActivity {
         });
 
 
+
+
+
+
     }
 
 
 
     private void sendData()
     {
+        requestPermission();
+
+        List<MultipartBody.Part> list = new ArrayList<>();
+        List<MultipartBody.Part> listTwo = new ArrayList<>();
+
+        for (Uri uri: files){
+
+
+            Log.i("uris",uri.getPath());
+
+            Log.e("response","Uris: " +uri.getPath());
+
+            list.add(prepareFilePart("gallery_document_name[]", uri));
+
+            Log.e("response", "listSizeUpload: " +list);
+        }
+
+
+        for (Uri uri:filesTwo){
+            Log.i("urisTwo",uri.getPath());
+
+            Log.e("response","Uris Two: " +uri.getPath());
+
+            listTwo.add(prepareFilePart("camera_document_name[]", uri));
+
+            Log.e("response", "listSizeUpload: " +listTwo
+            );
+
+        }
+
 
      // EditText
      str_three_total_female =  three_total_female.getText().toString();
@@ -215,7 +306,28 @@ public class InspectionFormThree extends AppCompatActivity {
 
 
         ApiInterface apiInterface = Myconfig.getRetrofit().create(ApiInterface.class);
-        Call<ResponseBody> Result = (Call<ResponseBody>) apiInterface.third_inspection_add("1","1",str_three_ot_plant_in_f,str_three_details,str_disease_plant_in_f, str_three_date_of_roughing, str_three_polln_start_date,str_three_pld_acre, str_three_reason_of_pld, str_three_rejected_acre, str_three_reason_rejected_acre, str_three_exi_fruit, str_three_exp_fruit, str_three_total_fruit, str_three_avg_wt_seed_fruit, str_Fa_flag_id_three, str_expected_date_of_dispatch_two,str_three_breeder_remark);
+        Call<ResponseBody> Result = (Call<ResponseBody>) apiInterface.third_inspection_add(
+                                                                                                    RequestBody.create(MediaType.parse("text/plain"),"1"),
+                                                                                                    RequestBody.create(MediaType.parse("text/plain"), Shared_Preferences.getPrefs(InspectionFormThree.this,"Reg_id")),
+                                                                                                    RequestBody.create(MediaType.parse("text/plain"),str_three_ot_plant_in_f),
+                                                                                                    RequestBody.create(MediaType.parse("text/plain"),str_three_details),
+                                                                                                    RequestBody.create(MediaType.parse("text/plain"),str_disease_plant_in_f),
+                                                                                                    RequestBody.create(MediaType.parse("text/plain"),str_three_date_of_roughing),
+                                                                                                    RequestBody.create(MediaType.parse("text/plain"),str_three_polln_start_date),
+                                                                                                    RequestBody.create(MediaType.parse("text/plain"),str_three_pld_acre),
+                                                                                                    RequestBody.create(MediaType.parse("text/plain"),str_three_reason_of_pld),
+                                                                                                    RequestBody.create(MediaType.parse("text/plain"),str_three_rejected_acre),
+                                                                                                    RequestBody.create(MediaType.parse("text/plain"), str_three_reason_rejected_acre),
+                                                                                                    RequestBody.create(MediaType.parse("text/plain"), str_three_exi_fruit),
+                                                                                                    RequestBody.create(MediaType.parse("text/plain"), str_three_exp_fruit),
+                                                                                                    RequestBody.create(MediaType.parse("text/plain"),str_three_total_fruit),
+                                                                                                    RequestBody.create(MediaType.parse("text/plain"), str_three_avg_wt_seed_fruit),
+                                                                                                    RequestBody.create(MediaType.parse("text/plain"),str_Fa_flag_id_three),
+                                                                                                    RequestBody.create(MediaType.parse("text/plain"),str_expected_date_of_dispatch_two),
+                                                                                                    RequestBody.create(MediaType.parse("text/plain"),str_three_breeder_remark),
+                                                                                                    list,
+                                                                                                    listTwo
+                                                                                                        );
 
         Result.enqueue(new Callback<ResponseBody>() {
             @Override
@@ -231,6 +343,11 @@ public class InspectionFormThree extends AppCompatActivity {
 
                         Toast.makeText(InspectionFormThree.this, "Data Sent Successfully!", Toast.LENGTH_SHORT).show();
                         Log.e("Check_Response","" +jsonObject.getString("ResponseMessage"));
+
+                        Intent intent = new Intent(InspectionFormThree.this, MainActivity.class);
+                        startActivity(intent);
+                        finish();
+
                     }
 
                     else if (jsonObject.getString("ResponseCode").equals("0")){
@@ -326,6 +443,238 @@ public class InspectionFormThree extends AppCompatActivity {
     }
 
 
+    //===== add image in layout
+    public void addImage() {
+        LayoutInflater inflater=(LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        final View rowView=inflater.inflate(R.layout.image, null);
+        // Add the new row before the add field button.
+        parentLinearLayout.addView(rowView, parentLinearLayout.getChildCount() - 1);
+        parentLinearLayout.isFocusable();
 
+        selectedImage = rowView.findViewById(R.id.number_edit_text);
+        selectImage(InspectionFormThree.this);
+    }
+
+    //===== select image
+    private void selectImage(Context context) {
+
+        Dexter.withContext(InspectionFormThree.this)
+                .withPermissions(
+                        Manifest.permission.CAMERA,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                        Manifest.permission.READ_EXTERNAL_STORAGE
+                ).withListener(new MultiplePermissionsListener() {
+            @Override
+            public void onPermissionsChecked(MultiplePermissionsReport multiplePermissionsReport) {
+
+                if (multiplePermissionsReport.areAllPermissionsGranted()){
+
+
+
+
+                    final CharSequence[] options = {"Take Photo", "Choose from Gallery", "Cancel"};
+
+                    AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                    builder.setCancelable(false);
+                    builder.setTitle("Choose a Media");
+
+                    builder.setItems(options, new DialogInterface.OnClickListener() {
+
+                        @Override
+                        public void onClick(DialogInterface dialog, int item) {
+
+                            if (options[item].equals("Take Photo")) {
+                                Intent takePicture = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+                                startActivityForResult(takePicture, 0);
+
+                            } else if (options[item].equals("Choose from Gallery")) {
+                                Intent pickPhoto = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                                startActivityForResult(pickPhoto, 1);//one can be replaced with any action code
+
+                            } else if (options[item].equals("Cancel")) {
+                                dialog.dismiss();
+                            }
+                        }
+                    });
+                    builder.show();
+
+                }
+            }
+
+            @Override
+            public void onPermissionRationaleShouldBeShown(List<PermissionRequest> list, PermissionToken permissionToken) {
+
+                permissionToken.continuePermissionRequest();
+            }
+        }).check();
+
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode != RESULT_CANCELED) {
+            switch (requestCode) {
+                case 0:
+                    if (resultCode == RESULT_OK && data != null) {
+
+                        Bitmap img = (Bitmap) data.getExtras().get("data");
+                        selectedImage.setImageBitmap(img);
+                        // Picasso.get().load(getImageUri(TestTwoActivity.this,img)).into(selectedImage);
+
+                        String imgPath = FileUtil.getPath(InspectionFormThree.this,getImageUri(InspectionFormThree.this,img));
+
+                        files.add(Uri.parse(imgPath));
+                        Log.e("image", imgPath);
+                    }
+
+                    break;
+                case 1:
+                    if (resultCode == RESULT_OK && data != null) {
+                        Uri img = data.getData();
+                        Picasso.get().load(img).into(selectedImage);
+
+                        String imgPath = FileUtil.getPath(InspectionFormThree.this,img);
+
+                        files.add(Uri.parse(imgPath));
+                        /////Testing start
+                        Log.e("newresponse" , "Uri1: " +imgPath);
+                        Uri temp = Uri.parse(imgPath);
+                        Log.e("newresponse" , "addedInList: " +Uri.parse(imgPath));
+                        Log.e("newresponse" , "addedInList: " +temp);
+                        Log.e("image", imgPath);
+
+
+                        ///// Testing End
+
+                    }
+                    break;
+
+                case 2:
+                    if (resultCode == RESULT_OK && data != null) {
+
+                        Bitmap img = (Bitmap) data.getExtras().get("data");
+                        selectedImageTwo.setImageBitmap(img);
+
+                        Log.e("case 2", " " +img);
+                        // Picasso.get().load(getImageUri(TestTwoActivity.this,img)).into(selectedImage);
+
+                        String imgPath = FileUtil.getPath(InspectionFormThree.this,getImageUri(InspectionFormThree.this,img));
+
+                        filesTwo.add(Uri.parse(imgPath));
+
+                        Log.e("Response","case 2 Files " +filesTwo);
+
+                        Log.e("image", imgPath);
+                    }
+
+                    break;
+            }
+        }
+    }
+
+
+    //===== bitmap to Uri
+    public Uri getImageUri(Context inContext, Bitmap inImage) {
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "intuenty", null);
+        //Log.d("image uri",path);
+        Log.e("image_path", " " +path);
+        return Uri.parse(path);
+    }
+
+    private void requestPermission(){
+        if(ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(InspectionFormThree.this,new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},REQUEST_CODE_ASK_PERMISSIONS);
+        }
+    }
+
+
+    @NonNull
+    private MultipartBody.Part prepareFilePart(String partName, Uri fileUri) {
+
+        File file = new File(fileUri.getPath());
+        Log.i("here is error",file.getAbsolutePath());
+        // create RequestBody instance from file
+
+        RequestBody requestFile =
+                RequestBody.create(
+                        MediaType.parse("image/*"),
+                        file);
+
+        // MultipartBody.Part is used to send also the actual file name
+        return MultipartBody.Part.createFormData(partName, file.getName(), requestFile);
+
+
+    }
+
+    //===== add image in layout
+    public void addImageTwo() {
+        LayoutInflater inflater=(LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        final View rowView=inflater.inflate(R.layout.image, null);
+        // Add the new row before the add field button.
+        parentLinearLayoutTwo.addView(rowView, parentLinearLayoutTwo.getChildCount() - 1);
+        parentLinearLayoutTwo.isFocusable();
+
+        selectedImageTwo = rowView.findViewById(R.id.number_edit_text);
+        selectImageTwo(InspectionFormThree.this);
+    }
+
+    //===== select image
+    private void selectImageTwo(Context context) {
+
+        Dexter.withContext(InspectionFormThree.this)
+                .withPermissions(
+                        Manifest.permission.CAMERA,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                        Manifest.permission.READ_EXTERNAL_STORAGE
+                ).withListener(new MultiplePermissionsListener() {
+            @Override
+            public void onPermissionsChecked(MultiplePermissionsReport multiplePermissionsReport) {
+                if (multiplePermissionsReport.areAllPermissionsGranted()){
+
+                    final CharSequence[] options = {"Take Photo", "Cancel"};
+
+                    AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                    builder.setCancelable(false);
+                    builder.setTitle("Choose a Media");
+
+                    builder.setItems(options, new DialogInterface.OnClickListener() {
+
+                        @Override
+                        public void onClick(DialogInterface dialog, int item) {
+
+                            if (options[item].equals("Take Photo")) {
+                                Intent takePicture = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+                                startActivityForResult(takePicture, 2);
+
+//                } else if (options[item].equals("Choose from Gallery")) {
+//                    Intent pickPhoto = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+//                    startActivityForResult(pickPhoto, 1);//one can be replaced with any action code
+
+                            } else if (options[item].equals("Cancel")) {
+                                dialog.dismiss();
+                            }
+                        }
+                    });
+                    builder.show();
+                }
+            }
+
+            @Override
+            public void onPermissionRationaleShouldBeShown(List<PermissionRequest> list, PermissionToken permissionToken) {
+
+                permissionToken.continuePermissionRequest();
+            }
+        }).check();
+
+
+
+
+
+    }
 
 }

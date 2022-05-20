@@ -41,6 +41,7 @@ import com.example.kalashproject.ModelList.InspectionOneList;
 import com.example.kalashproject.ModelList.SliderData;
 import com.example.kalashproject.MyLibrary.Shared_Preferences;
 import com.example.kalashproject.PendingOrderActivity;
+import com.example.kalashproject.ProfileActivity;
 import com.example.kalashproject.QRCheckerActivity;
 import com.example.kalashproject.R;
 import com.example.kalashproject.RejectedOrderActivity;
@@ -313,6 +314,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
 
 
+
+            case R.id.trprofile_two:
+                startActivity(new Intent(MainActivity.this, ProfileActivity.class));
+                overridePendingTransition(R.anim.right_in, R.anim.left_out);
+                linearlayout_inspection.setVisibility(View.GONE);
+                drawerLayout.closeDrawers();
+                break;
             default:
                 // Toast.makeText(this, "Switch case", Toast.LENGTH_SHORT).show();
 

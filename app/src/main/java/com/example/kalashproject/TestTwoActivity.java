@@ -50,7 +50,7 @@ public class TestTwoActivity extends AppCompatActivity {
 
     ImageView selectedImage;
     CircularProgressButton btnSubmit;
-//    ServiceInterface serviceInterface;
+    //    ServiceInterface serviceInterface;
     List<Uri> files = new ArrayList<>();
 
     private LinearLayout parentLinearLayout;
@@ -138,7 +138,9 @@ public class TestTwoActivity extends AppCompatActivity {
 
                         Bitmap img = (Bitmap) data.getExtras().get("data");
                         selectedImage.setImageBitmap(img);
-                       // Picasso.get().load(getImageUri(TestTwoActivity.this,img)).into(selectedImage);
+
+                        Log.e("img", "img " +img);
+                        // Picasso.get().load(getImageUri(TestTwoActivity.this,img)).into(selectedImage);
 
                         String imgPath = FileUtil.getPath(TestTwoActivity.this,getImageUri(TestTwoActivity.this,img));
 
@@ -193,7 +195,7 @@ public class TestTwoActivity extends AppCompatActivity {
 
             Log.e("response","Uris: " +uri.getPath());
 
-            list.add(prepareFilePart("file", uri));
+            list.add(prepareFilePart("document_name[]", uri));
 
             Log.e("response", "listSizeUpload: " +list);
         }
@@ -256,12 +258,16 @@ public class TestTwoActivity extends AppCompatActivity {
                 btnSubmit.revertAnimation();
                 try {
                     String output = response.body().string();
-                    Log.e("response", "SuccessRes" +output);
+                    Log.e("response", "outputResponse" +output);
 
                     JSONObject jsonObject = new JSONObject(output);
 
                     if (jsonObject.getString("ResponseCode").equals("1")){
                         Toast.makeText(TestTwoActivity.this, "Submitted Successfully!", Toast.LENGTH_SHORT).show();
+                    }
+                    else if (jsonObject.getString("ResponseCode").equals("0")){
+
+                        Toast.makeText(TestTwoActivity.this, "" +jsonObject.getString("ResponseMessage"), Toast.LENGTH_SHORT).show();
                     }
 
                 } catch (IOException | JSONException e) {

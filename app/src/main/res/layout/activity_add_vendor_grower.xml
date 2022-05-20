@@ -439,16 +439,16 @@
                     android:textSize="@dimen/fifteen"
                     android:textStyle="normal" />
 
-<!--                <Spinner-->
-<!--                    android:id="@+id/Spn_LastCropTaken"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:background="@drawable/shape"-->
-<!--                    android:entries="@array/select"-->
-<!--                    android:fontFamily="@font/cabin"-->
-<!--                    android:visibility="gone"-->
-<!--                    android:padding="@dimen/ten"-->
-<!--                    android:paddingStart="@dimen/fifteen" />-->
+                <!--                <Spinner-->
+                <!--                    android:id="@+id/Spn_LastCropTaken"-->
+                <!--                    android:layout_width="match_parent"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:background="@drawable/shape"-->
+                <!--                    android:entries="@array/select"-->
+                <!--                    android:fontFamily="@font/cabin"-->
+                <!--                    android:visibility="gone"-->
+                <!--                    android:padding="@dimen/ten"-->
+                <!--                    android:paddingStart="@dimen/fifteen" />-->
 
                 <EditText
                     android:id="@+id/last_crop_taken"

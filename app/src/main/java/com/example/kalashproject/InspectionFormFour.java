@@ -1,20 +1,31 @@
 package com.example.kalashproject;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.Manifest;
 import android.app.DatePickerDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,17 +33,30 @@ import android.widget.Toast;
 import com.example.kalashproject.ModelList.FQ_flag_list;
 import com.example.kalashproject.MyLibrary.Shared_Preferences;
 import com.example.kalashproject.StartActivities.MainActivity;
+import com.example.kalashproject.Utils.FileUtil;
 import com.example.kalashproject.WebService.ApiInterface;
 import com.example.kalashproject.WebService.Myconfig;
+import com.karumi.dexter.Dexter;
+import com.karumi.dexter.MultiplePermissionsReport;
+import com.karumi.dexter.PermissionToken;
+import com.karumi.dexter.listener.PermissionRequest;
+import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -49,6 +73,16 @@ public class InspectionFormFour extends AppCompatActivity {
     String str_four_total_female, str_four_ot_fruit_f, str_four_pld_acre, str_four_reason_of_pld, str_four_rejected_acre, str_four_reason_rejected_acre, str_four_exi_fruit, str_four_exp_fruit, str_four_total_fruit, str_four_avg_wt_seed_fruit, str_four_breeder_remark;
     String str_four_date_of_roughing, str_four_polln_end_date, str_expected_date_of_harvesting_four, str_expected_date_of_dispatch_four;
 
+
+    // Multiple Images via gallery
+
+    ///Multiple Images
+    ImageView selectedImage;
+    List<Uri> files = new ArrayList<>();
+
+    private LinearLayout parentLinearLayout;
+    final private int REQUEST_CODE_ASK_PERMISSIONS = 123;
+
     Spinner spn_fa_flag_four;
 
     ArrayList<FQ_flag_list> fq_flag_lists_four = new ArrayList<FQ_flag_list>();
@@ -59,6 +93,9 @@ public class InspectionFormFour extends AppCompatActivity {
     DatePickerDialog.OnDateSetListener SetListenerPollnEndDate;
     DatePickerDialog.OnDateSetListener SetListenerExpetDateHarvesting;
     DatePickerDialog.OnDateSetListener SetListenerExpetDateDispatch;
+
+
+
 
 
     @Override
@@ -92,10 +129,15 @@ public class InspectionFormFour extends AppCompatActivity {
         expected_date_of_harvesting_four = findViewById(R.id.expected_date_of_harvesting_four);
         expected_date_of_dispatch_four = findViewById(R.id.expected_date_of_dispatch_four);
 
-        //ImageView
-        four_iv_image_1 = findViewById(R.id.four_iv_image_1);
-        four_iv_image_2 = findViewById(R.id.four_iv_image_2);
-        four_iv_image_3 = findViewById(R.id.four_iv_image_3);
+        //Images initialize
+
+        parentLinearLayout= findViewById(R.id.parent_linear_layout);
+
+        ImageView addImage = findViewById(R.id.iv_add_image);
+
+
+
+
 
         spn_fa_flag_four = findViewById(R.id.spn_fa_flag_four);
         inspection_four_tv_next = findViewById(R.id.inspection_four_tv_next);
@@ -200,6 +242,20 @@ public class InspectionFormFour extends AppCompatActivity {
         };
 
 
+
+
+        addImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                addImage();
+            }
+        });
+
+
+
+
+
         inspection_four_tv_next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -217,10 +273,25 @@ public class InspectionFormFour extends AppCompatActivity {
 
 
 
+
     }
 
     private void sendData()
     {
+
+
+        List<MultipartBody.Part> list = new ArrayList<>();
+
+        for (Uri uri:files){
+
+            Log.i("uris",uri.getPath());
+
+            Log.e("response","Uris: " +uri.getPath());
+            list.add(prepareFilePart("camera_document_name  []", uri));
+
+            Log.e("response", "listSizeUpload: " +list);
+        }
+
 
        str_four_total_female= four_total_female.getText().toString().trim();
         str_four_ot_fruit_f= four_ot_fruit_f.getText().toString().trim();
@@ -243,7 +314,26 @@ public class InspectionFormFour extends AppCompatActivity {
         String fdo_id = Shared_Preferences.getPrefs(InspectionFormFour.this,"Reg_id");
 
         ApiInterface apiInterface = Myconfig.getRetrofit().create(ApiInterface.class);
-        Call<ResponseBody> Result = (Call<ResponseBody>) apiInterface.fourth_inspection_add("1", fdo_id,str_four_ot_fruit_f,str_four_date_of_roughing,str_four_polln_end_date,str_four_pld_acre,str_four_reason_of_pld,str_four_rejected_acre,str_four_reason_rejected_acre,str_four_exi_fruit, str_four_exp_fruit,str_four_total_fruit, str_four_avg_wt_seed_fruit,str_Fa_flag_id_four,str_expected_date_of_harvesting_four, str_expected_date_of_dispatch_four,str_four_breeder_remark);
+        Call<ResponseBody> Result = (Call<ResponseBody>) apiInterface.fourth_inspection_add(
+
+                RequestBody.create(MediaType.parse("text/plain"),"1"),
+                RequestBody.create(MediaType.parse("text/plain"),fdo_id),
+                RequestBody.create(MediaType.parse("text/plain"),str_four_ot_fruit_f),
+                RequestBody.create(MediaType.parse("text/plain"),str_four_date_of_roughing),
+                        RequestBody.create(MediaType.parse("text/plain"),str_four_polln_end_date),
+                                RequestBody.create(MediaType.parse("text/plain"),str_four_pld_acre),
+                                        RequestBody.create(MediaType.parse("text/plain"),str_four_reason_of_pld),
+                                                RequestBody.create(MediaType.parse("text/plain"),str_four_rejected_acre),
+                                                        RequestBody.create(MediaType.parse("text/plain"),str_four_reason_rejected_acre),
+                                                                RequestBody.create(MediaType.parse("text/plain"),str_four_exi_fruit),
+                                                                        RequestBody.create(MediaType.parse("text/plain"),str_four_exp_fruit),
+                                                                                RequestBody.create(MediaType.parse("text/plain"),str_four_total_fruit),
+                                                                                        RequestBody.create(MediaType.parse("text/plain"),str_four_avg_wt_seed_fruit),
+                                                                                                RequestBody.create(MediaType.parse("text/plain"),str_Fa_flag_id_four),
+                                                                                                        RequestBody.create(MediaType.parse("text/plain"),str_expected_date_of_harvesting_four),
+                                                                                                                RequestBody.create(MediaType.parse("text/plain"),str_expected_date_of_dispatch_four),
+                                                                                                                        RequestBody.create(MediaType.parse("text/plain"),str_four_breeder_remark),
+                                                                                                                            list);
 
         Result.enqueue(new Callback<ResponseBody>() {
             @Override
@@ -351,5 +441,155 @@ public class InspectionFormFour extends AppCompatActivity {
     }
 
 
+    private void addImage()
+    {
+
+        LayoutInflater inflater=(LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        final View rowView=inflater.inflate(R.layout.image, null);
+        // Add the new row before the add field button.
+        parentLinearLayout.addView(rowView, parentLinearLayout.getChildCount() - 1);
+        parentLinearLayout.isFocusable();
+
+        selectedImage = rowView.findViewById(R.id.number_edit_text);
+        selectImage(InspectionFormFour.this);
+
+    }
+
+    private void selectImage(Context context)
+    {
+        //requestPermission();
+
+        Dexter.withContext(InspectionFormFour.this)
+                .withPermissions(
+                        Manifest.permission.CAMERA,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                        Manifest.permission.READ_EXTERNAL_STORAGE
+                ).withListener(new MultiplePermissionsListener() {
+            @Override
+            public void onPermissionsChecked(MultiplePermissionsReport multiplePermissionsReport) {
+
+                if (multiplePermissionsReport.areAllPermissionsGranted()){
+
+                    final CharSequence[] options = {"Take Photo", "Cancel"};
+
+                    AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                    builder.setCancelable(false);
+                    builder.setTitle("Choose a Media");
+
+                    builder.setItems(options, new DialogInterface.OnClickListener() {
+
+                        @Override
+                        public void onClick(DialogInterface dialog, int item) {
+
+                            if (options[item].equals("Take Photo")) {
+                                    Intent takePicture = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+                                    startActivityForResult(takePicture, 0);
+
+                            } else if (options[item].equals("Choose from Gallery")) {
+//                                Intent pickPhoto = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+//                                startActivityForResult(pickPhoto, 1);//one can be replaced with any action code
+
+                            } else if (options[item].equals("Cancel")) {
+                                dialog.dismiss();
+                            }
+                        }
+                    });
+                    builder.show();
+
+                } else if (multiplePermissionsReport.isAnyPermissionPermanentlyDenied()){
+
+                    Toast.makeText(context, "Permission is Denied", Toast.LENGTH_SHORT).show();
+                    Intent ii = new Intent(InspectionFormFour.this, MainActivity.class);
+                    startActivity(ii);
+                    finish();
+                }
+
+
+            }
+
+            @Override
+            public void onPermissionRationaleShouldBeShown(List<PermissionRequest> list, PermissionToken permissionToken) {
+                permissionToken.continuePermissionRequest();
+            }
+        }).check();
+
+
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+
+        if (resultCode != RESULT_CANCELED) {
+            switch (requestCode) {
+                case 0:
+                    if (resultCode == RESULT_OK && data != null) {
+
+                        Bitmap img = (Bitmap) data.getExtras().get("data");
+                        selectedImage.setImageBitmap(img);
+                        // Picasso.get().load(getImageUri(TestTwoActivity.this,img)).into(selectedImage);
+
+                        String imgPath = FileUtil.getPath(InspectionFormFour.this,getImageUri(InspectionFormFour.this,img));
+
+                        files.add(Uri.parse(imgPath));
+                        Log.e("image", imgPath);
+                    }
+
+                    break;
+//                case 1:
+//                    if (resultCode == RESULT_OK && data != null) {
+//                        Uri img = data.getData();
+//                        Picasso.get().load(img).into(selectedImage);
+//
+//                        String imgPath = FileUtil.getPath(InspectionFormTwo.this,img);
+//
+//                        files.add(Uri.parse(imgPath));
+//                        /////Testing start
+//                        Log.e("newresponse" , "Uri1: " +imgPath);
+//                        Uri temp = Uri.parse(imgPath);
+//                        Log.e("newresponse" , "addedInList: " +Uri.parse(imgPath));
+//                        Log.e("newresponse" , "addedInList: " +temp);
+//                        Log.e("image", imgPath);
+//
+//
+//                        ///// Testing End
+//
+//                    }
+//                    break;
+
+            }
+        }
+
+    }
+
+    //===== bitmap to Uri
+    public Uri getImageUri(Context inContext, Bitmap inImage) {
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "intuenty", null);
+        Log.d("image uri",path);
+        return Uri.parse(path);
+    }
+
+
+    @NonNull
+    private MultipartBody.Part prepareFilePart(String partName, Uri fileUri) {
+
+        File file = new File(fileUri.getPath());
+        Log.i("here is error",file.getAbsolutePath());
+        // create RequestBody instance from file
+
+        RequestBody requestFile =
+                RequestBody.create(
+                        MediaType.parse("image/*"),
+                        file);
+
+        // MultipartBody.Part is used to send also the actual file name
+        return MultipartBody.Part.createFormData(partName, file.getName(), requestFile);
+
+
+    }
 
 }

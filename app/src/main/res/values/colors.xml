@@ -70,5 +70,10 @@
 <!--    <string name="action_settings">Settings</string>-->
 <!--    <string name="scanned_data">Scanned Data</string>-->
 
+    //TextInputLayout
+    <color name="colorPrimaryCustom">#E12121</color>
+    <color name="colorPrimaryDarkCustom">#190404</color>
+    <color name="colorAccentCustom">#105A95</color>
+
 
 </resources>

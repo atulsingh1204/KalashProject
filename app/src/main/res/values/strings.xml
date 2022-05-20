@@ -16,5 +16,11 @@
     <string name="runtime_permissions_txt">
         <![CDATA[Settings->Permission->Enable All Permissions.         \\n Please enable ALL permissions from app settings.]]>
 </string>
+    <string name="invalid_name">Enter Name</string>
+    <string name="invalid_spinner">Select Type</string>
+    <string name="invalid_number">Enter Valid Number</string>
+    <string name="invalid_aadhaar">Enter Valid Aadhaar</string>
+    <string name="invalid_address">Enter Valid Address</string>
+    <string name="invalid_generate_family_code">Select Either Yes or No</string>
 
 </resources>
