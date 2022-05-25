@@ -17,6 +17,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,6 +32,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.kalashproject.ModelList.FQ_flag_list;
+import com.example.kalashproject.ModelList.VillageList;
 import com.example.kalashproject.MyLibrary.Shared_Preferences;
 import com.example.kalashproject.StartActivities.MainActivity;
 import com.example.kalashproject.Utils.FileUtil;
@@ -50,6 +52,7 @@ import org.json.JSONObject;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.nio.channels.SelectionKey;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -69,6 +72,8 @@ public class InspectionFormFour extends AppCompatActivity {
     TextView  four_date_of_roughing, four_polln_end_date, expected_date_of_harvesting_four, expected_date_of_dispatch_four;
     ImageView four_iv_image_1,four_iv_image_2, four_iv_image_3;
     TextView inspection_four_tv_next;
+
+    String str_fa_flag_four= "";
 
     String str_four_total_female, str_four_ot_fruit_f, str_four_pld_acre, str_four_reason_of_pld, str_four_rejected_acre, str_four_reason_rejected_acre, str_four_exi_fruit, str_four_exp_fruit, str_four_total_fruit, str_four_avg_wt_seed_fruit, str_four_breeder_remark;
     String str_four_date_of_roughing, str_four_polln_end_date, str_expected_date_of_harvesting_four, str_expected_date_of_dispatch_four;
@@ -260,8 +265,14 @@ public class InspectionFormFour extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Toast.makeText(InspectionFormFour.this, "Clicked", Toast.LENGTH_SHORT).show();
-                sendData();
+                //Toast.makeText(InspectionFormFour.this, "Clicked", Toast.LENGTH_SHORT).show();
+
+                Log.e("checkingValidations", "Date of Roughing:" + four_date_of_roughing.getText().toString().trim());
+
+                if (validations()){
+                    sendData();
+                }
+
 
             }
         });
@@ -413,6 +424,8 @@ public class InspectionFormFour extends AppCompatActivity {
                                 String item = adapterView.getItemAtPosition(i).toString();
                                 Log.e("FA_Flag_Item", " " + item);
                                 str_Fa_flag_id_four = fq_flag_lists_four.get(i).getId();
+                                str_fa_flag_four = spn_fa_flag_four.getSelectedItem().toString();
+                                Log.e("spn_fa_flag_four", "str_fa_flag_four " +str_fa_flag_four);
                                 Log.e("FA_Id"," " +str_Fa_flag_id_four);
 
                             }
@@ -589,6 +602,106 @@ public class InspectionFormFour extends AppCompatActivity {
         // MultipartBody.Part is used to send also the actual file name
         return MultipartBody.Part.createFormData(partName, file.getName(), requestFile);
 
+
+    }
+
+
+    private  boolean validations(){
+        boolean VALID = true;
+
+        if (TextUtils.isEmpty(four_total_female.getText().toString())){
+            VALID = false;
+            four_total_female.setError("Please enter total female");
+        }
+
+        else if (TextUtils.isEmpty(four_ot_fruit_f.getText().toString())){
+            VALID = false;
+            four_ot_fruit_f.setError("Please enter OT Fruit Female");
+        }
+
+        else   if ((four_date_of_roughing.getText().toString().trim()).equals("Select date")){
+            VALID = false;
+            // four_date_of_roughing.setError("Please select date of roughing");
+            Toast.makeText(this, "Please select date of roughing", Toast.LENGTH_SHORT).show();
+        }
+
+        else if (four_polln_end_date.getText().toString().trim().equals("Select date")){
+            VALID = false;
+            Toast.makeText(this, "Please select Polln end date", Toast.LENGTH_SHORT).show();
+        }
+
+
+        else if (TextUtils.isEmpty(four_pld_acre.getText().toString())){
+            VALID = false;
+            four_pld_acre.setError("Please enter PLD Acre");
+        }
+
+
+
+        else if (TextUtils.isEmpty(four_reason_of_pld.getText().toString())){
+            VALID = false;
+            four_reason_of_pld.setError("Please enter reasons of PLD");
+        }
+        else if (TextUtils.isEmpty(four_rejected_acre.getText().toString())){
+            VALID = false;
+            four_rejected_acre.setError("Please enter rejected acre");
+        }
+        else if (TextUtils.isEmpty(four_reason_rejected_acre.getText().toString())){
+            VALID = false;
+            four_reason_rejected_acre.setError("Please enter reasons of rejected acre");
+        }
+        else if (TextUtils.isEmpty(four_exi_fruit.getText().toString())){
+            VALID = false;
+            four_exi_fruit.setError("Please select Exi Fruit");
+        }
+
+        else if (TextUtils.isEmpty(four_exp_fruit.getText().toString())){
+            VALID = false;
+            four_exp_fruit.setError("Please select Exp Fruit");
+        }
+
+        else if (TextUtils.isEmpty(four_total_fruit.getText().toString())){
+            VALID = false;
+            four_total_fruit.setError("Please select total fruit");
+        }
+
+        else if (TextUtils.isEmpty(four_avg_wt_seed_fruit.getText().toString())){
+            VALID = false;
+            four_avg_wt_seed_fruit.setError("Please enter Avg Wt of seed fruit");
+        }
+
+        else if (str_fa_flag_four.equals("--- Choose Options ---") || str_fa_flag_four.equals("--- Select FA Flag ---")){
+            VALID = false;
+
+            View selectView = spn_fa_flag_four.getSelectedView();
+            TextView selectedTextView = (TextView) selectView;
+
+            selectedTextView.setError("");
+            Toast.makeText(this, "Please select FA Flag", Toast.LENGTH_SHORT).show();
+        }
+
+        else if (expected_date_of_harvesting_four.getText().toString().trim().equals("Select date")){
+            VALID = false;
+            Toast.makeText(this, "Please select Expected date of Harvesting", Toast.LENGTH_SHORT).show();
+        }
+        else if (expected_date_of_dispatch_four.getText().toString().trim().equals("Select date")){
+            VALID = false;
+            Toast.makeText(this, "Please select Expected date of dispatch", Toast.LENGTH_SHORT).show();
+        }
+
+        else if (TextUtils.isEmpty(four_breeder_remark.getText().toString())){
+            VALID = false;
+            four_breeder_remark.setError("Please enter Breeder Remark");
+        }
+//
+//        else if (files.size()<=0){
+//            VALID = false;
+//            Toast.makeText(this, "Please select atleast 1 image", Toast.LENGTH_SHORT).show();
+//        }
+
+
+
+        return VALID;
 
     }
 

@@ -21,6 +21,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.speech.RecognitionService;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,6 +36,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.kalashproject.ModelList.FQ_flag_list;
+import com.example.kalashproject.ModelList.VillageList;
 import com.example.kalashproject.MyLibrary.Shared_Preferences;
 import com.example.kalashproject.StartActivities.MainActivity;
 import com.example.kalashproject.Utils.FileUtil;
@@ -77,6 +79,7 @@ public class InspectionFormTwo extends AppCompatActivity {
 
     Spinner spn_fa_flag_two;
     String str_Fa_flag_id_two;
+    String str_fa_flag_two;
 
 
     // Multiple Images via gallery
@@ -254,7 +257,12 @@ public class InspectionFormTwo extends AppCompatActivity {
             public void onClick(View view) {
 
 
-                sendData();
+                if (Validations()){
+
+                    sendData();
+                }
+
+
             }
         });
 
@@ -477,6 +485,8 @@ public class InspectionFormTwo extends AppCompatActivity {
                                 str_Fa_flag_id_two = fq_flag_lists_two.get(i).getId();
                             //    Req_Fa_flag_id_two = RequestBody.create(MediaType.parse("text/plain"),str_Fa_flag_id_two);
 
+                                str_fa_flag_two = spn_fa_flag_two.getSelectedItem().toString();
+                                Log.e("str_fa_flag_two", "str_fa_flag_two: " +str_fa_flag_two);
                                 Log.e("FA_Id"," " +str_Fa_flag_id_two);
 
                             }
@@ -732,6 +742,89 @@ public class InspectionFormTwo extends AppCompatActivity {
 
 
 
+    }
+
+    private boolean Validations(){
+
+        boolean VALID = true;
+
+        if (TextUtils.isEmpty(total_female.getText().toString().trim())){
+            VALID = false;
+            total_female.setError("Please enter total female");
+        }
+        else if (TextUtils.isEmpty(ot_plant_in_f.getText().toString().trim())){
+            VALID = false;
+            ot_plant_in_f.setError("Please select OT/Disease Plant in F");
+        }
+        else if (date_of_roughing.getText().toString().trim().equals("Select date")){
+            VALID = false;
+            Toast.makeText(this, "Please Select Date of Roughing", Toast.LENGTH_SHORT).show();
+        }
+        else if (TextUtils.isEmpty(ot_plant_in_m.getText().toString().trim())){
+            VALID = false;
+            ot_plant_in_m.setError("Please enter OT Plant in M");
+        }
+
+        else if (TextUtils.isEmpty(details.getText().toString().trim())){
+            VALID = false;
+            details.setError("Please enter Details");
+        }
+        else if (TextUtils.isEmpty(disease_plant_in_m.getText().toString().trim())){
+            VALID = false;
+            disease_plant_in_m.setError("Please enter Disease Plant in M");
+        }
+
+        else if (files.size()==0){
+            VALID = false;
+            Toast.makeText(this, "Please add At least 1 image", Toast.LENGTH_SHORT).show();
+        }
+
+        else if (date_of_roughing_two.getText().toString().trim().equals("Select date")){
+            VALID = false;
+            Toast.makeText(this, "Please Select Date of Roughing", Toast.LENGTH_SHORT).show();
+        }
+
+        else if (TextUtils.isEmpty(pld_acre.getText().toString().trim())){
+            VALID = false;
+            pld_acre.setError("Please enter PLD Acre");
+        }
+        else if (TextUtils.isEmpty(reason_of_pld.getText().toString().trim())){
+            VALID = false;
+            reason_of_pld.setError("Please enter Reasons of Pld");
+        }
+        else if (TextUtils.isEmpty(rejected_acre.getText().toString().trim())){
+            VALID = false;
+            rejected_acre.setError("Please enter Rejected Acre");
+        }
+        else if (TextUtils.isEmpty(reason_rejected_acre.getText().toString().trim())){
+            VALID = false;
+            reason_rejected_acre.setError("Please enter Reasons of Rejected Acre");
+        }
+        else if (str_fa_flag_two.equals("--- Choose Options ---") || str_fa_flag_two.equals("--- Select FA Flag ---"))
+        {
+            VALID = false;
+            Toast.makeText(this, "Please select FA Flag", Toast.LENGTH_SHORT).show();
+
+        }
+
+        else if (expected_date_of_dispatch_two.getText().toString().equals("Select date")){
+            VALID = false;
+            Toast.makeText(this, "Please select expected date of dispatch", Toast.LENGTH_SHORT).show();
+        }
+
+        else if (TextUtils.isEmpty(breeder_remark.getText().toString().trim())){
+            VALID = false;
+            breeder_remark.setError("Please enter Breeder Remark");
+        }
+
+        else if (filesTwo.size() == 0){
+            VALID = false;
+            Toast.makeText(this, "Please select At least 1 image", Toast.LENGTH_SHORT).show();
+        }
+
+
+
+        return VALID;
     }
 
 }

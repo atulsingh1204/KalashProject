@@ -21,6 +21,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.print.PrintAttributes;
 import android.provider.MediaStore;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -54,6 +55,7 @@ import org.json.JSONObject;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -236,7 +238,19 @@ public class InspectionFormThree extends AppCompatActivity {
         inspection_three_tv_next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                sendData();
+//                try {
+                    Log.e("str_spn_fa_flag_three" ,"str_spn_fa_flag_three: " +str_spn_fa_flag_three);
+                    Log.e("Validations", "Validations: " +Validations());
+
+                    if (Validations()){
+                        sendData();
+                    }
+
+//                }catch (Exception e){
+//                    e.printStackTrace();
+//                    Toast.makeText(InspectionFormThree.this, "" +e, Toast.LENGTH_SHORT).show();
+//                }
+
             }
         });
 
@@ -348,6 +362,7 @@ public class InspectionFormThree extends AppCompatActivity {
                         startActivity(intent);
                         finish();
 
+
                     }
 
                     else if (jsonObject.getString("ResponseCode").equals("0")){
@@ -415,6 +430,9 @@ public class InspectionFormThree extends AppCompatActivity {
                                 String item = adapterView.getItemAtPosition(i).toString();
                                 Log.e("FA_Flag_Item", " " + item);
                                 str_Fa_flag_id_three = fq_flag_lists_three.get(i).getId();
+
+                                str_spn_fa_flag_three = spn_fa_flag_three.getSelectedItem().toString();
+                                Log.e("check", "str_spn_fa_flag_three: " +str_spn_fa_flag_three);
                                 Log.e("FA_Id"," " +str_Fa_flag_id_three);
 
                             }
@@ -675,6 +693,110 @@ public class InspectionFormThree extends AppCompatActivity {
 
 
 
+    }
+
+    private boolean Validations(){
+        boolean VALID = true;
+
+        if (TextUtils.isEmpty(three_total_female.getText().toString().trim())){
+            VALID = false;
+            three_total_female.setError("Please enter total female");
+        }
+        else if (TextUtils.isEmpty(three_ot_plant_in_f.getText().toString().trim())){
+            VALID = false;
+
+            three_ot_plant_in_f.setError("Please enter OT Plant in F");
+        }
+
+        else if (TextUtils.isEmpty(three_details.getText().toString().trim())){
+            VALID = false;
+            three_details.setError("Please enter Details");
+        }
+
+        else if (TextUtils.isEmpty(disease_plant_in_f.getText().toString().trim())){
+            VALID = false;
+            disease_plant_in_f.setError("Please enter Disease Plant in F");
+        }
+        else if (files.size()==0){
+            VALID = false;
+            Toast.makeText(this, "Please upload atleast 1 image", Toast.LENGTH_SHORT).show();
+        }
+
+        else if (three_date_of_roughing.getText().toString().trim().equals("Select date")){
+            VALID = false;
+            Toast.makeText(this, "Please select Date of Roughing", Toast.LENGTH_SHORT).show();
+        }
+
+        else if (three_polln_start_date.getText().toString().trim().equals("Select date")){
+            VALID = false;
+            Toast.makeText(this, "Please select Polln Start Date", Toast.LENGTH_SHORT).show();
+        }
+
+        else if (TextUtils.isEmpty(three_pld_acre.getText().toString().trim())){
+            VALID = false;
+            three_pld_acre.setError("Please select PLD Acre");
+        }
+
+        else if (TextUtils.isEmpty(three_reason_of_pld.getText().toString().trim())){
+            VALID = false;
+            three_reason_of_pld.setError("Please select Reasons of PLD");
+        }
+
+        else if (TextUtils.isEmpty(three_rejected_acre.getText().toString().trim())){
+            VALID = false;
+            three_rejected_acre.setError("Please select Reject Acre");
+        }
+        else if (TextUtils.isEmpty(three_reason_rejected_acre.getText().toString().trim())){
+            VALID = false;
+            three_reason_rejected_acre.setError("Please select Reasons of Rejected Acre");
+        }
+
+        else if (TextUtils.isEmpty(three_exi_fruit.getText().toString().trim())){
+            VALID = false;
+            three_exi_fruit.setError("Please select Exi Fruit");
+        }
+        else if (TextUtils.isEmpty(three_exp_fruit.getText().toString().trim())){
+            VALID = false;
+            three_exp_fruit.setError("Please select Exp Fruit");
+        }
+
+        else if (TextUtils.isEmpty(three_total_fruit.getText().toString().trim())){
+            VALID = false;
+
+            three_total_fruit.setError("Please select Total Fruit");
+        }
+
+        else if (TextUtils.isEmpty(three_avg_wt_seed_fruit.getText().toString().trim())){
+            VALID = false;
+            three_avg_wt_seed_fruit.setError("Please select Avg Weight of Seed Fruit");
+        }
+
+        else if (str_spn_fa_flag_three.equals("--- Select FA Flag ---") || str_spn_fa_flag_three.equals("--- Choose Options ---")){
+            VALID = false;
+
+            View selectedView = spn_fa_flag_three.getSelectedView();
+            TextView selectedTextView = (TextView) selectedView;
+            selectedTextView.setError("Please Select FA Flag");
+            Toast.makeText(this, "Please select FA Flag", Toast.LENGTH_SHORT).show();
+        }
+
+        else if (expected_date_of_dispatch_two.getText().toString().trim().equals("Select date")){
+            VALID = false;
+            Toast.makeText(this, "Please select Expected Date of Dispatch", Toast.LENGTH_SHORT).show();
+
+        }
+
+        else if (TextUtils.isEmpty(three_breeder_remark.getText().toString().trim())){
+            VALID = false;
+            three_breeder_remark.setError("Please select Breeder Remark");
+        }
+
+        else if (filesTwo.size()==0){
+            VALID = false;
+            Toast.makeText(this, "Please Select At least 1 Image", Toast.LENGTH_SHORT).show();
+        }
+
+        return VALID;
     }
 
 }

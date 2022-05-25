@@ -99,6 +99,7 @@
             android:layout_gravity="end"
             android:layout_marginTop="10dp"
             android:layout_weight="1"
+            android:visibility="gone"
             android:fontFamily="@font/cabin"
             android:padding="10dp"
             android:text="Forgot password?"

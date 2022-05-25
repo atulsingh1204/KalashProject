@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.media.tv.TvContract;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -78,7 +79,10 @@ public class GRPO extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                sendData();
+                if (validations()){
+                    sendData();
+                }
+
             }
         });
 
@@ -149,7 +153,22 @@ public class GRPO extends AppCompatActivity {
 
 
         ApiInterface apiInterface = Myconfig.getRetrofit().create(ApiInterface.class);
-        Call<ResponseBody> Result = (Call<ResponseBody>) apiInterface.grpo_add("1",str_total_quantity,str_bag_size1, str_numberOfBags1, str_bag_size2, str_numberOfBags2, str_bag_size3, str_numberOfBags3, str_bag_size4, str_numberOfBags4, str_bag_size5, str_numberOfBags5, str_moisture, str_authorization,str_qty_pending);
+        Call<ResponseBody> Result = (Call<ResponseBody>) apiInterface.grpo_add(
+                                                                            "1",
+                                                                                str_total_quantity,
+                                                                                str_bag_size1,
+                                                                                str_numberOfBags1,
+                                                                                str_bag_size2,
+                                                                                str_numberOfBags2,
+                                                                                str_bag_size3,
+                                                                                str_numberOfBags3,
+                                                                                str_bag_size4,
+                                                                                str_numberOfBags4,
+                                                                                str_bag_size5,
+                                                                                str_numberOfBags5,
+                                                                                str_moisture,
+                                                                                str_authorization,
+                                                                                str_qty_pending);
 
         Result.enqueue(new Callback<ResponseBody>() {
             @Override
@@ -185,4 +204,84 @@ public class GRPO extends AppCompatActivity {
 
 
     }
+
+    private boolean validations(){
+
+        boolean VALID = true;
+
+
+        if (TextUtils.isEmpty(total_quantity.getText().toString())){
+            VALID = false;
+
+            total_quantity.setError("Please enter total quantity");
+        }
+        else if (TextUtils.isEmpty(bag_size1.getText().toString())){
+            VALID = false;
+            bag_size1.setError("Please enter bag size");
+        }
+        else if (TextUtils.isEmpty(numberOfBags1.getText().toString())){
+            VALID = false;
+            numberOfBags1.setError("Please enter number of bags");
+        }
+        else if (TextUtils.isEmpty(bag_size2.getText().toString())){
+            VALID = false;
+            bag_size2.setError("Please enter bag size");
+        }
+        else if (TextUtils.isEmpty(numberOfBags2.getText().toString())){
+            VALID = false;
+            numberOfBags2.setError("Please enter number of bags");
+
+        }
+        else if (TextUtils.isEmpty(bag_size3.getText().toString())){
+            VALID = false;
+            bag_size3.setError("Please enter bag size");
+        }
+        else if (TextUtils.isEmpty(numberOfBags3.getText().toString())){
+            VALID = false;
+            numberOfBags3.setError("Please enter number of bags");
+
+        }
+        else if (TextUtils.isEmpty(bag_size4.getText().toString())){
+            VALID = false;
+            bag_size4.setError("Please enter bag size");
+        }
+        else if (TextUtils.isEmpty(numberOfBags4.getText().toString())){
+            VALID = false;
+            numberOfBags4.setError("Please enter number of bags");
+
+        }
+
+        else if (TextUtils.isEmpty(bag_size5.getText().toString())){
+            VALID = false;
+            bag_size5.setError("Please enter bag size");
+        }
+        else if (TextUtils.isEmpty(numberOfBags5.getText().toString())){
+            VALID = false;
+            numberOfBags5.setError("Please enter number of bags");
+
+        }
+        else if (TextUtils.isEmpty(moisture.getText().toString())){
+            VALID = false;
+            moisture.setError("Please enter moisture in percent");
+        }
+        else if (str_authorization.equals("--- Choose Options ---")){
+            VALID = false;
+            View SelectedView = spn_authorization.getSelectedView();
+            TextView selectedTextView = (TextView) SelectedView;
+            selectedTextView.setError("");
+            Toast.makeText(this, "Please Select Yes or No", Toast.LENGTH_SHORT).show();
+        }
+        else if (str_authorization.equals("No")){
+            if (TextUtils.isEmpty(qty_pending.getText().toString())){
+                VALID = false;
+                qty_pending.setError("Please enter quantity");
+            }
+
+        }
+
+        return  VALID;
+    }
+
+
+
 }
