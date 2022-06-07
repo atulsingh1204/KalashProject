@@ -28,14 +28,18 @@ import com.denzcoskun.imageslider.constants.ScaleTypes;
 import com.denzcoskun.imageslider.models.SlideModel;
 import com.example.kalashproject.AddVendor;
 import com.example.kalashproject.AddVendorGrower;
+import com.example.kalashproject.AllInspectionList;
 import com.example.kalashproject.ApprovedOrderActivity;
 import com.example.kalashproject.Form3;
+import com.example.kalashproject.FourthPendingInspection;
 import com.example.kalashproject.GRPO;
+import com.example.kalashproject.GRPOPendingList;
 import com.example.kalashproject.InsoectionOneList;
 import com.example.kalashproject.InspectionFormFour;
 import com.example.kalashproject.InspectionFormOne;
 import com.example.kalashproject.InspectionFormThree;
 import com.example.kalashproject.InspectionFormTwo;
+import com.example.kalashproject.InspectionThreeList;
 import com.example.kalashproject.InspectionTwoList;
 import com.example.kalashproject.ModelList.InspectionOneList;
 import com.example.kalashproject.ModelList.SliderData;
@@ -45,7 +49,9 @@ import com.example.kalashproject.ProfileActivity;
 import com.example.kalashproject.QRCheckerActivity;
 import com.example.kalashproject.R;
 import com.example.kalashproject.RejectedOrderActivity;
+import com.example.kalashproject.SecondPendingInspection;
 import com.example.kalashproject.TestTwoActivity;
+import com.example.kalashproject.ThirdPendingInspection;
 import com.example.kalashproject.WebService.AppConfig;
 
 import java.util.ArrayList;
@@ -174,7 +180,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         ll_inspection_one.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, InsoectionOneList.class);
+                Intent intent = new Intent(MainActivity.this, AllInspectionList.class);
                 startActivity(intent);
             }
         });
@@ -182,7 +188,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         ll_inspection_two.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, InspectionTwoList.class);
+                Intent intent = new Intent(MainActivity.this, SecondPendingInspection.class);
                 startActivity(intent);
             }
         });
@@ -190,8 +196,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         ll_inspection_three.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent ii = new Intent(MainActivity.this, TestTwoActivity.class);
+                Intent ii = new Intent(MainActivity.this, ThirdPendingInspection.class);
                 startActivity(ii);
+            }
+        });
+
+        ll_inspection_four.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, FourthPendingInspection.class);
+                startActivity(intent);
+            }
+        });
+
+        ll_inspection_grpo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, GRPOPendingList.class);
+                startActivity(intent);
             }
         });
 

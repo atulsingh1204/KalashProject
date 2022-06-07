@@ -6,9 +6,12 @@ import android.util.Log;
 import androidx.annotation.Nullable;
 
 import com.example.kalashproject.ModelList.ApiModel;
+import com.google.errorprone.annotations.FormatMethod;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.xml.transform.sax.SAXResult;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -364,6 +367,33 @@ public interface ApiInterface
     Call<ResponseBody> getFamilyCodeList();
 
 
+
+
+    @FormUrlEncoded
+    @POST("third_inspections_list.php")
+    Call<ResponseBody> InspectionThreeList(@Field("fdo_id")String fdo_id);
+
+
+
+    @FormUrlEncoded
+    @POST("first_inspection_pending_list.php")
+    Call<ResponseBody> AllInspectionList(@Field("fdo_id") String fdo_id);
+
+    @FormUrlEncoded
+    @POST("second_inspection_pending_list.php")
+    Call<ResponseBody> SecondPendingList(@Field("fdo_id") String fdo_id);
+
+    @FormUrlEncoded
+    @POST("third_inspection_pending_list.php")
+    Call<ResponseBody> ThirdPendingList(@Field("fdo_id")String fdo_id);
+
+    @FormUrlEncoded
+    @POST("fourth_inspection_pending_list.php")
+    Call<ResponseBody> FourthPendingList(@Field("fdo_id")String fdo_id);
+
+    @FormUrlEncoded
+    @POST("grpo_inspection_pending_list.php")
+    Call<ResponseBody> GRPOPendingList(@Field("fdo_id") String fdo_id);
 
 }
 

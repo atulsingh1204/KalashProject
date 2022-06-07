@@ -10,6 +10,7 @@ import androidx.core.content.ContextCompat;
 
 import android.Manifest;
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -95,8 +96,7 @@ public class InspectionFormTwo extends AppCompatActivity {
 
     ImageView selectedImageTwo;
     List<Uri> filesTwo = new ArrayList<>();
-    private  LinearLayout parentLinearLayoutTwo;
-
+    private LinearLayout parentLinearLayoutTwo;
 
 
     ArrayList<Uri> iv_photo_list = new ArrayList<Uri>();
@@ -109,13 +109,16 @@ public class InspectionFormTwo extends AppCompatActivity {
     DatePickerDialog.OnDateSetListener Setdate_of_roughing_two;
     DatePickerDialog.OnDateSetListener SetExpected_date_of_dispatch_two;
 
-    private CharSequence[] options = {"camera","Gallery","Cancel"};
+    private CharSequence[] options = {"camera", "Gallery", "Cancel"};
 
     TextView inspection_two_tv_next;
     String path;
 
     String Date = new SimpleDateFormat("yyyymmdd", Locale.getDefault()).format(new Date());
-    String Time = new SimpleDateFormat("HHmmss",Locale.getDefault()).format(new Date());
+    String Time = new SimpleDateFormat("HHmmss", Locale.getDefault()).format(new Date());
+
+    ProgressDialog progressDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -133,6 +136,7 @@ public class InspectionFormTwo extends AppCompatActivity {
         reason_rejected_acre = findViewById(R.id.reason_rejected_acre);
         breeder_remark = findViewById(R.id.breeder_remark);
 
+        progressDialog = new ProgressDialog(InspectionFormTwo.this);
 
 
         spn_fa_flag_two = findViewById(R.id.spn_fa_flag_two);
@@ -149,7 +153,7 @@ public class InspectionFormTwo extends AppCompatActivity {
         // Images
 
 
-        parentLinearLayout= findViewById(R.id.parent_linear_layout);
+        parentLinearLayout = findViewById(R.id.parent_linear_layout);
 
         ImageView addImage = findViewById(R.id.iv_add_image);
 
@@ -162,10 +166,8 @@ public class InspectionFormTwo extends AppCompatActivity {
 
         // Initialize variables for second sending images
 
-        parentLinearLayoutTwo =  findViewById(R.id.parent_linear_layoutTwo);
+        parentLinearLayoutTwo = findViewById(R.id.parent_linear_layoutTwo);
         ImageView addImageTwo = findViewById(R.id.iv_add_imageTwo);
-
-
 
 
         Calendar calendar = Calendar.getInstance();
@@ -257,7 +259,7 @@ public class InspectionFormTwo extends AppCompatActivity {
             public void onClick(View view) {
 
 
-                if (Validations()){
+                if (Validations()) {
 
                     sendData();
                 }
@@ -270,34 +272,30 @@ public class InspectionFormTwo extends AppCompatActivity {
     }
 
 
-
     private void sendData() {
-
-
-
 
 
         List<MultipartBody.Part> list = new ArrayList<>();
         List<MultipartBody.Part> listTwo = new ArrayList<>();
 
-        for (Uri uri:files){
+        for (Uri uri : files) {
 
-            Log.i("uris",uri.getPath());
+            Log.i("uris", uri.getPath());
 
-            Log.e("response","Uris: " +uri.getPath());
+            Log.e("response", "Uris: " + uri.getPath());
             list.add(prepareFilePart("gallery_document_name[]", uri));
 
-            Log.e("response", "listSizeUpload: " +list);
+            Log.e("response", "listSizeUpload: " + list);
         }
 
-        for (Uri uri:filesTwo){
-            Log.i("urisTwo",uri.getPath());
+        for (Uri uri : filesTwo) {
+            Log.i("urisTwo", uri.getPath());
 
-            Log.e("response","Uris Two: " +uri.getPath());
+            Log.e("response", "Uris Two: " + uri.getPath());
 
             listTwo.add(prepareFilePart("camera_document_name[]", uri));
 
-            Log.e("response", "listSizeUpload: " +listTwo
+            Log.e("response", "listSizeUpload: " + listTwo
             );
 
         }
@@ -319,20 +317,19 @@ public class InspectionFormTwo extends AppCompatActivity {
 
         //Preparing Request Body
 
-        RequestBody str_total_female = RequestBody.create(MediaType.parse("text/plain"),total_female.getText().toString().trim());
-        RequestBody str_ot_plant_in_f = RequestBody.create(MediaType.parse("text/plain"),ot_plant_in_f.getText().toString().trim());
-        RequestBody str_ot_plant_in_m = RequestBody.create(MediaType.parse("text/plain"),ot_plant_in_m.getText().toString().trim());
-        RequestBody str_details = RequestBody.create(MediaType.parse("text/plain"),details.getText().toString().trim());
-        RequestBody str_disease_plant_in_m = RequestBody.create(MediaType.parse("text/plain"),disease_plant_in_m.getText().toString().trim());
-        RequestBody str_pld_acre = RequestBody.create(MediaType.parse("text/plain"),pld_acre.getText().toString().trim());
-        RequestBody str_reason_of_pld = RequestBody.create(MediaType.parse("text/plain"),reason_of_pld.getText().toString().trim());
-        RequestBody str_rejected_acre = RequestBody.create(MediaType.parse("text/plain"),rejected_acre.getText().toString().trim());
-        RequestBody str_reason_rejected_acre = RequestBody.create(MediaType.parse("text/plain"),reason_rejected_acre.getText().toString().trim());
-        RequestBody str_breeder_remark = RequestBody.create(MediaType.parse("text/plain"),breeder_remark.getText().toString().trim());
-        RequestBody str_date_of_roughing = RequestBody.create(MediaType.parse("text/plain"),date_of_roughing.getText().toString().trim());
-        RequestBody str_date_of_roughing_two = RequestBody.create(MediaType.parse("text/plain"),date_of_roughing_two.getText().toString().trim());
-        RequestBody str_expected_date_of_dispatch_two = RequestBody.create(MediaType.parse("text/plain"),expected_date_of_dispatch_two.getText().toString().trim());
-
+        RequestBody str_total_female = RequestBody.create(MediaType.parse("text/plain"), total_female.getText().toString().trim());
+        RequestBody str_ot_plant_in_f = RequestBody.create(MediaType.parse("text/plain"), ot_plant_in_f.getText().toString().trim());
+        RequestBody str_ot_plant_in_m = RequestBody.create(MediaType.parse("text/plain"), ot_plant_in_m.getText().toString().trim());
+        RequestBody str_details = RequestBody.create(MediaType.parse("text/plain"), details.getText().toString().trim());
+        RequestBody str_disease_plant_in_m = RequestBody.create(MediaType.parse("text/plain"), disease_plant_in_m.getText().toString().trim());
+        RequestBody str_pld_acre = RequestBody.create(MediaType.parse("text/plain"), pld_acre.getText().toString().trim());
+        RequestBody str_reason_of_pld = RequestBody.create(MediaType.parse("text/plain"), reason_of_pld.getText().toString().trim());
+        RequestBody str_rejected_acre = RequestBody.create(MediaType.parse("text/plain"), rejected_acre.getText().toString().trim());
+        RequestBody str_reason_rejected_acre = RequestBody.create(MediaType.parse("text/plain"), reason_rejected_acre.getText().toString().trim());
+        RequestBody str_breeder_remark = RequestBody.create(MediaType.parse("text/plain"), breeder_remark.getText().toString().trim());
+        RequestBody str_date_of_roughing = RequestBody.create(MediaType.parse("text/plain"), date_of_roughing.getText().toString().trim());
+        RequestBody str_date_of_roughing_two = RequestBody.create(MediaType.parse("text/plain"), date_of_roughing_two.getText().toString().trim());
+        RequestBody str_expected_date_of_dispatch_two = RequestBody.create(MediaType.parse("text/plain"), expected_date_of_dispatch_two.getText().toString().trim());
 
 
         Log.e("sendInspectionTwo", "str_total_female: " + str_total_female);
@@ -349,57 +346,62 @@ public class InspectionFormTwo extends AppCompatActivity {
         Log.e("sendInspectionTwo", "str_date_of_roughing_two: " + str_date_of_roughing_two);
         Log.e("sendInspectionTwo", "str_expected_date_of_dispatch_two: " + str_expected_date_of_dispatch_two);
         Log.e("sendInspectionTwo", "order_id: " + "1");
-        Log.e("sendInspectionTwo", "fdo_id: " + Shared_Preferences.getPrefs(InspectionFormTwo.this,"Reg_id"));
+        Log.e("sendInspectionTwo", "fdo_id: " + Shared_Preferences.getPrefs(InspectionFormTwo.this, "Reg_id"));
 
 
+        RequestBody fdo_id = RequestBody.create(MediaType.parse("text/plain"), Shared_Preferences.getPrefs(InspectionFormTwo.this, "Reg_id"));
+        Log.e("fdo_id", "" + fdo_id);
 
-        RequestBody fdo_id = RequestBody.create(MediaType.parse("text/plain"),Shared_Preferences.getPrefs(InspectionFormTwo.this,"Reg_id"));
-        Log.e("fdo_id","" +fdo_id);
+        progressDialog.setMessage("Please Wait...");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
 
         ApiInterface apiInterface = Myconfig.getRetrofit().create(ApiInterface.class);
         Call<ResponseBody> Result = (Call<ResponseBody>) apiInterface.second_inspection_add(
-                                                                                        RequestBody.create(MediaType.parse("text/plain"),"1"),
-                                                                                            fdo_id,
-                                                                                            RequestBody.create(MediaType.parse("text/plain"),"abc"),
-                                                                                            str_ot_plant_in_f,
-                                                                                            str_date_of_roughing,
-                                                                                            str_ot_plant_in_m,
-                                                                                            str_date_of_roughing_two,
-                                                                                            str_disease_plant_in_m ,
-                                                                                            str_details,str_pld_acre,
-                                                                                            str_reason_of_pld,
-                                                                                            str_rejected_acre,
-                                                                                            str_reason_rejected_acre,
-                                                                                            RequestBody.create(MediaType.parse("text/plain"),str_Fa_flag_id_two),
-                                                                                            str_expected_date_of_dispatch_two,
-                                                                                            str_breeder_remark,
-                                                                                            list,
-                                                                                            listTwo
-                                                                                                );
+                RequestBody.create(MediaType.parse("text/plain"), "1"),
+                fdo_id,
+                RequestBody.create(MediaType.parse("text/plain"), "abc"),
+                str_ot_plant_in_f,
+                str_date_of_roughing,
+                str_ot_plant_in_m,
+                str_date_of_roughing_two,
+                str_disease_plant_in_m,
+                str_details, str_pld_acre,
+                str_reason_of_pld,
+                str_rejected_acre,
+                str_reason_rejected_acre,
+                RequestBody.create(MediaType.parse("text/plain"), str_Fa_flag_id_two),
+                str_expected_date_of_dispatch_two,
+                str_breeder_remark,
+                list,
+                listTwo
+        );
 
         Result.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
 
+                if (progressDialog.isShowing()) {
+                    progressDialog.dismiss();
+                }
                 try {
                     String output = response.body().string();
-                    Log.e("sendDataResponse","" +output);
+                    Log.e("sendDataResponse", "" + output);
 
                     JSONObject jsonObject = new JSONObject(output);
 
-                    if (jsonObject.getString("ResponseCode").equals("1")){
+                    if (jsonObject.getString("ResponseCode").equals("1")) {
 
                         Toast.makeText(InspectionFormTwo.this, "Submitted Successfully!", Toast.LENGTH_SHORT).show();
-                        Log.e("error","1" +jsonObject.getString("ResponseMessage"));
+                        Log.e("error", "1" + jsonObject.getString("ResponseMessage"));
                         Intent ii = new Intent(InspectionFormTwo.this, MainActivity.class);
                         startActivity(ii);
                         finish();
 
-                    }
-                    else if (jsonObject.getString("ResponseCode").equals("0")){
+                    } else if (jsonObject.getString("ResponseCode").equals("0")) {
 
-                        Toast.makeText(InspectionFormTwo.this,"" +jsonObject.getString("ResponseMessage"), Toast.LENGTH_SHORT).show();
-                        Log.e("error","0" +jsonObject.getString("ResponseMessage"));
+                        Toast.makeText(InspectionFormTwo.this, "" + jsonObject.getString("ResponseMessage"), Toast.LENGTH_SHORT).show();
+                        Log.e("error", "0" + jsonObject.getString("ResponseMessage"));
                     }
 
                 } catch (IOException | JSONException e) {
@@ -410,9 +412,12 @@ public class InspectionFormTwo extends AppCompatActivity {
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
 
-                Toast.makeText(InspectionFormTwo.this, "" +t, Toast.LENGTH_SHORT).show();
+                Toast.makeText(InspectionFormTwo.this, "" + t, Toast.LENGTH_SHORT).show();
 
-                Log.e("error","Failure" +t);
+                Log.e("error", "Failure" + t);
+                if (progressDialog.isShowing()){
+                    progressDialog.dismiss();
+                }
 
             }
         });
@@ -424,7 +429,7 @@ public class InspectionFormTwo extends AppCompatActivity {
     private MultipartBody.Part prepareFilePart(String partName, Uri fileUri) {
 
         File file = new File(fileUri.getPath());
-        Log.i("here is error",file.getAbsolutePath());
+        Log.i("here is error", file.getAbsolutePath());
         // create RequestBody instance from file
 
         RequestBody requestFile =
@@ -447,10 +452,7 @@ public class InspectionFormTwo extends AppCompatActivity {
     }
 
 
-
-
-    private void getFaFlag()
-    {
+    private void getFaFlag() {
         ApiInterface apiInterface = Myconfig.getRetrofit().create(ApiInterface.class);
         Call<ResponseBody> result = apiInterface.fq_flag_list();
         result.enqueue(new Callback<ResponseBody>() {
@@ -483,11 +485,11 @@ public class InspectionFormTwo extends AppCompatActivity {
                                 String item = adapterView.getItemAtPosition(i).toString();
                                 Log.e("FA_Flag_Item", " " + item);
                                 str_Fa_flag_id_two = fq_flag_lists_two.get(i).getId();
-                            //    Req_Fa_flag_id_two = RequestBody.create(MediaType.parse("text/plain"),str_Fa_flag_id_two);
+                                //    Req_Fa_flag_id_two = RequestBody.create(MediaType.parse("text/plain"),str_Fa_flag_id_two);
 
                                 str_fa_flag_two = spn_fa_flag_two.getSelectedItem().toString();
-                                Log.e("str_fa_flag_two", "str_fa_flag_two: " +str_fa_flag_two);
-                                Log.e("FA_Id"," " +str_Fa_flag_id_two);
+                                Log.e("str_fa_flag_two", "str_fa_flag_two: " + str_fa_flag_two);
+                                Log.e("FA_Id", " " + str_Fa_flag_id_two);
 
                             }
 
@@ -515,12 +517,10 @@ public class InspectionFormTwo extends AppCompatActivity {
     }
 
 
+    private void addImage() {
 
-    private void addImage()
-    {
-
-        LayoutInflater inflater=(LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        final View rowView=inflater.inflate(R.layout.image, null);
+        LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        final View rowView = inflater.inflate(R.layout.image, null);
         // Add the new row before the add field button.
         parentLinearLayout.addView(rowView, parentLinearLayout.getChildCount() - 1);
         parentLinearLayout.isFocusable();
@@ -530,8 +530,7 @@ public class InspectionFormTwo extends AppCompatActivity {
 
     }
 
-    private void selectImage(Context context)
-    {
+    private void selectImage(Context context) {
         //requestPermission();
 
         Dexter.withContext(InspectionFormTwo.this)
@@ -543,9 +542,9 @@ public class InspectionFormTwo extends AppCompatActivity {
             @Override
             public void onPermissionsChecked(MultiplePermissionsReport multiplePermissionsReport) {
 
-                if (multiplePermissionsReport.areAllPermissionsGranted()){
+                if (multiplePermissionsReport.areAllPermissionsGranted()) {
 
-                    final CharSequence[] options = { "Choose from Gallery", "Cancel"};
+                    final CharSequence[] options = {"Choose from Gallery", "Cancel"};
 
                     AlertDialog.Builder builder = new AlertDialog.Builder(context);
                     builder.setCancelable(false);
@@ -571,7 +570,7 @@ public class InspectionFormTwo extends AppCompatActivity {
                     });
                     builder.show();
 
-                } else if (multiplePermissionsReport.isAnyPermissionPermanentlyDenied()){
+                } else if (multiplePermissionsReport.isAnyPermissionPermanentlyDenied()) {
 
                     Toast.makeText(context, "Permission is Denied", Toast.LENGTH_SHORT).show();
                     Intent ii = new Intent(InspectionFormTwo.this, MainActivity.class);
@@ -606,7 +605,7 @@ public class InspectionFormTwo extends AppCompatActivity {
                         selectedImage.setImageBitmap(img);
                         // Picasso.get().load(getImageUri(TestTwoActivity.this,img)).into(selectedImage);
 
-                        String imgPath = FileUtil.getPath(InspectionFormTwo.this,getImageUri(InspectionFormTwo.this,img));
+                        String imgPath = FileUtil.getPath(InspectionFormTwo.this, getImageUri(InspectionFormTwo.this, img));
 
                         files.add(Uri.parse(imgPath));
                         Log.e("image", imgPath);
@@ -618,14 +617,14 @@ public class InspectionFormTwo extends AppCompatActivity {
                         Uri img = data.getData();
                         Picasso.get().load(img).into(selectedImage);
 
-                        String imgPath = FileUtil.getPath(InspectionFormTwo.this,img);
+                        String imgPath = FileUtil.getPath(InspectionFormTwo.this, img);
 
                         files.add(Uri.parse(imgPath));
                         /////Testing start
-                        Log.e("newresponse" , "Uri1: " +imgPath);
+                        Log.e("newresponse", "Uri1: " + imgPath);
                         Uri temp = Uri.parse(imgPath);
-                        Log.e("newresponse" , "addedInList: " +Uri.parse(imgPath));
-                        Log.e("newresponse" , "addedInList: " +temp);
+                        Log.e("newresponse", "addedInList: " + Uri.parse(imgPath));
+                        Log.e("newresponse", "addedInList: " + temp);
                         Log.e("image", imgPath);
 
 
@@ -640,14 +639,14 @@ public class InspectionFormTwo extends AppCompatActivity {
                         Bitmap img = (Bitmap) data.getExtras().get("data");
                         selectedImageTwo.setImageBitmap(img);
 
-                        Log.e("case 2", " " +img);
+                        Log.e("case 2", " " + img);
                         // Picasso.get().load(getImageUri(TestTwoActivity.this,img)).into(selectedImage);
 
-                        String imgPath = FileUtil.getPath(InspectionFormTwo.this,getImageUri(InspectionFormTwo.this,img));
+                        String imgPath = FileUtil.getPath(InspectionFormTwo.this, getImageUri(InspectionFormTwo.this, img));
 
                         filesTwo.add(Uri.parse(imgPath));
 
-                        Log.e("Response","case 2 Files " +filesTwo);
+                        Log.e("Response", "case 2 Files " + filesTwo);
 
                         Log.e("image", imgPath);
                     }
@@ -660,27 +659,26 @@ public class InspectionFormTwo extends AppCompatActivity {
     }
 
 
-
     //===== bitmap to Uri
     public Uri getImageUri(Context inContext, Bitmap inImage) {
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
         inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
         String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "intuenty", null);
-        Log.d("image uri",path);
+        Log.d("image uri", path);
         return Uri.parse(path);
     }
 
-    private void requestPermission(){
-        if(ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
-            ActivityCompat.requestPermissions(InspectionFormTwo.this,new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},REQUEST_CODE_ASK_PERMISSIONS);
+    private void requestPermission() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(InspectionFormTwo.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_CODE_ASK_PERMISSIONS);
         }
     }
 
 
     //===== add image in layout
     public void addImageTwo() {
-        LayoutInflater inflater=(LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        final View rowView=inflater.inflate(R.layout.image, null);
+        LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        final View rowView = inflater.inflate(R.layout.image, null);
         // Add the new row before the add field button.
         parentLinearLayoutTwo.addView(rowView, parentLinearLayoutTwo.getChildCount() - 1);
         parentLinearLayoutTwo.isFocusable();
@@ -701,7 +699,7 @@ public class InspectionFormTwo extends AppCompatActivity {
                 ).withListener(new MultiplePermissionsListener() {
             @Override
             public void onPermissionsChecked(MultiplePermissionsReport multiplePermissionsReport) {
-                if (multiplePermissionsReport.areAllPermissionsGranted()){
+                if (multiplePermissionsReport.areAllPermissionsGranted()) {
 
                     final CharSequence[] options = {"Take Photo", "Cancel"};
 
@@ -739,89 +737,62 @@ public class InspectionFormTwo extends AppCompatActivity {
         }).check();
 
 
-
-
-
     }
 
-    private boolean Validations(){
+    private boolean Validations() {
 
         boolean VALID = true;
 
-        if (TextUtils.isEmpty(total_female.getText().toString().trim())){
+        if (TextUtils.isEmpty(total_female.getText().toString().trim())) {
             VALID = false;
             total_female.setError("Please enter total female");
-        }
-        else if (TextUtils.isEmpty(ot_plant_in_f.getText().toString().trim())){
+        } else if (TextUtils.isEmpty(ot_plant_in_f.getText().toString().trim())) {
             VALID = false;
             ot_plant_in_f.setError("Please select OT/Disease Plant in F");
-        }
-        else if (date_of_roughing.getText().toString().trim().equals("Select date")){
+        } else if (date_of_roughing.getText().toString().trim().equals("Select date")) {
             VALID = false;
             Toast.makeText(this, "Please Select Date of Roughing", Toast.LENGTH_SHORT).show();
-        }
-        else if (TextUtils.isEmpty(ot_plant_in_m.getText().toString().trim())){
+        } else if (TextUtils.isEmpty(ot_plant_in_m.getText().toString().trim())) {
             VALID = false;
             ot_plant_in_m.setError("Please enter OT Plant in M");
-        }
-
-        else if (TextUtils.isEmpty(details.getText().toString().trim())){
+        } else if (TextUtils.isEmpty(details.getText().toString().trim())) {
             VALID = false;
             details.setError("Please enter Details");
-        }
-        else if (TextUtils.isEmpty(disease_plant_in_m.getText().toString().trim())){
+        } else if (TextUtils.isEmpty(disease_plant_in_m.getText().toString().trim())) {
             VALID = false;
             disease_plant_in_m.setError("Please enter Disease Plant in M");
-        }
-
-        else if (files.size()==0){
+        } else if (files.size() == 0) {
             VALID = false;
             Toast.makeText(this, "Please add At least 1 image", Toast.LENGTH_SHORT).show();
-        }
-
-        else if (date_of_roughing_two.getText().toString().trim().equals("Select date")){
+        } else if (date_of_roughing_two.getText().toString().trim().equals("Select date")) {
             VALID = false;
             Toast.makeText(this, "Please Select Date of Roughing", Toast.LENGTH_SHORT).show();
-        }
-
-        else if (TextUtils.isEmpty(pld_acre.getText().toString().trim())){
+        } else if (TextUtils.isEmpty(pld_acre.getText().toString().trim())) {
             VALID = false;
             pld_acre.setError("Please enter PLD Acre");
-        }
-        else if (TextUtils.isEmpty(reason_of_pld.getText().toString().trim())){
+        } else if (TextUtils.isEmpty(reason_of_pld.getText().toString().trim())) {
             VALID = false;
             reason_of_pld.setError("Please enter Reasons of Pld");
-        }
-        else if (TextUtils.isEmpty(rejected_acre.getText().toString().trim())){
+        } else if (TextUtils.isEmpty(rejected_acre.getText().toString().trim())) {
             VALID = false;
             rejected_acre.setError("Please enter Rejected Acre");
-        }
-        else if (TextUtils.isEmpty(reason_rejected_acre.getText().toString().trim())){
+        } else if (TextUtils.isEmpty(reason_rejected_acre.getText().toString().trim())) {
             VALID = false;
             reason_rejected_acre.setError("Please enter Reasons of Rejected Acre");
-        }
-        else if (str_fa_flag_two.equals("--- Choose Options ---") || str_fa_flag_two.equals("--- Select FA Flag ---"))
-        {
+        } else if (str_fa_flag_two.equals("--- Choose Options ---") || str_fa_flag_two.equals("--- Select FA Flag ---")) {
             VALID = false;
             Toast.makeText(this, "Please select FA Flag", Toast.LENGTH_SHORT).show();
 
-        }
-
-        else if (expected_date_of_dispatch_two.getText().toString().equals("Select date")){
+        } else if (expected_date_of_dispatch_two.getText().toString().equals("Select date")) {
             VALID = false;
             Toast.makeText(this, "Please select expected date of dispatch", Toast.LENGTH_SHORT).show();
-        }
-
-        else if (TextUtils.isEmpty(breeder_remark.getText().toString().trim())){
+        } else if (TextUtils.isEmpty(breeder_remark.getText().toString().trim())) {
             VALID = false;
             breeder_remark.setError("Please enter Breeder Remark");
-        }
-
-        else if (filesTwo.size() == 0){
+        } else if (filesTwo.size() == 0) {
             VALID = false;
             Toast.makeText(this, "Please select At least 1 image", Toast.LENGTH_SHORT).show();
         }
-
 
 
         return VALID;

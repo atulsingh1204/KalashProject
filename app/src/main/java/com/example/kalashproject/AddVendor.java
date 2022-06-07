@@ -6,6 +6,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.Manifest;
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -36,6 +37,7 @@ import com.example.kalashproject.ModelList.StateList;
 import com.example.kalashproject.ModelList.TalukaList;
 import com.example.kalashproject.ModelList.VillageList;
 import com.example.kalashproject.MyLibrary.Shared_Preferences;
+import com.example.kalashproject.StartActivities.MainActivity;
 import com.example.kalashproject.Utils.FileUtil;
 import com.example.kalashproject.WebService.ApiInterface;
 import com.example.kalashproject.WebService.Myconfig;
@@ -95,10 +97,13 @@ public class AddVendor extends AppCompatActivity {
     ArrayList<VillageList> VillageLists = new ArrayList<VillageList>();
     public String state_id = "1", district = "1", taluka = "1", village = "1";
 
+    ProgressDialog progressDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_vendor);
+        progressDialog = new ProgressDialog(AddVendor.this);
 
         addVendor_tv_next = findViewById(R.id.addVendor_tv_next);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -286,6 +291,9 @@ public class AddVendor extends AppCompatActivity {
             Other = prepareImagePart(imgPath3, "extra_document");
         }
 
+        progressDialog.setMessage("Please Wait...");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
 
         ApiInterface apiInterface = Myconfig.getRetrofit().create(ApiInterface.class);
         Call<ResponseBody> Result = (Call<ResponseBody>) apiInterface.sendAddVendorDetails(RequestBody.create(MediaType.parse("text/plain"), str_edt_full_name),
@@ -310,6 +318,11 @@ public class AddVendor extends AppCompatActivity {
         Result.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+
+                if (progressDialog.isShowing()){
+                    progressDialog.dismiss();
+                }
+
                 try {
                     String output;
                     output = response.body().string();
@@ -318,6 +331,10 @@ public class AddVendor extends AppCompatActivity {
 
                     if (jsonObject.getString("ResponseCode").equals("1")) {
                         Toast.makeText(AddVendor.this, "Data Submitted Successfully!", Toast.LENGTH_SHORT).show();
+
+                        Intent intent = new Intent(AddVendor.this, MainActivity.class);
+                        startActivity(intent);
+                        finish();
                     } else if (jsonObject.getString("ResponseCode").equals("0")) {
                         Toast.makeText(AddVendor.this, "" + jsonObject.getString("ResponseMessage"), Toast.LENGTH_SHORT).show();
                     }
@@ -331,6 +348,10 @@ public class AddVendor extends AppCompatActivity {
 
                 Toast.makeText(AddVendor.this, "" + t, Toast.LENGTH_SHORT).show();
                 Log.e("response", "error: " + t);
+
+                if (progressDialog.isShowing()){
+                    progressDialog.dismiss();
+                }
             }
         });
 
@@ -923,5 +944,11 @@ public class AddVendor extends AppCompatActivity {
         });
     }
 
-
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        if (progressDialog.isShowing()){
+            progressDialog.dismiss();
+        }
+    }
 }

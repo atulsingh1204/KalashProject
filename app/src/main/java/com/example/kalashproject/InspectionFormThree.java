@@ -10,6 +10,7 @@ import androidx.core.content.ContextCompat;
 
 import android.Manifest;
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -105,6 +106,8 @@ public class InspectionFormThree extends AppCompatActivity {
     DatePickerDialog.OnDateSetListener three_Setdate_of_roughing_two;
     DatePickerDialog.OnDateSetListener three_SetExpected_date_of_dispatch_two;
 
+    ProgressDialog progressDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -127,6 +130,9 @@ public class InspectionFormThree extends AppCompatActivity {
 
         //Spinner
         spn_fa_flag_three = findViewById(R.id.spn_fa_flag_three);
+
+        progressDialog =  new ProgressDialog(InspectionFormThree.this);
+
 
         //TextView
 
@@ -319,6 +325,10 @@ public class InspectionFormThree extends AppCompatActivity {
         str_expected_date_of_dispatch_two = expected_date_of_dispatch_two.getText().toString();
 
 
+        progressDialog.setMessage("Please Wait...");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
+
         ApiInterface apiInterface = Myconfig.getRetrofit().create(ApiInterface.class);
         Call<ResponseBody> Result = (Call<ResponseBody>) apiInterface.third_inspection_add(
                                                                                                     RequestBody.create(MediaType.parse("text/plain"),"1"),
@@ -348,6 +358,10 @@ public class InspectionFormThree extends AppCompatActivity {
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
 
 
+                if (progressDialog.isShowing()){
+                    progressDialog.dismiss();
+                }
+
                 try {
 
                     String output = response.body().string();
@@ -361,6 +375,8 @@ public class InspectionFormThree extends AppCompatActivity {
                         Intent intent = new Intent(InspectionFormThree.this, MainActivity.class);
                         startActivity(intent);
                         finish();
+
+
 
 
                     }
@@ -377,6 +393,10 @@ public class InspectionFormThree extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+                if (progressDialog.isShowing()){
+                    progressDialog.dismiss();
+                }
 
             }
         });

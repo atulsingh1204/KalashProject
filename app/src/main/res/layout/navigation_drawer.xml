@@ -99,7 +99,7 @@
                         android:layout_width="35dp"
                         android:layout_height="35dp"
                         android:layout_margin="7dp"
-                        android:src="@drawable/profile_icon"
+                        android:src="@drawable/profile"
                         tools:ignore="VectorDrawableCompat" />
 
                     <TextView
@@ -127,7 +127,7 @@
                         android:layout_width="35dp"
                         android:layout_height="35dp"
                         android:layout_margin="7dp"
-                        android:src="@drawable/profile_icon"
+                        android:src="@drawable/all_orders"
                         tools:ignore="VectorDrawableCompat" />
 
                     <TextView
@@ -164,7 +164,7 @@
                             android:layout_width="35dp"
                             android:layout_height="35dp"
                             android:layout_margin="7dp"
-                            android:src="@drawable/visitor"
+                            android:src="@drawable/add_order"
                             tools:ignore="VectorDrawableCompat" />
 
                         <TextView
@@ -191,7 +191,7 @@
                             android:layout_width="35dp"
                             android:layout_height="35dp"
                             android:layout_margin="7dp"
-                            android:src="@drawable/visitor"
+                            android:src="@drawable/pending_orders"
                             tools:ignore="VectorDrawableCompat" />
 
                         <TextView
@@ -219,7 +219,7 @@
                             android:layout_width="35dp"
                             android:layout_height="35dp"
                             android:layout_margin="7dp"
-                            android:src="@drawable/visitor"
+                            android:src="@drawable/approved"
                             tools:ignore="VectorDrawableCompat" />
 
                         <TextView
@@ -247,7 +247,7 @@
                             android:layout_width="35dp"
                             android:layout_height="35dp"
                             android:layout_margin="7dp"
-                            android:src="@drawable/visitor"
+                            android:src="@drawable/reject"
                             tools:ignore="VectorDrawableCompat" />
 
                         <TextView
@@ -277,7 +277,7 @@
                         android:layout_width="35dp"
                         android:layout_height="35dp"
                         android:layout_margin="7dp"
-                        android:src="@drawable/target_icon"
+                        android:src="@drawable/inspections"
                         tools:ignore="VectorDrawableCompat" />
 
                     <TextView
@@ -318,7 +318,7 @@
                             android:layout_width="35dp"
                             android:layout_height="35dp"
                             android:layout_margin="7dp"
-                            android:src="@drawable/target_icon"
+                            android:src="@drawable/form"
                             tools:ignore="VectorDrawableCompat" />
 
                         <TextView
@@ -345,7 +345,7 @@
                             android:layout_width="35dp"
                             android:layout_height="35dp"
                             android:layout_margin="7dp"
-                            android:src="@drawable/target_icon"
+                            android:src="@drawable/form"
                             tools:ignore="VectorDrawableCompat" />
 
                         <TextView
@@ -373,7 +373,7 @@
                             android:layout_width="35dp"
                             android:layout_height="35dp"
                             android:layout_margin="7dp"
-                            android:src="@drawable/target_icon"
+                            android:src="@drawable/form"
                             tools:ignore="VectorDrawableCompat" />
 
                         <TextView
@@ -401,7 +401,7 @@
                             android:layout_width="35dp"
                             android:layout_height="35dp"
                             android:layout_margin="7dp"
-                            android:src="@drawable/target_icon"
+                            android:src="@drawable/form"
                             tools:ignore="VectorDrawableCompat" />
 
                         <TextView
@@ -460,7 +460,7 @@
                         android:layout_width="35dp"
                         android:layout_height="35dp"
                         android:layout_margin="7dp"
-                        android:src="@drawable/target_icon"
+                        android:src="@drawable/qr"
                         tools:ignore="VectorDrawableCompat" />
 
                     <TextView

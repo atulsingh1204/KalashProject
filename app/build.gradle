@@ -76,7 +76,9 @@ dependencies {
 
     //progress bar
 
-   // implementation 'com.github.ybq:Android-SpinKit:1.4.0'
+    implementation 'com.github.ybq:Android-SpinKit:1.4.0'
+    
+
 //Code Scanner
     implementation 'com.github.yuriy-budiyev:code-scanner:2.1.2'
 
@@ -117,6 +119,8 @@ dependencies {
 
     //for validation
     implementation 'com.basgeekball:awesome-validation:4.3'
+
+
 
 
 }

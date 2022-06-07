@@ -7,12 +7,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
-import android.util.Log;
+import android.widget.Toast;
 
-import com.example.kalashproject.Adapters.InspectionOneAdapter;
-import com.example.kalashproject.Adapters.InspectionTwoAdapter;
-import com.example.kalashproject.ModelList.InspectionOneList;
-import com.example.kalashproject.ModelList.InspectionTwoModelList;
+import com.example.kalashproject.Adapters.FourthPendingAdapter;
+import com.example.kalashproject.ModelList.AllInspectionDataModelList;
 import com.example.kalashproject.MyLibrary.Shared_Preferences;
 import com.example.kalashproject.WebService.ApiInterface;
 import com.example.kalashproject.WebService.Myconfig;
@@ -27,73 +25,66 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class InspectionTwoList extends AppCompatActivity {
+public class FourthPendingInspection extends AppCompatActivity {
 
-    RecyclerView rec_inspection_two;
-    ArrayList<InspectionTwoModelList> list = new ArrayList<InspectionTwoModelList>();
-    InspectionTwoAdapter inspectionTwoAdapter;
+    RecyclerView rec_fourth_pending;
+    ArrayList<AllInspectionDataModelList> List = new ArrayList<AllInspectionDataModelList>();
+    FourthPendingAdapter fourthPendingAdapter;
 
-    private ProgressDialog progressDialog;
-
+    ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_inspection_two_list);
+        setContentView(R.layout.activity_fourth_pending_inspection);
 
-        rec_inspection_two = findViewById(R.id.rec_inspection_two);
-
+        rec_fourth_pending = findViewById(R.id.rec_fourth_pending);
+        progressDialog = new ProgressDialog(FourthPendingInspection.this);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setTitle("Inspection One List");
+        getSupportActionBar().setTitle("Fourth Inspection Pending");
 
-
-        getInspectionTwoData();
-
+        getFourthPendingList();
 
     }
 
-    private void getInspectionTwoData()
-    {
+    private void getFourthPendingList() {
 
-
-        progressDialog = new ProgressDialog(InspectionTwoList.this);
-        progressDialog.setMessage("Please Wait");
+        progressDialog.setMessage("Please Wait...");
         progressDialog.setCancelable(false);
         progressDialog.show();
 
         ApiInterface apiInterface = Myconfig.getRetrofit().create(ApiInterface.class);
-        Call<ResponseBody> Result = (Call<ResponseBody>) apiInterface.InspectionTwoList(Shared_Preferences.getPrefs(InspectionTwoList.this, "Reg_id"));
+        Call<ResponseBody> Result = (Call<ResponseBody>) apiInterface.FourthPendingList(Shared_Preferences.getPrefs(FourthPendingInspection.this, "Reg_id"));
         Result.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-
+                if (progressDialog.isShowing()){
+                    progressDialog.dismiss();
+                }
                 try {
+                    String output = response.body().string();
+                    JSONObject jsonObject = new JSONObject(output);
+                    if (jsonObject.getString("ResponseCode").equals("1")){
+                        JSONArray jsonArray = jsonObject.getJSONArray("Data");
 
-                    if (progressDialog.isShowing()){
+                        for (int i = 0; i<jsonArray.length(); i++){
+                            JSONObject object = jsonArray.getJSONObject(i);
+                            List.add(new AllInspectionDataModelList(object));
+                        }
+
+                        rec_fourth_pending.setLayoutManager(new LinearLayoutManager(getApplicationContext(), RecyclerView.VERTICAL, false));
+                        fourthPendingAdapter = new FourthPendingAdapter(FourthPendingInspection.this, List);
+                        rec_fourth_pending.setAdapter(fourthPendingAdapter);
+                    }else if (jsonObject.getString("ResponseCode").equals("0")){
+                        Toast.makeText(FourthPendingInspection.this, "" +jsonObject.getString("ResponseMessage"), Toast.LENGTH_SHORT).show();
+
                         progressDialog.dismiss();
                     }
 
-                    String output = response.body().string();
-                    JSONObject jsonObject = new JSONObject(output);
-                    Log.e("Response", "Output" +output);
-
-                    if (jsonObject.getString("ResponseCode").equals("1")){
-
-                        JSONArray jsonArray = jsonObject.getJSONArray("Data");
-
-                        for (int i = 0; i < jsonArray.length(); i ++){
-
-                            JSONObject object = jsonArray.getJSONObject(i);
-                            list.add(new InspectionTwoModelList(object));
-                        }
-                        rec_inspection_two.setLayoutManager(new LinearLayoutManager(getApplicationContext(), RecyclerView.VERTICAL, false));
-                        inspectionTwoAdapter = new InspectionTwoAdapter(InspectionTwoList.this, list);
-                        rec_inspection_two.setAdapter(inspectionTwoAdapter);
-                    }
                 }catch (Exception e){
                     e.printStackTrace();
                 }
@@ -102,11 +93,17 @@ public class InspectionTwoList extends AppCompatActivity {
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
 
+                Toast.makeText(FourthPendingInspection.this, ""+t, Toast.LENGTH_SHORT).show();
                 if (progressDialog.isShowing()){
                     progressDialog.dismiss();
                 }
             }
         });
+    }
 
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 }

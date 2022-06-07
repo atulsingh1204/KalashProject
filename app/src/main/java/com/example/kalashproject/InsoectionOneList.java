@@ -7,12 +7,18 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.Toast;
 
 import com.example.kalashproject.Adapters.InspectionOneAdapter;
 import com.example.kalashproject.ModelList.InspectionOneList;
+import com.example.kalashproject.MyLibrary.Shared_Preferences;
 import com.example.kalashproject.WebService.ApiInterface;
 import com.example.kalashproject.WebService.Myconfig;
+import com.github.ybq.android.spinkit.SpinKitView;
+import com.github.ybq.android.spinkit.sprite.Sprite;
+import com.github.ybq.android.spinkit.style.DoubleBounce;
 import com.google.android.gms.common.api.Api;
 
 import org.json.JSONArray;
@@ -33,12 +39,16 @@ public class InsoectionOneList extends AppCompatActivity {
     ArrayList<InspectionOneList> list = new ArrayList<InspectionOneList>();
     InspectionOneAdapter inspectionOneAdapter;
 
+    SpinKitView spinKitView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_insoection_one_list);
 
         rec_inspection_one = findViewById(R.id.rec_inspection_one);
+        spinKitView = findViewById(R.id.spin_kit);
+
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -52,12 +62,18 @@ public class InsoectionOneList extends AppCompatActivity {
 
     private void getInspectionOneData()
     {
+
+        spinKitView.setVisibility(View.VISIBLE);
         ApiInterface apiInterface = Myconfig.getRetrofit().create(ApiInterface.class);
-        Call<ResponseBody> Result = (Call<ResponseBody>) apiInterface.InspectionOneList("5");
+        Call<ResponseBody> Result = (Call<ResponseBody>) apiInterface.InspectionOneList(Shared_Preferences.getPrefs(InsoectionOneList.this, "Reg_id"));
+
         Result.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 try {
+
+                    spinKitView.setVisibility(View.GONE);
+
                     String output = response.body().string();
                     Log.e("Response", "Output" +output);
 

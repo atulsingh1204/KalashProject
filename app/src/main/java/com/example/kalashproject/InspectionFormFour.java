@@ -8,6 +8,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.Manifest;
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -101,6 +102,7 @@ public class InspectionFormFour extends AppCompatActivity {
 
 
 
+    ProgressDialog progressDialog;
 
 
     @Override
@@ -127,6 +129,8 @@ public class InspectionFormFour extends AppCompatActivity {
         four_total_fruit = findViewById(R.id.four_total_fruit);
         four_avg_wt_seed_fruit = findViewById(R.id.four_avg_wt_seed_fruit);
         four_breeder_remark = findViewById(R.id.four_breeder_remark);
+
+        progressDialog = new ProgressDialog(InspectionFormFour.this);
 
         //TextView
         four_date_of_roughing = findViewById(R.id.four_date_of_roughing);
@@ -324,6 +328,10 @@ public class InspectionFormFour extends AppCompatActivity {
 
         String fdo_id = Shared_Preferences.getPrefs(InspectionFormFour.this,"Reg_id");
 
+        progressDialog.setMessage("Please Wait...");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
+
         ApiInterface apiInterface = Myconfig.getRetrofit().create(ApiInterface.class);
         Call<ResponseBody> Result = (Call<ResponseBody>) apiInterface.fourth_inspection_add(
 
@@ -349,6 +357,10 @@ public class InspectionFormFour extends AppCompatActivity {
         Result.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+
+                if (progressDialog.isShowing()){
+                    progressDialog.dismiss();
+                }
 
                 try {
                     String output = response.body().string();
@@ -381,6 +393,10 @@ public class InspectionFormFour extends AppCompatActivity {
             public void onFailure(Call<ResponseBody> call, Throwable t) {
 
                 Log.e("OutPut","failure" +t);
+
+                if (progressDialog.isShowing()){
+                    progressDialog.dismiss();
+                }
             }
         });
 
@@ -694,10 +710,10 @@ public class InspectionFormFour extends AppCompatActivity {
             four_breeder_remark.setError("Please enter Breeder Remark");
         }
 //
-//        else if (files.size()<=0){
-//            VALID = false;
-//            Toast.makeText(this, "Please select atleast 1 image", Toast.LENGTH_SHORT).show();
-//        }
+        else if (files.size()<=0){
+            VALID = false;
+            Toast.makeText(this, "Please select atleast 1 image", Toast.LENGTH_SHORT).show();
+        }
 
 
 

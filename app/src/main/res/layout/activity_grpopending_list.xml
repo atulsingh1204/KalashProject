@@ -4,36 +4,28 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".InsoectionOneList">
+    tools:context=".GRPOPendingList">
 
 
     <include
         android:id="@+id/toolbar"
         layout="@layout/toolbar" />
 
-
-    <com.github.ybq.android.spinkit.SpinKitView
-        android:id="@+id/spin_kit"
-        style="@style/SpinKitView.Large.Wave"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        app:SpinKit_Color="#23C62A" />
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/toolbar"
-        android:padding="10dp"
-        android:orientation="vertical">
-
+        android:orientation="vertical"
+        android:padding="10dp">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rec_inspection_one"
+            android:id="@+id/rec_grpo_pending"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
 
     </LinearLayout>
+
+
 
 </RelativeLayout>

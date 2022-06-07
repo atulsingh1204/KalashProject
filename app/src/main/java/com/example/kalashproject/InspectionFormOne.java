@@ -8,6 +8,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.Manifest;
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -73,6 +74,8 @@ import retrofit2.Response;
 
 public class InspectionFormOne extends AppCompatActivity {
 
+    ProgressDialog progressDialog;
+
     TextView male_sowing_date, female_sowing_date, expected_date_of_dispatch;
 
     EditText male_row, female_row, male_plant_in_row, female_plant_in_row, pld_acre, reason_of_pld, rejected_acre, reason_of_rejected_pld, first_breeder_remark;
@@ -115,6 +118,8 @@ public class InspectionFormOne extends AppCompatActivity {
 
     TextView inspection_one_tv_next;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -125,6 +130,8 @@ public class InspectionFormOne extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setTitle("Inspection Form One");
+
+       // progressDialog = new ProgressDialog(InspectionFormOne.this);
 
 
         male_sowing_date = findViewById(R.id.male_sowing_date);
@@ -449,7 +456,7 @@ public class InspectionFormOne extends AppCompatActivity {
 //        RequestBody ExpectedDateOfDispatch = RequestBody.create(MediaType.parse("text/plain"), expected_date_of_dispatch.getText().toString().trim());
 //        RequestBody breeder_remark = RequestBody.create(MediaType.parse("text/plain"), first_breeder_remark.getText().toString().trim());
 
-        order_id = "1";
+        order_id = "11";
         fdo_id =  Shared_Preferences.getPrefs(InspectionFormOne.this, "Reg_id");
         str_Fa_flag_id = "1";
 
@@ -492,6 +499,10 @@ public class InspectionFormOne extends AppCompatActivity {
 
             Log.e("response", "listSizeUpload: " + list);
         }
+        progressDialog = new ProgressDialog(InspectionFormOne.this);
+        progressDialog.setMessage("Please Wait...");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
 
         ApiInterface apiInterface = Myconfig.getRetrofit().create(ApiInterface.class);
         Call<ResponseBody> result = (Call<ResponseBody>) apiInterface.first_inspection_add(
@@ -517,6 +528,11 @@ public class InspectionFormOne extends AppCompatActivity {
         result.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+
+                if (progressDialog.isShowing()){
+                    progressDialog.dismiss();
+                }
+
                 try {
                     String output;
                     output = response.body().string();
@@ -544,6 +560,10 @@ public class InspectionFormOne extends AppCompatActivity {
             public void onFailure(Call<ResponseBody> call, Throwable t) {
 
                 Toast.makeText(InspectionFormOne.this, "" +t, Toast.LENGTH_SHORT).show();
+
+                if (progressDialog.isShowing()){
+                    progressDialog.dismiss();
+                }
 
             }
         });
