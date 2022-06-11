@@ -84,6 +84,7 @@ public class InspectionFormTwo extends AppCompatActivity {
 
 
     // Multiple Images via gallery
+    String id = "";
 
     ///Multiple Images
     ImageView selectedImage;
@@ -143,6 +144,10 @@ public class InspectionFormTwo extends AppCompatActivity {
 
         inspection_two_tv_next = findViewById(R.id.inspection_two_tv_next);
 
+
+        Intent intent = getIntent();
+        id = intent.getStringExtra("id");
+        Log.e("Response", "InspectionFormTwo_Id: " +id);
 
         //TextView
         date_of_roughing = findViewById(R.id.date_of_roughing);
@@ -275,6 +280,8 @@ public class InspectionFormTwo extends AppCompatActivity {
     private void sendData() {
 
 
+
+
         List<MultipartBody.Part> list = new ArrayList<>();
         List<MultipartBody.Part> listTwo = new ArrayList<>();
 
@@ -358,7 +365,7 @@ public class InspectionFormTwo extends AppCompatActivity {
 
         ApiInterface apiInterface = Myconfig.getRetrofit().create(ApiInterface.class);
         Call<ResponseBody> Result = (Call<ResponseBody>) apiInterface.second_inspection_add(
-                RequestBody.create(MediaType.parse("text/plain"), "1"),
+                RequestBody.create(MediaType.parse("text/plain"), id),
                 fdo_id,
                 RequestBody.create(MediaType.parse("text/plain"), "abc"),
                 str_ot_plant_in_f,

@@ -5,7 +5,9 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.example.kalashproject.Adapters.AllInspectionDataAdapter;
@@ -30,6 +32,7 @@ public class AllInspectionList extends AppCompatActivity {
     
     ArrayList<AllInspectionDataModelList> List = new ArrayList<AllInspectionDataModelList>();
     AllInspectionDataAdapter allInspectionDataAdapter;
+
     
 
     @Override
@@ -38,6 +41,7 @@ public class AllInspectionList extends AppCompatActivity {
         setContentView(R.layout.activity_all_inspection_list);
 
         rec_inspection_all_list = findViewById(R.id.rec_inspection_all_list);
+
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

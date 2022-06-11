@@ -53,6 +53,7 @@ public class SecondPendingAdapter extends RecyclerView.Adapter<SecondPendingAdap
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, InspectionFormTwo.class);
+                intent.putExtra("id", List.get(position).getOrder_id());
                 context.startActivity(intent);
             }
         });

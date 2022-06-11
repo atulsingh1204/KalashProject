@@ -45,6 +45,7 @@ public class GRPO extends AppCompatActivity {
     String str_numberOfBags1, str_numberOfBags2, str_numberOfBags3, str_numberOfBags4, str_numberOfBags5;
     String str_moisture, str_qty_pending;
 
+    String id = "";
 
 
     @Override
@@ -70,6 +71,9 @@ public class GRPO extends AppCompatActivity {
         linear_pending_qty = findViewById(R.id.linear_pending_qty);
         total_quantity = findViewById(R.id.total_quantity);
         qty_pending = findViewById(R.id.qty_pending);
+
+        Intent intent = getIntent();
+        id =  intent.getStringExtra("id");
 
 
 
@@ -154,7 +158,7 @@ public class GRPO extends AppCompatActivity {
 
         ApiInterface apiInterface = Myconfig.getRetrofit().create(ApiInterface.class);
         Call<ResponseBody> Result = (Call<ResponseBody>) apiInterface.grpo_add(
-                                                                            "1",
+                                                                                id,
                                                                                 str_total_quantity,
                                                                                 str_bag_size1,
                                                                                 str_numberOfBags1,

@@ -102,6 +102,8 @@ public class InspectionFormFour extends AppCompatActivity {
 
 
 
+    String id = "";
+
     ProgressDialog progressDialog;
 
 
@@ -144,7 +146,9 @@ public class InspectionFormFour extends AppCompatActivity {
 
         ImageView addImage = findViewById(R.id.iv_add_image);
 
-
+        Intent intent = getIntent();
+        id = intent.getStringExtra("id");
+        Log.e("Response", "InspectionFormFour_Id: " +id);
 
 
 
@@ -335,7 +339,7 @@ public class InspectionFormFour extends AppCompatActivity {
         ApiInterface apiInterface = Myconfig.getRetrofit().create(ApiInterface.class);
         Call<ResponseBody> Result = (Call<ResponseBody>) apiInterface.fourth_inspection_add(
 
-                RequestBody.create(MediaType.parse("text/plain"),"1"),
+                RequestBody.create(MediaType.parse("text/plain"),id),
                 RequestBody.create(MediaType.parse("text/plain"),fdo_id),
                 RequestBody.create(MediaType.parse("text/plain"),str_four_ot_fruit_f),
                 RequestBody.create(MediaType.parse("text/plain"),str_four_date_of_roughing),

@@ -53,6 +53,7 @@ public class FourthPendingAdapter extends RecyclerView.Adapter<FourthPendingAdap
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, InspectionFormFour.class);
+                intent.putExtra("id", List.get(position).getOrder_id());
                 context.startActivity(intent);
             }
         });

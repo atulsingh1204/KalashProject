@@ -52,6 +52,7 @@ public class ThirdPendingAdapter extends RecyclerView.Adapter<ThirdPendingAdapte
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, InspectionFormThree.class);
+                intent.putExtra("id", List.get(position).getOrder_id());
                 context.startActivity(intent);
             }
         });

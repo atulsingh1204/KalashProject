@@ -53,6 +53,7 @@ public class GRPOAdapter extends RecyclerView.Adapter<GRPOAdapter.ViewHolder> {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, GRPO.class);
+                intent.putExtra("id", List.get(position).getOrder_id());
                 context.startActivity(intent);
             }
         });

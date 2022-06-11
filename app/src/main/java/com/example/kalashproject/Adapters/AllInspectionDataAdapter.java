@@ -14,7 +14,9 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.kalashproject.AllInspectionList;
 import com.example.kalashproject.InspectionFormFour;
+import com.example.kalashproject.InspectionFormOne;
 import com.example.kalashproject.InspectionFormThree;
 import com.example.kalashproject.InspectionFormTwo;
 import com.example.kalashproject.ModelList.AllInspectionDataModelList;
@@ -62,90 +64,21 @@ public class AllInspectionDataAdapter extends RecyclerView.Adapter<AllInspection
 //        Log.e("response_of_list", "Fourth of List: " + allInspectionDataLists.get(position).getFourth_inspection_date().equals());
 //
 
+        holder.firstButton.setVisibility(View.VISIBLE);
+        holder.secondButton.setVisibility(View.GONE);
+        holder.thirdButton.setVisibility(View.GONE);
+        holder.fourButton.setVisibility(View.GONE);
+        holder.grpoButton.setVisibility(View.GONE);
 
-        if (allInspectionDataLists.get(position).getFirst_inspection_date().toString().equals("null")){
+        holder.firstButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, InspectionFormOne.class);
+                intent.putExtra("id", allInspectionDataLists.get(position).getOrder_id());
+                context.startActivity(intent);
+            }
+        });
 
-            holder.firstButton.setVisibility(View.VISIBLE);
-            holder.firstButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intent = new Intent(context, InspectionFormTwo.class);
-                    context.startActivity(intent);
-                }
-            });
-        }
-
-        else if (allInspectionDataLists.get(position).getSecond_inspection_date().toString().equals("null")) {
-            holder.secondButton.setVisibility(View.VISIBLE);
-            holder.secondButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intent = new Intent(context, InspectionFormTwo.class);
-                    context.startActivity(intent);
-
-
-                }
-            });
-        }
-
-        else if (allInspectionDataLists.get(position).getThird_inspection_date().toString().equals("null")){
-            holder.thirdButton.setVisibility(View.VISIBLE);
-            holder.thirdButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intent = new Intent(context, InspectionFormThree.class);
-                    context.startActivity(intent);
-                }
-            });
-        }
-
-        else if (allInspectionDataLists.get(position).getFourth_inspection_date().toString().equals("null")){
-            holder.fourButton.setVisibility(View.VISIBLE);
-            holder.fourButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intent = new Intent(context, InspectionFormFour.class);
-                    context.startActivity(intent );
-                }
-            });
-        }
-
-        else {
-            Toast.makeText(context, "Invalid conditions", Toast.LENGTH_SHORT).show();
-        }
-//         if (allInspectionDataLists.get(position).getSecond_inspection_date().equals()){
-//            holder.secondButton.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View view) {
-//                    Intent intent = new Intent(context, InspectionFormTwo.class);
-//                    context.startActivity(intent);
-//                }
-//            });
-//        }
-//
-//        else if (allInspectionDataLists.get(position).getThird_inspection_date().equals("null")){
-//            holder.thirdButton.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View view) {
-//                    Intent intent = new Intent(context, InspectionFormThree.class);
-//                    context.startActivity(intent);
-//                }
-//            });
-//
-//        }
-//
-//
-//        else if (allInspectionDataLists.get(position).getFourth_inspection_date().equals("null")){
-//            holder.fourButton.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View view) {
-//                    Intent intent = new Intent(context, InspectionFormFour.class);
-//                    context.startActivity(intent);
-//                }
-//            });
-//        }
-//
-//
 
     }
 

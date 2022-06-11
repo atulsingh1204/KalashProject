@@ -95,6 +95,8 @@ public class InspectionFormThree extends AppCompatActivity {
     List<Uri> filesTwo = new ArrayList<>();
     private  LinearLayout parentLinearLayoutTwo;
 
+    String id="";
+
 
     TextView inspection_three_tv_next;
 
@@ -133,6 +135,10 @@ public class InspectionFormThree extends AppCompatActivity {
 
         progressDialog =  new ProgressDialog(InspectionFormThree.this);
 
+
+        Intent intent = getIntent();
+        id = intent.getStringExtra("id");
+        Log.e("Response", "Id is: " +id);
 
         //TextView
 
@@ -331,7 +337,7 @@ public class InspectionFormThree extends AppCompatActivity {
 
         ApiInterface apiInterface = Myconfig.getRetrofit().create(ApiInterface.class);
         Call<ResponseBody> Result = (Call<ResponseBody>) apiInterface.third_inspection_add(
-                                                                                                    RequestBody.create(MediaType.parse("text/plain"),"1"),
+                                                                                                    RequestBody.create(MediaType.parse("text/plain"),id),
                                                                                                     RequestBody.create(MediaType.parse("text/plain"), Shared_Preferences.getPrefs(InspectionFormThree.this,"Reg_id")),
                                                                                                     RequestBody.create(MediaType.parse("text/plain"),str_three_ot_plant_in_f),
                                                                                                     RequestBody.create(MediaType.parse("text/plain"),str_three_details),
